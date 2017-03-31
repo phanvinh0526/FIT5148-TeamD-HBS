@@ -18,7 +18,7 @@ import java.sql.Statement;
 public class HotelDAO {
     
     public static HotelPOJO getProfile() throws SQLException{
-        HotelPOJO   hotel = new HotelPOJO();
+        HotelPOJO hotel = new HotelPOJO();
         
         String      sql = "select * from hotel";
         Connection  conn= OracleDBConnectionUtil.getInstance().getConnection();

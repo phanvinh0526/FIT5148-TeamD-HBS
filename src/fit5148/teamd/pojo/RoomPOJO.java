@@ -10,22 +10,45 @@ package fit5148.teamd.pojo;
  * @author VinhPQ
  */
 public class RoomPOJO {
-    private Integer id;
-    private String  type;
-    private String  description;
-    private Integer price;
-    private String  roomNo;
+    private Integer id ;
+    private String  type = null;
+    private String  description =null;
+    private Float price ;
+    private String  roomNo ;
     private Integer maxCap;
-    private Integer hotelId;
-    private Integer facilityId;
-    private Boolean available;
+    private Integer hotelId ;
+    private Integer facilityId ;
+    private char available ;
 
-    public RoomPOJO() {
+
+   
+    public RoomPOJO(Integer id, Float price, String roomNo, Integer maxCap, Integer hotelId, Integer facilityId, char available) {
+        this.id = id;
+        this.price = price;
+        this.roomNo = roomNo;
+        this.maxCap = maxCap;
+        this.hotelId = hotelId;
+        this.facilityId = facilityId;
+        this.available = available;
     }
 
-    public Integer getId() {
+  
+    public RoomPOJO(Integer id, String type, String description, Float price, String roomNo, Integer maxCap, Integer hotelId, Integer facilityId, char available) {
+        this.id = id;
+        this.type = type;
+        this.description = description;
+        this.price = price;
+        this.roomNo = roomNo;
+        this.maxCap = maxCap;
+        this.hotelId = hotelId;
+        this.facilityId = facilityId;
+        this.available = available;
+    }
+    
+     public Integer getId() {
         return id;
     }
+
 
     public String getType() {
         return type;
@@ -35,7 +58,7 @@ public class RoomPOJO {
         return description;
     }
 
-    public Integer getPrice() {
+    public Float getPrice() {
         return price;
     }
 
@@ -55,7 +78,7 @@ public class RoomPOJO {
         return facilityId;
     }
 
-    public Boolean getAvailable() {
+    public char getAvailable() {
         return available;
     }
 
@@ -71,7 +94,7 @@ public class RoomPOJO {
         this.description = description;
     }
 
-    public void setPrice(Integer price) {
+    public void setPrice(Float price) {
         this.price = price;
     }
 
@@ -91,7 +114,7 @@ public class RoomPOJO {
         this.facilityId = facilityId;
     }
 
-    public void setAvailable(Boolean available) {
+    public void setAvailable(char available) {
         this.available = available;
     }
     

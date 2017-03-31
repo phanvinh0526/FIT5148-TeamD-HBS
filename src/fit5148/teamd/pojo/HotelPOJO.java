@@ -11,19 +11,44 @@ package fit5148.teamd.pojo;
  */
 public class HotelPOJO {
     //  Class Entity HOTEL
-    private Integer id;
+    private Integer id  ;
     private String  name;
-    private String  type;
-    private String  country;
-    private Integer constYr;
-    private String  city;
+    private String  type ;
+    private String  country ;
+    private Integer constYr = 0;
+    private String  city ;
     private String  address;
-    private String  email;
-    private Integer phNo;
+    private String  email ;
+    private Integer phNo ;
 
-    public HotelPOJO() {
+    public HotelPOJO(Integer id, String type, String country, String city, String address, String email, Integer phNo) {
+        this.id = id;
+        this.type = type;
+        this.country = country;
+        this.city = city;
+        this.address = address;
+        this.email = email;
+        this.phNo = phNo;
     }
 
+   
+    public HotelPOJO(Integer id, String name, String type, String country, Integer constYr, String city, String address, String email, Integer phNo) {
+        this.id = id;
+        this.name = name;
+        this.type = type;
+        this.country = country;
+        this.constYr = constYr;
+        this.city = city;
+        this.address = address;
+        this.email = email;
+        this.phNo = phNo;
+    }
+
+    public HotelPOJO() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    
     public Integer getId() {
         return id;
     }

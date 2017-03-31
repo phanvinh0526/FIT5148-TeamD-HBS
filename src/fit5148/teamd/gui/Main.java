@@ -16,18 +16,18 @@ import fit5148.teamd.pojo.HotelPOJO;
 public class Main {
     
     public static void main(String[] args){
-        System.out.println("DB Connection Testing");
-        try {
-            OracleDBConnectionUtil oracleDb = OracleDBConnectionUtil.getInstance(); 
-            System.out.println("Connected Successfully: "+oracleDb);
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-        System.out.println("QUERY DAO Testing");
-        try {
-            HotelPOJO hotel = HotelDAO.getProfile();
-            System.out.println("Hotel DAO Testing: "+hotel.getName());
-        } catch (Exception e) {
-        }
+//        System.out.println("DB Connection Testing");
+//        try {
+//            OracleDBConnectionUtil oracleDb = OracleDBConnectionUtil.getInstance(); 
+//            System.out.println("Connected Successfully: "+oracleDb);
+//        } catch (Exception e) {
+//            System.out.println(e);
+//        }
+//        System.out.println("QUERY DAO Testing");
+//        try {
+//            HotelPOJO hotel = HotelDAO.getProfile();
+//            System.out.println("Hotel DAO Testing: "+hotel.getName());
+//        } catch (Exception e) {
+//        }
     }
 }
