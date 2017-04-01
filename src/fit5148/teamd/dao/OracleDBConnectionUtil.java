@@ -8,6 +8,7 @@ package fit5148.teamd.dao;
 import java.sql.Connection;
 import java.sql.Driver;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Properties;
 import java.util.logging.Level;
@@ -20,19 +21,21 @@ import oracle.jdbc.OracleDriver;
  */
 public class OracleDBConnectionUtil {
     private static OracleDBConnectionUtil oracleDb;
-    private static final String URL         = "jdbc:oracle:thin:@hippo.its.monash.edu.au:1521:FIT5148a";
+    private static final String URL_A         = "jdbc:oracle:thin:@hippo.its.monash.edu.au:1521:FIT5148a";
+    private static final String URL_B         = "jdbc:oracle:thin:@hippo.its.monash.edu.au:1521:FIT5148b";
     private static final String USERNAME    = "S28520262";
     private static final String PASSWORD    = "TeamD";
     private static final String ENCODING    = "utf-8";
     
-    private Connection connection;
-    private String url;
+    private Connection connectionA,connectionB;
+    private String urlA,urlB;
     private String user;
     private String password;
     private String characterEncoding;
     
     private OracleDBConnectionUtil() throws SQLException{
-        this.url = URL;
+        this.urlA = URL_A;
+        this.urlB = URL_B;
         this.user = USERNAME;
         this.password = PASSWORD;
         this.characterEncoding = ENCODING;
@@ -43,7 +46,8 @@ public class OracleDBConnectionUtil {
         info.setProperty("characterEncoding", this.characterEncoding);
         try {
             Driver dri = new OracleDriver();
-            this.connection = DriverManager.getConnection(this.url, info);
+            this.connectionA = DriverManager.getConnection(this.urlA, info);
+            this.connectionB = DriverManager.getConnection(this.urlB, info);
         } catch (SQLException e) {
             Logger.getLogger(OracleDBConnectionUtil.class.getName()).log(Level.SEVERE, "Connection: ", e);
             System.out.println("Cannot create a new connection with OracleDB");
@@ -57,10 +61,11 @@ public class OracleDBConnectionUtil {
         return oracleDb;
     }
     
-    public static void closeConnection(){
+    public static void closeAllConnections(){
         if(oracleDb!=null){
             try {
-                oracleDb.connection.close();
+                oracleDb.connectionA.close();
+                 oracleDb.connectionB.close();
                 Logger.getLogger(OracleDBConnectionUtil.class.getName()).log(Level.SEVERE, "OracleDB Connection's Closed!");
                 System.out.println("Connection to OracleDB is closed!");
             } catch (SQLException e) {
@@ -69,8 +74,28 @@ public class OracleDBConnectionUtil {
         }
     }
 
-    public Connection getConnection() {
-        return connection;
+    public Connection getConnectionA() {
+        return connectionA;
+    }
+    
+    public Connection getConnectionB() {
+        return connectionB;
+    }
+    
+    public static int getNumberOfResultRows(ResultSet rs) throws SQLException{
+        if (!rs.isBeforeFirst() )
+        {
+            return 0;
+        }
+        else{
+            // Go to last row
+           rs.last(); 
+           //get total number of rows
+           int numRows = rs.getRow(); 
+           // Reset row before iterating to get data 
+           rs.beforeFirst();
+           return numRows;
+        }
     }
     
 }

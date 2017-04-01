@@ -32,7 +32,7 @@ public class PersonalDetailsPOJO {
         this.email = email;
     }
 
-    
+    public PersonalDetailsPOJO(){}
     
     public PersonalDetailsPOJO(Integer pd_id, String title, String f_Name, String l_Name, Date dob, String city, String country, String street, String postCode, Integer ph_no, String email) {
         this.pd_id = pd_id;

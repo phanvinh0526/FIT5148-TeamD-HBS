@@ -48,10 +48,11 @@ public class MainFrame extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("FIT5148 - Team D - Hotel Booking");
+        setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setName("mainFrame"); // NOI18N
-        setPreferredSize(new java.awt.Dimension(1000, 1000));
+        setPreferredSize(new java.awt.Dimension(800, 600));
         setResizable(false);
-        setSize(new java.awt.Dimension(800, 1000));
+        setSize(new java.awt.Dimension(800, 600));
         getContentPane().setLayout(new java.awt.FlowLayout());
 
         jPanel2.add(jSeparator1);

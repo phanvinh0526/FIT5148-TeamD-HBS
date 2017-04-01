@@ -5,19 +5,42 @@
  */
 package fit5148.teamd.gui;
 
+import fit5148.teamd.dao.GuestDAO;
+import fit5148.teamd.pojo.GuestFramePOJO;
+import java.awt.event.WindowEvent;
+import javax.swing.JOptionPane;
+import org.jdatepicker.impl.JDatePickerImpl;
+import org.jdatepicker.impl.UtilDateModel;
+
 /**
  *
  * @author Vinh Phan
  */
 public class GuestFrame extends javax.swing.JFrame {
 
+    //JDatePickerImpl datePicker = GuestDAO.getDatePickerModel();
+    GuestFramePOJO guestFramePojo = new GuestFramePOJO();
+    GuestDAO guestDao;
+    Boolean clickUpdate = false;
+    
     /**
      * Creates new form GuestFrame
      */
     public GuestFrame() {
         initComponents();
+        injectComponents();
     }
 
+    private void injectComponents() {
+        jradioName.setSelected(true);
+        jbtnGroupBy.add(jradioId);
+        jbtnGroupBy.add(jradioName);
+        
+        jbtnGroupUpdateDelete.add(jcbDelete);
+        jbtnGroupUpdateDelete.add(jcbUpdate);
+        
+        
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -27,21 +50,24 @@ public class GuestFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        searchBy = new javax.swing.ButtonGroup();
+        jbtnGroupBy = new javax.swing.ButtonGroup();
+        jbtnGroupUpdateDelete = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jPanel6 = new javax.swing.JPanel();
-        jrId = new javax.swing.JRadioButton();
-        javax.swing.JRadioButton jrName = new javax.swing.JRadioButton();
+        jradioId = new javax.swing.JRadioButton();
+        jradioName = new javax.swing.JRadioButton();
         jLabel1 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         jtfSearchKey = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        jPanel7 = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
-        jCheckBox1 = new javax.swing.JCheckBox();
+        jbtnCreate = new javax.swing.JButton();
+        jbtnSearch = new javax.swing.JButton();
+        jSeparator2 = new javax.swing.JSeparator();
+        jpanelEdit = new javax.swing.JPanel();
+        jlMessage = new javax.swing.JLabel();
+        jcbDelete = new javax.swing.JCheckBox();
         jbCancel = new javax.swing.JButton();
         jbApply = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
@@ -56,11 +82,10 @@ public class GuestFrame extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         jtfTitle = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
-        jtfTitle1 = new javax.swing.JTextField();
+        jtfFirstName = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
-        jtfTitle2 = new javax.swing.JTextField();
-        jLabel11 = new javax.swing.JLabel();
         jtfDob = new javax.swing.JTextField();
+        jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         jtfCountry = new javax.swing.JTextField();
         jLabel13 = new javax.swing.JLabel();
@@ -70,17 +95,29 @@ public class GuestFrame extends javax.swing.JFrame {
         jLabel15 = new javax.swing.JLabel();
         jtfPostcode = new javax.swing.JTextField();
         jLabel16 = new javax.swing.JLabel();
-        jtfCountry4 = new javax.swing.JTextField();
+        jtfPhone = new javax.swing.JTextField();
         jLabel17 = new javax.swing.JLabel();
         jtfEmail = new javax.swing.JTextField();
         jLabel18 = new javax.swing.JLabel();
+        jtfLastName = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        jcbUpdate = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Guest Panel Control");
+        setMinimumSize(new java.awt.Dimension(730, 310));
+        setPreferredSize(new java.awt.Dimension(727, 360));
+        setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+        });
 
         jPanel1.setPreferredSize(new java.awt.Dimension(400, 60));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel3.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jPanel3.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel2.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
@@ -88,7 +125,7 @@ public class GuestFrame extends javax.swing.JFrame {
         jLabel2.setText("GUESTS  PANEL");
         jPanel3.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
 
-        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 560, 40));
+        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 680, 40));
 
         getContentPane().add(jPanel1, java.awt.BorderLayout.PAGE_START);
 
@@ -97,26 +134,40 @@ public class GuestFrame extends javax.swing.JFrame {
 
         jPanel6.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        jrId.setText("By ID");
+        jradioId.setText("By ID");
 
-        jrName.setSelected(true);
-        jrName.setText("By Name");
+        jradioName.setText("By Name");
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 3, 14)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(102, 102, 255));
         jLabel1.setText("Search:");
 
-        jtfSearchKey.setText("Please type it up....");
+        jbtnCreate.setBackground(new java.awt.Color(255, 102, 102));
+        jbtnCreate.setFont(new java.awt.Font("Arial", 3, 14)); // NOI18N
+        jbtnCreate.setForeground(new java.awt.Color(255, 255, 255));
+        jbtnCreate.setText("Create");
+        jbtnCreate.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jbtnCreate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtnCreateActionPerformed(evt);
+            }
+        });
 
-        jButton1.setBackground(new java.awt.Color(255, 255, 204));
-        jButton1.setFont(new java.awt.Font("Tahoma", 3, 10)); // NOI18N
-        jButton1.setText("Search");
+        jbtnSearch.setBackground(new java.awt.Color(255, 153, 0));
+        jbtnSearch.setFont(new java.awt.Font("Arial", 3, 14)); // NOI18N
+        jbtnSearch.setForeground(new java.awt.Color(255, 255, 255));
+        jbtnSearch.setText("Search");
+        jbtnSearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtnSearchActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jSeparator1)
+            .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING)
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -124,55 +175,67 @@ public class GuestFrame extends javax.swing.JFrame {
                     .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel6Layout.createSequentialGroup()
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jrId)
-                            .addComponent(jrName))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                            .addComponent(jradioName)
+                            .addComponent(jradioId))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jbtnCreate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jbtnSearch, javax.swing.GroupLayout.DEFAULT_SIZE, 91, Short.MAX_VALUE))
                 .addContainerGap())
-            .addGroup(jPanel6Layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel6Layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(jSeparator2)
+                    .addContainerGap()))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(4, 4, 4)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jrId)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jrName)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jtfSearchKey, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(32, Short.MAX_VALUE))
+                .addComponent(jradioId)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jradioName)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jtfSearchKey, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jbtnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jbtnCreate)
+                .addContainerGap())
+            .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel6Layout.createSequentialGroup()
+                    .addGap(38, 38, 38)
+                    .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(202, Short.MAX_VALUE)))
         );
 
         jPanel2.add(jPanel6, java.awt.BorderLayout.LINE_START);
 
-        jPanel7.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel7.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jpanelEdit.setBackground(new java.awt.Color(255, 255, 255));
+        jpanelEdit.setToolTipText("");
+        jpanelEdit.setEnabled(false);
+        jpanelEdit.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 2, 12)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(255, 0, 51));
-        jLabel3.setText("Messeage");
-        jPanel7.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 13, 245, -1));
+        jlMessage.setFont(new java.awt.Font("Tahoma", 2, 12)); // NOI18N
+        jlMessage.setForeground(new java.awt.Color(255, 0, 51));
+        jpanelEdit.add(jlMessage, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 220, 320, 20));
 
-        jCheckBox1.setBackground(new java.awt.Color(255, 255, 255));
-        jCheckBox1.setFont(new java.awt.Font("Tahoma", 3, 11)); // NOI18N
-        jCheckBox1.setText("Do you want to update / insert Guest's profile?");
-        jCheckBox1.addActionListener(new java.awt.event.ActionListener() {
+        jcbDelete.setBackground(new java.awt.Color(255, 255, 255));
+        jcbDelete.setFont(new java.awt.Font("Tahoma", 3, 11)); // NOI18N
+        jcbDelete.setText("Do you want to Delete Guest's profile?");
+        jcbDelete.setEnabled(false);
+        jcbDelete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBox1ActionPerformed(evt);
+                jcbDeleteActionPerformed(evt);
             }
         });
-        jPanel7.add(jCheckBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 158, 380, 36));
+        jpanelEdit.add(jcbDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 160, 270, 36));
 
         jbCancel.setText("Cancel");
-        jPanel7.add(jbCancel, new org.netbeans.lib.awtextra.AbsoluteConstraints(527, 212, -1, -1));
+        jpanelEdit.add(jbCancel, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 220, -1, -1));
 
         jbApply.setText("Apply");
         jbApply.addActionListener(new java.awt.event.ActionListener() {
@@ -180,131 +243,285 @@ public class GuestFrame extends javax.swing.JFrame {
                 jbApplyActionPerformed(evt);
             }
         });
-        jPanel7.add(jbApply, new org.netbeans.lib.awtextra.AbsoluteConstraints(448, 212, 69, -1));
+        jpanelEdit.add(jbApply, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 220, 69, -1));
 
         jLabel4.setText("Guest ID");
-        jPanel7.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(37, 42, -1, -1));
+        jpanelEdit.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, -1, -1));
 
-        jtfGuestId.setText("guest ID");
         jtfGuestId.setEnabled(false);
-        jPanel7.add(jtfGuestId, new org.netbeans.lib.awtextra.AbsoluteConstraints(89, 39, 98, -1));
+        jpanelEdit.add(jtfGuestId, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 10, 98, -1));
 
-        jtfPreferences.setText("preferences");
         jtfPreferences.setEnabled(false);
-        jPanel7.add(jtfPreferences, new org.netbeans.lib.awtextra.AbsoluteConstraints(88, 70, 99, -1));
+        jpanelEdit.add(jtfPreferences, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 40, 99, -1));
 
         jLabel5.setText("Preferences");
-        jPanel7.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 73, -1, -1));
+        jpanelEdit.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, -1, -1));
 
-        jtfCheckIn.setText("check In");
         jtfCheckIn.setEnabled(false);
-        jPanel7.add(jtfCheckIn, new org.netbeans.lib.awtextra.AbsoluteConstraints(88, 101, 99, -1));
+        jpanelEdit.add(jtfCheckIn, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 70, 99, -1));
 
         jLabel6.setText("Checked In");
-        jPanel7.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(24, 104, -1, -1));
+        jpanelEdit.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, -1, -1));
 
-        jtfHotel.setText("hotel Id");
         jtfHotel.setEnabled(false);
-        jPanel7.add(jtfHotel, new org.netbeans.lib.awtextra.AbsoluteConstraints(88, 132, 99, -1));
+        jpanelEdit.add(jtfHotel, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 100, 99, -1));
 
         jLabel7.setText("Hotel ID");
-        jPanel7.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(39, 135, -1, -1));
+        jpanelEdit.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 110, -1, -1));
 
-        jtfPersonId.setText("Person Id");
         jtfPersonId.setEnabled(false);
-        jPanel7.add(jtfPersonId, new org.netbeans.lib.awtextra.AbsoluteConstraints(322, 11, 99, -1));
+        jpanelEdit.add(jtfPersonId, new org.netbeans.lib.awtextra.AbsoluteConstraints(322, 11, 99, -1));
 
         jLabel8.setText("Person ID");
-        jPanel7.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(265, 14, -1, -1));
+        jpanelEdit.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(265, 14, -1, -1));
 
-        jtfTitle.setText("title");
         jtfTitle.setEnabled(false);
-        jPanel7.add(jtfTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(322, 39, 99, -1));
+        jpanelEdit.add(jtfTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(322, 39, 99, -1));
 
         jLabel9.setText("Title");
-        jPanel7.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(292, 42, -1, -1));
+        jpanelEdit.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(292, 42, -1, -1));
 
-        jtfTitle1.setText("first name");
-        jtfTitle1.setToolTipText("");
-        jtfTitle1.setEnabled(false);
-        jPanel7.add(jtfTitle1, new org.netbeans.lib.awtextra.AbsoluteConstraints(322, 70, 99, -1));
+        jtfFirstName.setToolTipText("");
+        jtfFirstName.setEnabled(false);
+        jpanelEdit.add(jtfFirstName, new org.netbeans.lib.awtextra.AbsoluteConstraints(322, 70, 99, -1));
 
         jLabel10.setText("First Name");
-        jPanel7.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(261, 73, -1, -1));
+        jpanelEdit.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(261, 73, -1, -1));
 
-        jtfTitle2.setText("last name");
-        jtfTitle2.setEnabled(false);
-        jPanel7.add(jtfTitle2, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 101, 99, -1));
+        jtfDob.setEnabled(false);
+        jpanelEdit.add(jtfDob, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 130, 99, -1));
 
         jLabel11.setText("Last name");
-        jPanel7.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(261, 104, -1, -1));
-
-        jtfDob.setText("dob");
-        jtfDob.setEnabled(false);
-        jPanel7.add(jtfDob, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 132, 99, -1));
+        jpanelEdit.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(261, 104, -1, -1));
 
         jLabel12.setText("DOB");
-        jPanel7.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(289, 135, -1, -1));
+        jpanelEdit.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(289, 135, -1, -1));
 
-        jtfCountry.setText("country");
+        jtfCountry.setToolTipText("country");
         jtfCountry.setEnabled(false);
-        jPanel7.add(jtfCountry, new org.netbeans.lib.awtextra.AbsoluteConstraints(493, 166, 99, -1));
+        jpanelEdit.add(jtfCountry, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 130, 99, -1));
 
         jLabel13.setText("Country");
-        jPanel7.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(444, 169, -1, -1));
+        jpanelEdit.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 140, -1, -1));
 
-        jtfCity.setText("country");
         jtfCity.setEnabled(false);
-        jPanel7.add(jtfCity, new org.netbeans.lib.awtextra.AbsoluteConstraints(493, 11, 99, -1));
+        jpanelEdit.add(jtfCity, new org.netbeans.lib.awtextra.AbsoluteConstraints(493, 11, 99, -1));
 
         jLabel14.setText("City");
-        jPanel7.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(464, 14, -1, -1));
+        jpanelEdit.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(464, 14, -1, -1));
 
-        jtfStreet.setText("country");
         jtfStreet.setEnabled(false);
-        jPanel7.add(jtfStreet, new org.netbeans.lib.awtextra.AbsoluteConstraints(493, 39, 99, -1));
+        jpanelEdit.add(jtfStreet, new org.netbeans.lib.awtextra.AbsoluteConstraints(493, 39, 99, -1));
 
         jLabel15.setText("Street");
-        jPanel7.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(453, 42, -1, -1));
+        jpanelEdit.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(453, 42, -1, -1));
 
-        jtfPostcode.setText("country");
         jtfPostcode.setEnabled(false);
-        jPanel7.add(jtfPostcode, new org.netbeans.lib.awtextra.AbsoluteConstraints(493, 70, 99, -1));
+        jpanelEdit.add(jtfPostcode, new org.netbeans.lib.awtextra.AbsoluteConstraints(493, 70, 99, -1));
 
         jLabel16.setText("Postcode");
-        jPanel7.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(439, 73, -1, -1));
+        jpanelEdit.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(439, 73, -1, -1));
 
-        jtfCountry4.setText("country");
-        jtfCountry4.setEnabled(false);
-        jPanel7.add(jtfCountry4, new org.netbeans.lib.awtextra.AbsoluteConstraints(493, 101, 99, -1));
+        jtfPhone.setEnabled(false);
+        jpanelEdit.add(jtfPhone, new org.netbeans.lib.awtextra.AbsoluteConstraints(493, 101, 99, -1));
 
-        jLabel17.setText("PH_NO");
-        jPanel7.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(449, 104, -1, -1));
+        jLabel17.setText("Phone");
+        jpanelEdit.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(449, 104, -1, -1));
 
-        jtfEmail.setText("country");
         jtfEmail.setEnabled(false);
-        jPanel7.add(jtfEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(493, 132, 99, -1));
+        jpanelEdit.add(jtfEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(493, 132, 99, -1));
 
         jLabel18.setText("Email");
-        jPanel7.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(459, 135, -1, -1));
+        jpanelEdit.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(459, 135, -1, -1));
 
-        jPanel2.add(jPanel7, java.awt.BorderLayout.CENTER);
+        jtfLastName.setEnabled(false);
+        jpanelEdit.add(jtfLastName, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 101, 99, -1));
+
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 0, 0));
+        jLabel3.setText("Message:");
+        jpanelEdit.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 200, -1, -1));
+
+        jcbUpdate.setBackground(new java.awt.Color(255, 255, 255));
+        jcbUpdate.setFont(new java.awt.Font("Tahoma", 3, 11)); // NOI18N
+        jcbUpdate.setText("Do you want to update Guest's profile?");
+        jcbUpdate.setEnabled(false);
+        jcbUpdate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcbUpdateActionPerformed(evt);
+            }
+        });
+        jpanelEdit.add(jcbUpdate, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 160, 270, 36));
+
+        jPanel2.add(jpanelEdit, java.awt.BorderLayout.CENTER);
 
         getContentPane().add(jPanel2, java.awt.BorderLayout.CENTER);
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbApplyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbApplyActionPerformed
         // TODO add your handling code here:
+        if(jcbUpdate.isSelected() && jcbDelete.isSelected()){
+            jlMessage.setText("You can't select both Update & Delete option!");
+            return;
+        }
+        if(jbtnGroupUpdateDelete.getSelection().equals(jcbUpdate.getModel())){
+            // Update record
+            if(guestDao.updateGuest(updateFormData(guestFramePojo))){
+                JOptionPane.showMessageDialog(null, "Updated Successfully!", "Notification", JOptionPane.INFORMATION_MESSAGE);             
+                returnPreviousFrame();
+            }else{
+                jlMessage.setText("Update failed?");
+            }
+        }else{
+            // Delete record
+            if(guestDao.deleteGuest(guestFramePojo)){
+                JOptionPane.showMessageDialog(null, "Updated Successfully!", "Notification", JOptionPane.INFORMATION_MESSAGE);             
+                returnPreviousFrame();
+            }
+            else{
+                jlMessage.setText("Delete failed?");
+            }
+        }
+        
     }//GEN-LAST:event_jbApplyActionPerformed
 
-    private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
+    private void jcbDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbDeleteActionPerformed
         // TODO add your handling code here:
-        jtfCheckIn.enable(true);
+        if(clickUpdate==false)
+            enableComponents(true);
+        else
+            enableComponents(false);
         
-    }//GEN-LAST:event_jCheckBox1ActionPerformed
+    }//GEN-LAST:event_jcbDeleteActionPerformed
 
+    private void enableComponents(Boolean click){
+        jtfCheckIn.setEnabled(click);
+        jtfPreferences.setEnabled(click);
+        jtfTitle.setEnabled(click);
+        jtfFirstName.setEnabled(click);
+        jtfDob.setEnabled(click);
+        jtfCity.setEnabled(click);
+        jtfStreet.setEnabled(click);
+        jtfPostcode.setEnabled(click);
+        jtfEmail.setEnabled(click);
+        jtfCountry.setEnabled(click);
+        jtfPhone.setEnabled(click);
+        jtfLastName.setEnabled(click);
+        clickUpdate = click;
+    }
+    
+    private void jbtnCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnCreateActionPerformed
+        jpanelEdit.setEnabled(true);
+        jcbUpdate.setEnabled(false);
+        jcbDelete.setEnabled(false);
+        enableComponents(true);
+        jlMessage.setText(("Please fill out the form for Guest registration"));
+        //  Insert new record to DB_B
+        if(guestDao.createNewGuest(collectFormData())){
+            JOptionPane.showMessageDialog(null, "Registered Successfully!", "Notification", JOptionPane.INFORMATION_MESSAGE);             
+            returnPreviousFrame();
+        }
+        else{
+            jlMessage.setText("Please fill out the missing fields");
+        }
+    }//GEN-LAST:event_jbtnCreateActionPerformed
+
+    private GuestFramePOJO collectFormData(){
+        //  Validation missing
+        GuestFramePOJO gf = new GuestFramePOJO();
+        gf.setPreferences(jtfPreferences.getText());
+        gf.setCheckedIn(jtfCheckIn.getText().toCharArray()[0]);
+        gf.setF_Name(jtfFirstName.getText());
+        gf.setL_Name(jtfLastName.getText());
+        //gf.setDob(jtfDob.getText());
+        gf.setCity(jtfCity.getText());
+        gf.setStreet(jtfStreet.getText());
+        gf.setPostCode(jtfPostcode.getText());
+        gf.setPh_no(Integer.parseInt(jtfPhone.getText()));
+        gf.setEmail(jtfEmail.getText());
+        gf.setTitle(jtfTitle.getText());
+        gf.setCountry(jtfCountry.getText());
+        return gf;
+    }
+    
+    private GuestFramePOJO updateFormData(GuestFramePOJO gf){
+        //  Validation missing
+        gf.setPreferences(jtfPreferences.getText());
+        gf.setCheckedIn(jtfCheckIn.getText().toCharArray()[0]);
+        gf.setF_Name(jtfFirstName.getText());
+        gf.setL_Name(jtfLastName.getText());
+        //gf.setDob(jtfDob.getText());
+        gf.setCity(jtfCity.getText());
+        gf.setStreet(jtfStreet.getText());
+        gf.setPostCode(jtfPostcode.getText());
+        gf.setPh_no(Integer.parseInt(jtfPhone.getText()));
+        gf.setEmail(jtfEmail.getText());
+        gf.setTitle(jtfTitle.getText());
+        gf.setCountry(jtfCountry.getText());
+        return gf;
+    }
+    
+    private void jbtnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnSearchActionPerformed
+        // Turn on the edit panel
+        if(jtfSearchKey.getText()==null){
+            jlMessage.setText("Please type up your searching keywords!");
+            return;
+        }
+        else{
+            jpanelEdit.setEnabled(true);
+            jcbUpdate.setEnabled(true);
+            jcbDelete.setEnabled(true);
+            // Searching guest by condition
+            if(jbtnGroupBy.getSelection().equals(jradioName.getModel())){
+                String keyword = jtfSearchKey.getText();
+                guestFramePojo = guestDao.searchByName(keyword);
+                showUpData(guestFramePojo);
+            }
+            else{
+                String keyword = jtfSearchKey.getText();
+                guestFramePojo = guestDao.searchById(keyword);
+                showUpData(guestFramePojo);
+            }
+        }
+    }//GEN-LAST:event_jbtnSearchActionPerformed
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_formWindowClosed
+
+    private void jcbUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbUpdateActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jcbUpdateActionPerformed
+
+    private void showUpData(GuestFramePOJO gf){
+        if(gf.getGuestId()==null){
+            jlMessage.setText("Couldn't load data from DB_B");
+            return;
+        }
+        jtfGuestId.setText(gf.getGuestId().toString());
+        jtfPreferences.setText(gf.getPreferences());
+        jtfCheckIn.setText(Character.toString(gf.getCheckedIn()));
+        jtfHotel.setText(gf.getHotelId().toString());
+        jtfPersonId.setText(gf.getPd_id().toString());
+        jtfTitle.setText(gf.getTitle());
+        jtfFirstName.setText(gf.getF_Name());
+        jtfLastName.setText(gf.getL_Name());
+        jtfDob.setText(gf.getDob().toString());
+        jtfCity.setText(gf.getCity());
+        jtfStreet.setText(gf.getStreet());
+        jtfPostcode.setText(gf.getPostCode());
+        jtfPhone.setText(gf.getPh_no().toString());
+        jtfCountry.setText(gf.getCountry());
+    }
+    
+    private void returnPreviousFrame(){
+        // How to return?
+        
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -341,8 +558,6 @@ public class GuestFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -365,27 +580,35 @@ public class GuestFrame extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel6;
-    private javax.swing.JPanel jPanel7;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator2;
     private javax.swing.JButton jbApply;
     private javax.swing.JButton jbCancel;
-    private javax.swing.JRadioButton jrId;
+    private javax.swing.JButton jbtnCreate;
+    private javax.swing.ButtonGroup jbtnGroupBy;
+    private javax.swing.ButtonGroup jbtnGroupUpdateDelete;
+    private javax.swing.JButton jbtnSearch;
+    private javax.swing.JCheckBox jcbDelete;
+    private javax.swing.JCheckBox jcbUpdate;
+    private javax.swing.JLabel jlMessage;
+    private javax.swing.JPanel jpanelEdit;
+    private javax.swing.JRadioButton jradioId;
+    private javax.swing.JRadioButton jradioName;
     private javax.swing.JTextField jtfCheckIn;
     private javax.swing.JTextField jtfCity;
     private javax.swing.JTextField jtfCountry;
-    private javax.swing.JTextField jtfCountry4;
     private javax.swing.JTextField jtfDob;
     private javax.swing.JTextField jtfEmail;
+    private javax.swing.JTextField jtfFirstName;
     private javax.swing.JTextField jtfGuestId;
     private javax.swing.JTextField jtfHotel;
+    private javax.swing.JTextField jtfLastName;
     private javax.swing.JTextField jtfPersonId;
+    private javax.swing.JTextField jtfPhone;
     private javax.swing.JTextField jtfPostcode;
     private javax.swing.JTextField jtfPreferences;
     private javax.swing.JTextField jtfSearchKey;
     private javax.swing.JTextField jtfStreet;
     private javax.swing.JTextField jtfTitle;
-    private javax.swing.JTextField jtfTitle1;
-    private javax.swing.JTextField jtfTitle2;
-    private javax.swing.ButtonGroup searchBy;
     // End of variables declaration//GEN-END:variables
 }
