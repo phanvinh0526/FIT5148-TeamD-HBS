@@ -7,10 +7,15 @@ package fit5148.teamd.gui;
 
 import fit5148.teamd.dao.GuestDAO;
 import fit5148.teamd.pojo.GuestFramePOJO;
+import java.awt.event.KeyEvent;
 import java.awt.event.WindowEvent;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import org.jdatepicker.impl.JDatePickerImpl;
-import org.jdatepicker.impl.UtilDateModel;
+import javax.swing.table.DefaultTableModel;
+//import org.jdatepicker.impl.JDatePickerImpl;
+//import org.jdatepicker.impl.UtilDateModel;
 
 /**
  *
@@ -52,6 +57,13 @@ public class GuestFrame extends javax.swing.JFrame {
 
         jbtnGroupBy = new javax.swing.ButtonGroup();
         jbtnGroupUpdateDelete = new javax.swing.ButtonGroup();
+        jfSearchResult = new javax.swing.JFrame();
+        jPanel4 = new javax.swing.JPanel();
+        jScrollPane = new javax.swing.JScrollPane();
+        jtResult = new javax.swing.JTable();
+        jPanel5 = new javax.swing.JPanel();
+        jbtnCancelSearch = new javax.swing.JButton();
+        jbtnOkay = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
@@ -102,6 +114,78 @@ public class GuestFrame extends javax.swing.JFrame {
         jtfLastName = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jcbUpdate = new javax.swing.JCheckBox();
+
+        jfSearchResult.setTitle("Search Result");
+        jfSearchResult.setPreferredSize(new java.awt.Dimension(300, 200));
+        jfSearchResult.addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                jfSearchResultWindowActivated(evt);
+            }
+        });
+
+        jPanel4.setPreferredSize(new java.awt.Dimension(400, 200));
+        jPanel4.setLayout(new java.awt.CardLayout());
+
+        jtResult.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {},
+                {},
+                {},
+                {}
+            },
+            new String [] {
+
+            }
+        ));
+        jtResult.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jtResultKeyPressed(evt);
+            }
+        });
+        jScrollPane.setViewportView(jtResult);
+
+        jPanel4.add(jScrollPane, "card2");
+
+        jfSearchResult.getContentPane().add(jPanel4, java.awt.BorderLayout.PAGE_START);
+
+        jPanel5.setPreferredSize(new java.awt.Dimension(400, 100));
+
+        jbtnCancelSearch.setText("Cancel");
+        jbtnCancelSearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtnCancelSearchActionPerformed(evt);
+            }
+        });
+
+        jbtnOkay.setText("Okay");
+        jbtnOkay.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtnOkayActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                .addContainerGap(151, Short.MAX_VALUE)
+                .addComponent(jbtnOkay, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jbtnCancelSearch)
+                .addContainerGap())
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jbtnCancelSearch)
+                    .addComponent(jbtnOkay))
+                .addContainerGap(13, Short.MAX_VALUE))
+        );
+
+        jfSearchResult.getContentPane().add(jPanel5, java.awt.BorderLayout.CENTER);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Guest Panel Control");
@@ -238,6 +322,7 @@ public class GuestFrame extends javax.swing.JFrame {
         jpanelEdit.add(jbCancel, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 220, -1, -1));
 
         jbApply.setText("Apply");
+        jbApply.setEnabled(false);
         jbApply.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbApplyActionPerformed(evt);
@@ -375,7 +460,7 @@ public class GuestFrame extends javax.swing.JFrame {
             }else{
                 jlMessage.setText("Update failed?");
             }
-        }else{
+        }else if(jbtnGroupUpdateDelete.getSelection().equals(jcbDelete.getModel())){
             // Delete record
             if(guestDao.deleteGuest(guestFramePojo)){
                 JOptionPane.showMessageDialog(null, "Updated Successfully!", "Notification", JOptionPane.INFORMATION_MESSAGE);             
@@ -384,17 +469,21 @@ public class GuestFrame extends javax.swing.JFrame {
             else{
                 jlMessage.setText("Delete failed?");
             }
+        }else{
+            jlMessage.setText("Unable to click Apply!");
         }
         
     }//GEN-LAST:event_jbApplyActionPerformed
 
     private void jcbDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbDeleteActionPerformed
-        // TODO add your handling code here:
-        if(clickUpdate==false)
-            enableComponents(true);
-        else
-            enableComponents(false);
-        
+        if(clickUpdate==false){
+            jbApply.setEnabled(true);
+            clickUpdate=true;
+        }
+        else{
+            jbApply.setEnabled(false);
+            clickUpdate=false;
+        }
     }//GEN-LAST:event_jcbDeleteActionPerformed
 
     private void enableComponents(Boolean click){
@@ -410,6 +499,7 @@ public class GuestFrame extends javax.swing.JFrame {
         jtfCountry.setEnabled(click);
         jtfPhone.setEnabled(click);
         jtfLastName.setEnabled(click);
+        jbApply.setEnabled(click);
         clickUpdate = click;
     }
     
@@ -420,8 +510,16 @@ public class GuestFrame extends javax.swing.JFrame {
         enableComponents(true);
         jlMessage.setText(("Please fill out the form for Guest registration"));
         //  Insert new record to DB_B
-        if(guestDao.createNewGuest(collectFormData())){
-            JOptionPane.showMessageDialog(null, "Registered Successfully!", "Notification", JOptionPane.INFORMATION_MESSAGE);             
+        Integer tmp = -1;
+        try {
+            tmp = guestDao.createNewGuest(collectFormData());
+        } catch (SQLException ex) {
+            jlMessage.setText(ex.getMessage().toString());
+            Logger.getLogger(GuestFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        if(tmp != -1){
+            JOptionPane.showMessageDialog(null, "Registered Successfully!, "
+                    + "Your Guest ID is: "+tmp, "Notification", JOptionPane.INFORMATION_MESSAGE);             
             returnPreviousFrame();
         }
         else{
@@ -476,13 +574,17 @@ public class GuestFrame extends javax.swing.JFrame {
             jcbDelete.setEnabled(true);
             // Searching guest by condition
             if(jbtnGroupBy.getSelection().equals(jradioName.getModel())){
-                String keyword = jtfSearchKey.getText();
-                guestFramePojo = guestDao.searchByName(keyword);
-                showUpData(guestFramePojo);
+                //  Pop up the jTable Result frame
+                jfSearchResult.setVisible(true);
             }
             else{
                 String keyword = jtfSearchKey.getText();
-                guestFramePojo = guestDao.searchById(keyword);
+                try {
+                    guestFramePojo = guestDao.searchById(keyword);
+                } catch (SQLException ex) {
+                    jlMessage.setText("Can't search due to the connection");
+                    Logger.getLogger(GuestFrame.class.getName()).log(Level.SEVERE, null, ex);
+                }
                 showUpData(guestFramePojo);
             }
         }
@@ -494,7 +596,47 @@ public class GuestFrame extends javax.swing.JFrame {
 
     private void jcbUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbUpdateActionPerformed
         // TODO add your handling code here:
+        if(clickUpdate==false)
+            enableComponents(true);
+        else
+            enableComponents(false);
+        
     }//GEN-LAST:event_jcbUpdateActionPerformed
+
+    private void jfSearchResultWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_jfSearchResultWindowActivated
+        // TODO add your handling code here:
+        DefaultTableModel dtm = null;
+        try {
+            dtm = guestDao.searchByName(jtfSearchKey.getText());
+        } catch (SQLException ex) {
+            jlMessage.setText("Can't search Name due to the conenction");
+            Logger.getLogger(GuestFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        jtResult.setModel(dtm);
+        jScrollPane.setViewportView(jtResult);
+        
+    }//GEN-LAST:event_jfSearchResultWindowActivated
+
+    private void jtResultKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtResultKeyPressed
+        // TODO add your handling code here:
+        if(evt.getKeyCode()==KeyEvent.VK_ENTER){
+            //  Get the object
+            guestFramePojo = guestDao.getListGF().get(jtResult.getSelectedRow());
+            showUpData(guestFramePojo);
+        }else if(evt.getKeyCode()==KeyEvent.VK_ESCAPE){
+            jfSearchResult.setVisible(false);
+        }
+    }//GEN-LAST:event_jtResultKeyPressed
+
+    private void jbtnCancelSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnCancelSearchActionPerformed
+        jfSearchResult.setVisible(false);
+        
+    }//GEN-LAST:event_jbtnCancelSearchActionPerformed
+
+    private void jbtnOkayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnOkayActionPerformed
+        guestFramePojo = guestDao.getListGF().get(jtResult.getSelectedRow());
+        showUpData(guestFramePojo);
+    }//GEN-LAST:event_jbtnOkayActionPerformed
 
     private void showUpData(GuestFramePOJO gf){
         if(gf.getGuestId()==null){
@@ -579,21 +721,28 @@ public class GuestFrame extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
+    private javax.swing.JScrollPane jScrollPane;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JButton jbApply;
     private javax.swing.JButton jbCancel;
+    private javax.swing.JButton jbtnCancelSearch;
     private javax.swing.JButton jbtnCreate;
     private javax.swing.ButtonGroup jbtnGroupBy;
     private javax.swing.ButtonGroup jbtnGroupUpdateDelete;
+    private javax.swing.JButton jbtnOkay;
     private javax.swing.JButton jbtnSearch;
     private javax.swing.JCheckBox jcbDelete;
     private javax.swing.JCheckBox jcbUpdate;
+    private javax.swing.JFrame jfSearchResult;
     private javax.swing.JLabel jlMessage;
     private javax.swing.JPanel jpanelEdit;
     private javax.swing.JRadioButton jradioId;
     private javax.swing.JRadioButton jradioName;
+    private javax.swing.JTable jtResult;
     private javax.swing.JTextField jtfCheckIn;
     private javax.swing.JTextField jtfCity;
     private javax.swing.JTextField jtfCountry;
