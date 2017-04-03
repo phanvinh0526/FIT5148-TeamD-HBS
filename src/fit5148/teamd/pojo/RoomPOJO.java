@@ -20,7 +20,7 @@ public class RoomPOJO {
     private Integer facilityId ;
     private char available ;
 
-
+    public RoomPOJO(){}
    
     public RoomPOJO(Integer id, Float price, String roomNo, Integer maxCap, Integer hotelId, Integer facilityId, char available) {
         this.id = id;

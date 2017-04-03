@@ -113,10 +113,10 @@ public class GuestDAO {
 
     public Integer createNewGuest(GuestFramePOJO gf) throws SQLException {
         Statement sm = conn.createStatement();
-        String sql = String.format("INSERT INTO PERSONAL_DETAIL(TITLE, F_NAME, L_NAME,"
+        String sql = String.format("INSERT INTO PERSONAL_DETAIL(PD_ID, TITLE, F_NAME, L_NAME,"
                 + "COUNTRY,CITY,STREET,POSTCODE,PH_NO,EMAIL) VALUES("
                 + "'%s', '%s', '%s', '%s', '%s', '%s', '%s', '%d', '%s')", 
-                gf.getTitle(),gf.getF_Name(),gf.getL_Name(),gf.getCountry(),gf.getCity(),
+                "PERSONAL_DETAILS_SEQ.NEXTVAL",gf.getTitle(),gf.getF_Name(),gf.getL_Name(),gf.getCountry(),gf.getCity(),
                 gf.getStreet(),gf.getPostCode(),gf.getPh_no(),gf.getEmail());
         int n = sm.executeUpdate(sql, Statement.RETURN_GENERATED_KEYS);
         if(n>0){

@@ -8,7 +8,6 @@ package fit5148.teamd.gui;
 import fit5148.teamd.dao.GuestDAO;
 import fit5148.teamd.pojo.GuestFramePOJO;
 import java.awt.event.KeyEvent;
-import java.awt.event.WindowEvent;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -116,7 +115,6 @@ public class GuestFrame extends javax.swing.JFrame {
         jcbUpdate = new javax.swing.JCheckBox();
 
         jfSearchResult.setTitle("Search Result");
-        jfSearchResult.setPreferredSize(new java.awt.Dimension(300, 200));
         jfSearchResult.addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {
                 jfSearchResultWindowActivated(evt);
