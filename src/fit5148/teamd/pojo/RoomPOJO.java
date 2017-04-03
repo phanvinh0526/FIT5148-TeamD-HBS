@@ -10,22 +10,45 @@ package fit5148.teamd.pojo;
  * @author VinhPQ
  */
 public class RoomPOJO {
-    private Integer id;
-    private String  type;
-    private String  description;
-    private Integer price;
-    private String  roomNo;
+    private int id ;
+    private String  type = null;
+    private String  description =null;
+    private float price ;
+    private String  roomNo ;
     private Integer maxCap;
-    private Integer hotelId;
-    private Integer facilityId;
-    private Boolean available;
+    private Integer hotelId ;
+    private Integer facilityId ;
+    private char available ;
 
-    public RoomPOJO() {
+
+   
+    public RoomPOJO(int id, float price, String roomNo, int maxCap, int hotelId, int facilityId, char available) {
+        this.id = id;
+        this.price = price;
+        this.roomNo = roomNo;
+        this.maxCap = maxCap;
+        this.hotelId = hotelId;
+        this.facilityId = facilityId;
+        this.available = available;
     }
 
-    public Integer getId() {
+  
+    public RoomPOJO(int id, String type, String description, int price, String roomNo, int maxCap, int hotelId, int facilityId, char available) {
+        this.id = id;
+        this.type = type;
+        this.description = description;
+        this.price = price;
+        this.roomNo = roomNo;
+        this.maxCap = maxCap;
+        this.hotelId = hotelId;
+        this.facilityId = facilityId;
+        this.available = available;
+    }
+    
+     public int getId() {
         return id;
     }
+
 
     public String getType() {
         return type;
@@ -35,7 +58,7 @@ public class RoomPOJO {
         return description;
     }
 
-    public Integer getPrice() {
+    public float getPrice() {
         return price;
     }
 
@@ -43,23 +66,23 @@ public class RoomPOJO {
         return roomNo;
     }
 
-    public Integer getMaxCap() {
+    public int getMaxCap() {
         return maxCap;
     }
 
-    public Integer getHotelId() {
+    public int getHotelId() {
         return hotelId;
     }
 
-    public Integer getFacilityId() {
+    public int getFacilityId() {
         return facilityId;
     }
 
-    public Boolean getAvailable() {
+    public char getAvailable() {
         return available;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -71,7 +94,7 @@ public class RoomPOJO {
         this.description = description;
     }
 
-    public void setPrice(Integer price) {
+    public void setPrice(float price) {
         this.price = price;
     }
 
@@ -79,19 +102,19 @@ public class RoomPOJO {
         this.roomNo = roomNo;
     }
 
-    public void setMaxCap(Integer maxCap) {
+    public void setMaxCap(int maxCap) {
         this.maxCap = maxCap;
     }
 
-    public void setHotelId(Integer hotelId) {
+    public void setHotelId(int hotelId) {
         this.hotelId = hotelId;
     }
 
-    public void setFacilityId(Integer facilityId) {
+    public void setFacilityId(int facilityId) {
         this.facilityId = facilityId;
     }
 
-    public void setAvailable(Boolean available) {
+    public void setAvailable(char available) {
         this.available = available;
     }
     

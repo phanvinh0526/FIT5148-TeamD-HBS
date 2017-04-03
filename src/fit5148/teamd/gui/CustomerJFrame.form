@@ -1,0 +1,950 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<Form version="1.9" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
+  <NonVisualComponents>
+    <Component class="javax.swing.ButtonGroup" name="custSearchBtnGrp">
+    </Component>
+  </NonVisualComponents>
+  <Properties>
+    <Property name="defaultCloseOperation" type="int" value="3"/>
+  </Properties>
+  <SyntheticProperties>
+    <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
+    <SyntheticProperty name="generateCenter" type="boolean" value="false"/>
+  </SyntheticProperties>
+  <AuxValues>
+    <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
+    <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_generateFQN" type="java.lang.Boolean" value="true"/>
+    <AuxValue name="FormSettings_generateMnemonicsCode" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_i18nAutoMode" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_layoutCodeTarget" type="java.lang.Integer" value="1"/>
+    <AuxValue name="FormSettings_listenerGenerationStyle" type="java.lang.Integer" value="0"/>
+    <AuxValue name="FormSettings_variablesLocal" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_variablesModifier" type="java.lang.Integer" value="2"/>
+  </AuxValues>
+
+  <Layout>
+    <DimensionLayout dim="0">
+      <Group type="103" groupAlignment="0" attributes="0">
+          <Group type="102" attributes="0">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" attributes="0">
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="searchModifyTabbedPane" min="-2" pref="1226" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="544" max="-2" attributes="0"/>
+                      <Component id="manageCustFrameLabel" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="238" max="-2" attributes="0"/>
+                      <Component id="glbErrLabel" min="-2" pref="783" max="-2" attributes="0"/>
+                  </Group>
+              </Group>
+              <EmptySpace max="32767" attributes="0"/>
+          </Group>
+      </Group>
+    </DimensionLayout>
+    <DimensionLayout dim="1">
+      <Group type="103" groupAlignment="0" attributes="0">
+          <Group type="102" alignment="1" attributes="0">
+              <EmptySpace pref="15" max="32767" attributes="0"/>
+              <Component id="manageCustFrameLabel" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="glbErrLabel" min="-2" pref="15" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
+              <Component id="searchModifyTabbedPane" min="-2" pref="500" max="-2" attributes="0"/>
+          </Group>
+      </Group>
+    </DimensionLayout>
+  </Layout>
+  <SubComponents>
+    <Container class="javax.swing.JTabbedPane" name="searchModifyTabbedPane">
+      <AccessibilityProperties>
+        <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="customerTabs"/>
+      </AccessibilityProperties>
+
+      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout"/>
+      <SubComponents>
+        <Container class="javax.swing.JPanel" name="searchModifyCustomerPanel">
+          <Properties>
+            <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+              <Dimension value="[800, 500]"/>
+            </Property>
+          </Properties>
+          <Constraints>
+            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
+              <JTabbedPaneConstraints tabName="Search and Modify">
+                <Property name="tabTitle" type="java.lang.String" value="Search and Modify"/>
+              </JTabbedPaneConstraints>
+            </Constraint>
+          </Constraints>
+
+          <Layout>
+            <DimensionLayout dim="0">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="modifyCustSearchResultPanel" alignment="0" max="32767" attributes="0"/>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="541" max="-2" attributes="0"/>
+                      <Component id="searchCustomerCustFrameBtn" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
+                  </Group>
+                  <Group type="102" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace max="32767" attributes="0"/>
+                              <Component id="searchModifyCustErrorMsgLabel" min="-2" pref="428" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace min="-2" pref="437" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="102" attributes="0">
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="searchCatMemRad" min="-2" max="-2" attributes="0"/>
+                                          <Component id="searchCatEmlRad" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace min="-2" pref="56" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="searchCustEmlTextField" min="-2" pref="177" max="-2" attributes="0"/>
+                                          <Component id="memTierSearchComboBox" min="-2" pref="177" max="-2" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                                  <Component id="searchByEmlLabel" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                      </Group>
+                      <EmptySpace max="32767" attributes="0"/>
+                  </Group>
+              </Group>
+            </DimensionLayout>
+            <DimensionLayout dim="1">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace max="32767" attributes="0"/>
+                      <Component id="searchByEmlLabel" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="searchCustEmlTextField" alignment="1" min="-2" max="-2" attributes="0"/>
+                          <Component id="searchCatEmlRad" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="memTierSearchComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="searchCatMemRad" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="searchModifyCustErrorMsgLabel" min="-2" pref="18" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="searchCustomerCustFrameBtn" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="modifyCustSearchResultPanel" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="271" max="-2" attributes="0"/>
+                  </Group>
+              </Group>
+            </DimensionLayout>
+          </Layout>
+          <SubComponents>
+            <Component class="javax.swing.JButton" name="searchCustomerCustFrameBtn">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Search"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="searchCustomerCustFrameBtnActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JTextField" name="searchCustEmlTextField">
+              <Properties>
+                <Property name="toolTipText" type="java.lang.String" value="Enter email"/>
+              </Properties>
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="searchCustEmlTextFieldMouseClicked"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="searchCustEmlTextFieldActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JLabel" name="searchByEmlLabel">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Search by Email ID or Membership Tier"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JComboBox" name="memTierSearchComboBox">
+              <Properties>
+                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                  <StringArray count="0"/>
+                </Property>
+                <Property name="enabled" type="boolean" value="false"/>
+              </Properties>
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="memTierSearchComboBoxMouseClicked"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="memTierSearchComboBoxActionPerformed"/>
+              </Events>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+              </AuxValues>
+            </Component>
+            <Container class="javax.swing.JPanel" name="modifyCustSearchResultPanel">
+
+              <Layout>
+                <DimensionLayout dim="0">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" attributes="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" attributes="0">
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="modifyCustSearchResultScrollPane" max="32767" attributes="0"/>
+                              </Group>
+                              <Group type="102" attributes="0">
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <EmptySpace min="-2" pref="494" max="-2" attributes="0"/>
+                                          <Component id="selectCustomerLabel" min="-2" pref="218" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <EmptySpace min="-2" pref="233" max="-2" attributes="0"/>
+                                          <Component id="modifyOrSavePanel" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                                  <EmptySpace min="0" pref="226" max="32767" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+                </DimensionLayout>
+                <DimensionLayout dim="1">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" attributes="0">
+                          <Component id="selectCustomerLabel" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
+                          <Component id="modifyCustSearchResultScrollPane" min="-2" pref="135" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="modifyOrSavePanel" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="0" pref="11" max="32767" attributes="0"/>
+                      </Group>
+                  </Group>
+                </DimensionLayout>
+              </Layout>
+              <SubComponents>
+                <Container class="javax.swing.JScrollPane" name="modifyCustSearchResultScrollPane">
+                  <AuxValues>
+                    <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+                  </AuxValues>
+
+                  <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+                  <SubComponents>
+                    <Component class="javax.swing.JTable" name="modifyCustSearchResultTable">
+                      <Properties>
+                        <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
+                          <Table columnCount="14" rowCount="0">
+                            <Column editable="false" title="Title" type="java.lang.String"/>
+                            <Column editable="false" title="First Name" type="java.lang.String"/>
+                            <Column editable="false" title="Last Name" type="java.lang.String"/>
+                            <Column editable="false" title="Membership Credits" type="java.lang.Integer"/>
+                            <Column editable="false" title="Membership_Tier" type="java.lang.String"/>
+                            <Column editable="false" title="Date of Birth" type="java.lang.String"/>
+                            <Column editable="false" title="Country" type="java.lang.String"/>
+                            <Column editable="false" title="City" type="java.lang.String"/>
+                            <Column editable="false" title="Street" type="java.lang.String"/>
+                            <Column editable="false" title="Postcode" type="java.lang.String"/>
+                            <Column editable="false" title="Ph_no" type="java.lang.String"/>
+                            <Column editable="false" title="Email" type="java.lang.String"/>
+                            <Column editable="false" title="CustId" type="java.lang.Integer"/>
+                            <Column editable="false" title="Pd id" type="java.lang.Integer"/>
+                          </Table>
+                        </Property>
+                        <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
+                          <TableColumnModel selectionModel="0">
+                            <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                              <Title/>
+                              <Editor/>
+                              <Renderer/>
+                            </Column>
+                            <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                              <Title/>
+                              <Editor/>
+                              <Renderer/>
+                            </Column>
+                            <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                              <Title/>
+                              <Editor/>
+                              <Renderer/>
+                            </Column>
+                            <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                              <Title/>
+                              <Editor/>
+                              <Renderer/>
+                            </Column>
+                            <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                              <Title/>
+                              <Editor/>
+                              <Renderer/>
+                            </Column>
+                            <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                              <Title/>
+                              <Editor/>
+                              <Renderer/>
+                            </Column>
+                            <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                              <Title/>
+                              <Editor/>
+                              <Renderer/>
+                            </Column>
+                            <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                              <Title/>
+                              <Editor/>
+                              <Renderer/>
+                            </Column>
+                            <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                              <Title/>
+                              <Editor/>
+                              <Renderer/>
+                            </Column>
+                            <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                              <Title/>
+                              <Editor/>
+                              <Renderer/>
+                            </Column>
+                            <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                              <Title/>
+                              <Editor/>
+                              <Renderer/>
+                            </Column>
+                            <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                              <Title/>
+                              <Editor/>
+                              <Renderer/>
+                            </Column>
+                            <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                              <Title/>
+                              <Editor/>
+                              <Renderer/>
+                            </Column>
+                            <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                              <Title/>
+                              <Editor/>
+                              <Renderer/>
+                            </Column>
+                          </TableColumnModel>
+                        </Property>
+                        <Property name="enabled" type="boolean" value="false"/>
+                        <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
+                          <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
+                        </Property>
+                      </Properties>
+                    </Component>
+                  </SubComponents>
+                </Container>
+                <Component class="javax.swing.JLabel" name="selectCustomerLabel">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Click and Select Customer to modify"/>
+                    <Property name="focusable" type="boolean" value="false"/>
+                    <Property name="horizontalTextPosition" type="int" value="0"/>
+                  </Properties>
+                </Component>
+                <Container class="javax.swing.JPanel" name="modifyOrSavePanel">
+
+                  <Layout class="org.netbeans.modules.form.compat2.layouts.DesignCardLayout"/>
+                  <SubComponents>
+                    <Container class="javax.swing.JPanel" name="modifyCustChildPanel">
+                      <Constraints>
+                        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignCardLayout" value="org.netbeans.modules.form.compat2.layouts.DesignCardLayout$CardConstraintsDescription">
+                          <CardConstraints cardName="card3"/>
+                        </Constraint>
+                      </Constraints>
+
+                      <Layout>
+                        <DimensionLayout dim="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" alignment="0" attributes="0">
+                                  <EmptySpace min="-2" pref="104" max="-2" attributes="0"/>
+                                  <Component id="modifyCustChildPanelUpdateBtn" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace pref="226" max="32767" attributes="0"/>
+                                  <Component id="modifyCustChildPanelDelButton" min="-2" pref="165" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="140" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <EmptySpace min="-2" pref="292" max="-2" attributes="0"/>
+                                  <Component id="modifyCustChildPanelLabel1" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="32767" attributes="0"/>
+                              </Group>
+                          </Group>
+                        </DimensionLayout>
+                        <DimensionLayout dim="1">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" alignment="0" attributes="0">
+                                  <EmptySpace pref="21" max="32767" attributes="0"/>
+                                  <Component id="modifyCustChildPanelLabel1" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="3" attributes="0">
+                                      <Component id="modifyCustChildPanelUpdateBtn" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="modifyCustChildPanelDelButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                        </DimensionLayout>
+                      </Layout>
+                      <SubComponents>
+                        <Component class="javax.swing.JButton" name="modifyCustChildPanelUpdateBtn">
+                          <Properties>
+                            <Property name="text" type="java.lang.String" value="Update Customer"/>
+                            <Property name="enabled" type="boolean" value="false"/>
+                          </Properties>
+                          <Events>
+                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="modifyCustChildPanelUpdateBtnActionPerformed"/>
+                          </Events>
+                        </Component>
+                        <Component class="javax.swing.JLabel" name="modifyCustChildPanelLabel1">
+                          <Properties>
+                            <Property name="text" type="java.lang.String" value="Modify Selected Customer"/>
+                          </Properties>
+                        </Component>
+                        <Component class="javax.swing.JButton" name="modifyCustChildPanelDelButton">
+                          <Properties>
+                            <Property name="text" type="java.lang.String" value="Delete Customer"/>
+                            <Property name="enabled" type="boolean" value="false"/>
+                          </Properties>
+                          <Events>
+                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="modifyCustChildPanelDelButtonActionPerformed"/>
+                          </Events>
+                        </Component>
+                      </SubComponents>
+                    </Container>
+                  </SubComponents>
+                </Container>
+              </SubComponents>
+            </Container>
+            <Component class="javax.swing.JLabel" name="searchModifyCustErrorMsgLabel">
+              <Properties>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="33" green="0" red="ff" type="rgb"/>
+                </Property>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JRadioButton" name="searchCatEmlRad">
+              <Properties>
+                <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+                  <ComponentRef name="custSearchBtnGrp"/>
+                </Property>
+                <Property name="selected" type="boolean" value="true"/>
+                <Property name="text" type="java.lang.String" value="Email"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="searchCatEmlRadActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JRadioButton" name="searchCatMemRad">
+              <Properties>
+                <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+                  <ComponentRef name="custSearchBtnGrp"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Membership Tier"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="searchCatMemRadActionPerformed"/>
+              </Events>
+            </Component>
+          </SubComponents>
+        </Container>
+        <Container class="javax.swing.JPanel" name="addNewCustomerPanel">
+          <Constraints>
+            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
+              <JTabbedPaneConstraints tabName="Add New">
+                <Property name="tabTitle" type="java.lang.String" value="Add New"/>
+              </JTabbedPaneConstraints>
+            </Constraint>
+          </Constraints>
+
+          <Layout>
+            <DimensionLayout dim="0">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" attributes="0">
+                      <EmptySpace min="-2" pref="85" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="1" attributes="0">
+                          <Component id="addCustCountryLabel" min="-2" max="-2" attributes="0"/>
+                          <Component id="addCustDOBLabel" min="-2" max="-2" attributes="0"/>
+                          <Component id="addCustLNameLabel" min="-2" max="-2" attributes="0"/>
+                          <Component id="addCustFirstNameLabel" min="-2" max="-2" attributes="0"/>
+                          <Component id="addCustTitleLabel" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="58" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="addCustErrMsgLabel" max="32767" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Group type="103" groupAlignment="1" attributes="0">
+                                  <Component id="addCustAddBtn" min="-2" max="-2" attributes="0"/>
+                                  <Group type="102" attributes="0">
+                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                          <Component id="addCustTitleTextField" pref="206" max="32767" attributes="0"/>
+                                          <Component id="addCustFNameTextField" alignment="0" max="32767" attributes="0"/>
+                                          <Component id="addCustLNameTextField" alignment="0" max="32767" attributes="0"/>
+                                          <Component id="addCustCountryTextField" alignment="0" max="32767" attributes="0"/>
+                                          <Component id="addCustDOBFormattedTextField" max="32767" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace min="-2" pref="159" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="addCustCityLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="addCustEmailLabel" min="-2" max="-2" attributes="0"/>
+                                          <Component id="addCustPhNoLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="addCustPostCodeLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="addCustStreetLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                              </Group>
+                              <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                  <Component id="addCustPostCodeTextField" alignment="0" pref="253" max="32767" attributes="0"/>
+                                  <Component id="addCustStreetTextField" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="addCustCityTextField" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="addCustEmlTextField" max="32767" attributes="0"/>
+                                  <Component id="addCustPhNoFormattedTextField" alignment="0" max="32767" attributes="0"/>
+                              </Group>
+                          </Group>
+                      </Group>
+                      <EmptySpace pref="320" max="32767" attributes="0"/>
+                  </Group>
+              </Group>
+            </DimensionLayout>
+            <DimensionLayout dim="1">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="117" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="addCustTitleLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="addCustCityLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="addCustTitleTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="addCustCityTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="addCustFirstNameLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="addCustStreetLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="addCustFNameTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="addCustStreetTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="addCustLNameLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="addCustPostCodeLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="addCustLNameTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="addCustPostCodeTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="addCustDOBLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="addCustPhNoLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="addCustDOBFormattedTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="addCustPhNoFormattedTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="addCustCountryLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="addCustEmailLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="addCustCountryTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="addCustEmlTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
+                      <Component id="addCustErrMsgLabel" min="-2" pref="22" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="addCustAddBtn" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace pref="124" max="32767" attributes="0"/>
+                  </Group>
+              </Group>
+            </DimensionLayout>
+          </Layout>
+          <SubComponents>
+            <Component class="javax.swing.JLabel" name="addCustTitleLabel">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Title"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="addCustFirstNameLabel">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="First Name"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="addCustLNameLabel">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Last Name"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="addCustDOBLabel">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Date of birth"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="addCustCityLabel">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="City"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="addCustCountryLabel">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Country"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="addCustStreetLabel">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Street"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="addCustPostCodeLabel">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Postcode"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="addCustPhNoLabel">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Ph No"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="addCustEmailLabel">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Email"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JTextField" name="addCustTitleTextField">
+            </Component>
+            <Component class="javax.swing.JTextField" name="addCustFNameTextField">
+            </Component>
+            <Component class="javax.swing.JTextField" name="addCustLNameTextField">
+              <Properties>
+                <Property name="toolTipText" type="java.lang.String" value=""/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JTextField" name="addCustCountryTextField">
+            </Component>
+            <Component class="javax.swing.JTextField" name="addCustCityTextField">
+            </Component>
+            <Component class="javax.swing.JTextField" name="addCustStreetTextField">
+            </Component>
+            <Component class="javax.swing.JTextField" name="addCustPostCodeTextField">
+            </Component>
+            <Component class="javax.swing.JTextField" name="addCustEmlTextField">
+            </Component>
+            <Component class="javax.swing.JButton" name="addCustAddBtn">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Add New Customer"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="addCustAddBtnActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JFormattedTextField" name="addCustDOBFormattedTextField">
+              <Properties>
+                <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor">
+                  <Format format="yyyy-MM-dd" subtype="-1" type="1"/>
+                </Property>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JFormattedTextField" name="addCustPhNoFormattedTextField">
+              <Properties>
+                <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor">
+                  <Format subtype="1" type="0"/>
+                </Property>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="addCustErrMsgLabel">
+            </Component>
+          </SubComponents>
+        </Container>
+        <Container class="javax.swing.JPanel" name="updateTabPanel">
+          <Constraints>
+            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
+              <JTabbedPaneConstraints tabName="Update">
+                <Property name="tabTitle" type="java.lang.String" value="Update"/>
+              </JTabbedPaneConstraints>
+            </Constraint>
+          </Constraints>
+
+          <Layout>
+            <DimensionLayout dim="0">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" attributes="0">
+                              <EmptySpace min="-2" pref="108" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="1" attributes="0">
+                                  <Component id="updateCustCountryLabel1" alignment="1" min="-2" max="-2" attributes="0"/>
+                                  <Component id="updateCustDOBLabel1" alignment="1" min="-2" max="-2" attributes="0"/>
+                                  <Component id="updateCustLNameLabel1" alignment="1" min="-2" max="-2" attributes="0"/>
+                                  <Component id="updateCustFirstNameLabel1" alignment="1" min="-2" max="-2" attributes="0"/>
+                                  <Component id="updateCustTitleLabel1" alignment="1" min="-2" max="-2" attributes="0"/>
+                                  <Component id="updateCustMemCredLabel" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="-2" pref="113" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="updateCustTitleTextField1" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="updateCustFNameTextField1" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="updateCustLNameTextField1" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="updateCustCountryTextField1" alignment="0" pref="206" max="32767" attributes="0"/>
+                                  <Component id="updateCustDOBFormattedTextField" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="updateCustMemCredFormattedTextField" max="32767" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="-2" pref="159" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="updateCustCityLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="updateCustEmailLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="updateCustPhNoLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="updateCustPostCodeLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="updateCustStreetLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="updateCustCityLabel2" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="updateCustPostCodeTextField1" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="updateCustStreetTextField1" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="updateCustCityTextField1" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="updateCustEmlTextField1" alignment="0" pref="253" max="32767" attributes="0"/>
+                                  <Component id="updateMemTierComboBox1" min="-2" pref="148" max="-2" attributes="0"/>
+                                  <Component id="updateCustPhNoFormattedTextField" alignment="0" max="32767" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace min="-2" pref="466" max="-2" attributes="0"/>
+                              <Component id="updCustSavePanel" min="-2" pref="436" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <EmptySpace pref="175" max="32767" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="1" attributes="0">
+                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      <Component id="updCustErrorMsgLabel" min="-2" pref="589" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="291" max="-2" attributes="0"/>
+                  </Group>
+              </Group>
+            </DimensionLayout>
+            <DimensionLayout dim="1">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="53" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="updateCustTitleLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="updateCustCityLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="updateCustTitleTextField1" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="updateCustCityTextField1" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="updateCustFirstNameLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="updateCustStreetLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="updateCustFNameTextField1" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="updateCustStreetTextField1" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="updateCustLNameLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="updateCustPostCodeLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="updateCustLNameTextField1" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="updateCustPostCodeTextField1" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="updateCustDOBLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="updateCustPhNoLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="updateCustDOBFormattedTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="updateCustPhNoFormattedTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="updateCustCountryLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="updateCustEmailLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="updateCustCountryTextField1" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="updateCustEmlTextField1" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="103" alignment="0" groupAlignment="3" attributes="0">
+                              <Component id="updateCustMemCredLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="updateCustMemCredFormattedTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="103" alignment="0" groupAlignment="3" attributes="0">
+                              <Component id="updateCustCityLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="updateMemTierComboBox1" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="updCustErrorMsgLabel" pref="17" max="32767" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="updCustSavePanel" min="-2" pref="170" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
+                  </Group>
+              </Group>
+            </DimensionLayout>
+          </Layout>
+          <SubComponents>
+            <Component class="javax.swing.JLabel" name="updateCustTitleLabel1">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Title"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="updateCustFirstNameLabel1">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="First Name"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="updateCustLNameLabel1">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Last Name"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="updateCustDOBLabel1">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Date of birth"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="updateCustCountryLabel1">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Country"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JTextField" name="updateCustTitleTextField1">
+            </Component>
+            <Component class="javax.swing.JTextField" name="updateCustFNameTextField1">
+            </Component>
+            <Component class="javax.swing.JTextField" name="updateCustLNameTextField1">
+              <Properties>
+                <Property name="toolTipText" type="java.lang.String" value=""/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JTextField" name="updateCustCountryTextField1">
+            </Component>
+            <Component class="javax.swing.JTextField" name="updateCustCityTextField1">
+            </Component>
+            <Component class="javax.swing.JTextField" name="updateCustStreetTextField1">
+            </Component>
+            <Component class="javax.swing.JTextField" name="updateCustPostCodeTextField1">
+            </Component>
+            <Component class="javax.swing.JTextField" name="updateCustEmlTextField1">
+            </Component>
+            <Component class="javax.swing.JLabel" name="updateCustPhNoLabel1">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Ph No"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="updateCustEmailLabel1">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Email"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="updateCustPostCodeLabel1">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Postcode"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="updateCustStreetLabel1">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Street"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="updateCustCityLabel1">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="City"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="updateCustMemCredLabel">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Membership Credits"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="updateCustCityLabel2">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Membership Tier"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JComboBox" name="updateMemTierComboBox1">
+              <Properties>
+                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                  <StringArray count="0"/>
+                </Property>
+              </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+              </AuxValues>
+            </Component>
+            <Container class="javax.swing.JPanel" name="updCustSavePanel">
+
+              <Layout class="org.netbeans.modules.form.compat2.layouts.DesignCardLayout"/>
+              <SubComponents>
+                <Container class="javax.swing.JPanel" name="updCustSaveChildPanel">
+                  <Constraints>
+                    <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignCardLayout" value="org.netbeans.modules.form.compat2.layouts.DesignCardLayout$CardConstraintsDescription">
+                      <CardConstraints cardName="card3"/>
+                    </Constraint>
+                  </Constraints>
+
+                  <Layout>
+                    <DimensionLayout dim="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace min="-2" pref="135" max="-2" attributes="0"/>
+                              <Component id="updCustSaveBtn" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace pref="244" max="32767" attributes="0"/>
+                          </Group>
+                      </Group>
+                    </DimensionLayout>
+                    <DimensionLayout dim="1">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace min="-2" pref="55" max="-2" attributes="0"/>
+                              <Component id="updCustSaveBtn" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace pref="92" max="32767" attributes="0"/>
+                          </Group>
+                      </Group>
+                    </DimensionLayout>
+                  </Layout>
+                  <SubComponents>
+                    <Component class="javax.swing.JButton" name="updCustSaveBtn">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="Save"/>
+                      </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="updCustSaveBtnActionPerformed"/>
+                      </Events>
+                    </Component>
+                  </SubComponents>
+                </Container>
+              </SubComponents>
+            </Container>
+            <Component class="javax.swing.JFormattedTextField" name="updateCustPhNoFormattedTextField">
+              <Properties>
+                <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor">
+                  <Format subtype="1" type="0"/>
+                </Property>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JFormattedTextField" name="updateCustDOBFormattedTextField">
+              <Properties>
+                <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor">
+                  <Format format="yyyy-MM-dd" subtype="-1" type="1"/>
+                </Property>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JFormattedTextField" name="updateCustMemCredFormattedTextField">
+              <Properties>
+                <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor">
+                  <Format format="#,##0" subtype="-1" type="0"/>
+                </Property>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="updCustErrorMsgLabel">
+            </Component>
+          </SubComponents>
+        </Container>
+      </SubComponents>
+    </Container>
+    <Component class="javax.swing.JLabel" name="manageCustFrameLabel">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Manage Customers"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="glbErrLabel">
+      <Properties>
+        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="0" green="0" red="ff" type="rgb"/>
+        </Property>
+        <Property name="horizontalAlignment" type="int" value="0"/>
+      </Properties>
+    </Component>
+  </SubComponents>
+</Form>
