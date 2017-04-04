@@ -25,7 +25,13 @@ public class CustomerDAO {
 //    private PersonalDetailsPOJO personPojo = null;
     private ArrayList<CustomerFramePOJO> listCF = null;
     
-    public CustomerDAO(){}
+    public CustomerDAO(){
+        try {
+            this.conn = OracleDBConnectionUtil.getInstance().getConnectionB();
+        } catch (SQLException ex) {
+            Logger.getLogger(CustomerDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 
     public ArrayList<CustomerFramePOJO> getSearchResult() {
         return listCF;
@@ -34,7 +40,7 @@ public class CustomerDAO {
     public DefaultTableModel searchCustomer(String key) {
         //  Setup jTable
         Object columnHeaders[] = {"Personal ID","First Name","Last Name", "Email", "Phone"};
-        Object data[][] = {{}};
+        Object data[][] = new Object[20][5];
         DefaultTableModel dtm = new DefaultTableModel();
         
         //  DB Statement
@@ -44,8 +50,9 @@ public class CustomerDAO {
             sm = conn.createStatement();
 
             String sql = "SELECT PD_ID, TITLE, "
-                    + "F_NAME, L_NAME, COUNTRY, PH_NO, EMAIL"
+                    + "F_NAME, L_NAME, COUNTRY, PH_NO, EMAIL "
                     + "FROM PERSONAL_DETAILS P WHERE P.F_NAME LIKE '%"+key+"%'";
+            System.out.println(sql);
             ResultSet rs = sm.executeQuery(sql);
             for(int i=0; rs.next(); i++){
                 data[i][0] = rs.getInt("PD_ID");

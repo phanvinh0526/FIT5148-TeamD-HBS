@@ -10,6 +10,7 @@ import fit5148.teamd.dao.CustomerDAO;
 import fit5148.teamd.pojo.BookingFramePOJO;
 import fit5148.teamd.pojo.CustomerFramePOJO;
 import java.awt.event.KeyEvent;
+import javax.swing.JFrame;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -32,14 +33,22 @@ public class BookingFrame extends javax.swing.JFrame {
     }
 
     private void startUpComponents(){
-        this.setVisible(false);
-        jfSearchResult.setVisible(true);
-        jfSearchResult.setEnabled(true);
+        //  Navigate from MainFrame -> SearchFrame -> BookingFrame
+        initJFrame(this, false, false);
+        initJFrame(jfSearchResult, true, true);
         
         this.bookingDao = new BookingDAO();
         this.bookingFramePojo = new BookingFramePOJO();
         this.custFramePojo = new CustomerFramePOJO();
+        this.customerDao = new CustomerDAO();
         
+    }
+    
+    private void initJFrame(JFrame jf, Boolean enable, Boolean visible){
+        jf.pack();
+        jf.setLocationRelativeTo(null);
+        jf.setVisible(visible);
+        jf.setEnabled(enable);
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -99,9 +108,17 @@ public class BookingFrame extends javax.swing.JFrame {
         jTable1 = new javax.swing.JTable();
 
         jfSearchResult.setTitle("Search Result");
+        jfSearchResult.setResizable(false);
+        jfSearchResult.setSize(new java.awt.Dimension(458, 400));
         jfSearchResult.addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {
                 jfSearchResultWindowActivated(evt);
+            }
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                jfSearchResultWindowClosed(evt);
+            }
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                jfSearchResultWindowClosing(evt);
             }
         });
 
@@ -134,7 +151,7 @@ public class BookingFrame extends javax.swing.JFrame {
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addContainerGap(7, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jbtnOkay)
                     .addComponent(jbtnCancelSearch))
@@ -213,7 +230,7 @@ public class BookingFrame extends javax.swing.JFrame {
                         .addGap(10, 10, 10)
                         .addGroup(jfSearchResultLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jPanel6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 434, Short.MAX_VALUE))))
+                            .addComponent(jScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 438, Short.MAX_VALUE))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jfSearchResultLayout.setVerticalGroup(
@@ -228,6 +245,14 @@ public class BookingFrame extends javax.swing.JFrame {
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         jPanel3.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -526,21 +551,28 @@ public class BookingFrame extends javax.swing.JFrame {
         }else if(evt.getKeyCode()==KeyEvent.VK_ESCAPE){
             returnBookingFrame();
         }
+        
     }//GEN-LAST:event_jtResultKeyPressed
-
+    
+    private void returnMainFrame(){
+        System.out.println("Closing Search Result");
+        this.jfSearchResult.dispose();
+        this.jfSearchResult.removeAll();
+    }
+    
     private void returnBookingFrame(){
-        jfSearchResult.setVisible(false);
-        this.setEnabled(true);
-        this.setVisible(true);
+        initJFrame(jfSearchResult, false, false);
+        initJFrame(this, true, true);
     }
     
     private void jbtnCancelSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnCancelSearchActionPerformed
-        returnBookingFrame();
+        returnMainFrame();
     }//GEN-LAST:event_jbtnCancelSearchActionPerformed
 
     private void doSearchCustomer(){
         custFramePojo = customerDao.getSearchResult().get(jtResult.getSelectedRow());
         showUpPersonData(custFramePojo); // Show up the personal data to the booking frame
+        returnBookingFrame();
     }
     private void jbtnOkayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnOkayActionPerformed
         doSearchCustomer();
@@ -579,7 +611,7 @@ public class BookingFrame extends javax.swing.JFrame {
 
     private void jtfKeyWordKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfKeyWordKeyPressed
         // TODO add your handling code here:
-        if(KeyEvent.VK_ENTER == evt.getKeyCode()){
+        if(evt.getKeyCode()==KeyEvent.VK_ENTER){
             queryCustomer2JTable();
         }
     }//GEN-LAST:event_jtfKeyWordKeyPressed
@@ -589,8 +621,27 @@ public class BookingFrame extends javax.swing.JFrame {
         queryCustomer2JTable();
     }//GEN-LAST:event_jbtnSearchActionPerformed
 
+    private void jfSearchResultWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_jfSearchResultWindowClosing
+        returnMainFrame();
+    }//GEN-LAST:event_jfSearchResultWindowClosing
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+       
+    }//GEN-LAST:event_formWindowClosed
+
+    private void jfSearchResultWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_jfSearchResultWindowClosed
+        // TODO add your handling code here:
+//        returnMainFrame();
+    }//GEN-LAST:event_jfSearchResultWindowClosed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        // TODO add your handling code here:
+        System.out.println("Closing Booking Frame");
+        returnMainFrame();
+    }//GEN-LAST:event_formWindowClosing
+
     private void queryCustomer2JTable(){
-        DefaultTableModel dtm = null;
+        DefaultTableModel dtm = new DefaultTableModel();
         dtm = this.customerDao.searchCustomer(jtfKeyWord.getText()); // both name or id
 
         jtResult.setModel(dtm);
