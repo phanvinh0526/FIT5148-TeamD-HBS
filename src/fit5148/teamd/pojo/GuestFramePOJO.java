@@ -155,8 +155,13 @@ public class GuestFramePOJO {
         this.preferences = preferences;
     }
 
-    public void setCheckedIn(char checkedIn) {
-        this.checkedIn = checkedIn;
+    public void setCheckedIn(String checkedIn) {
+        if(checkedIn.charAt(0)=='Y' || checkedIn.charAt(0)=='y')
+            this.checkedIn = 'Y';
+        if(checkedIn.charAt(0)=='N' || checkedIn.charAt(0)=='n')
+            this.checkedIn = 'N';
+        else
+            this.checkedIn = '0';
     }
 
     public void setHotelId(Integer hotelId) {

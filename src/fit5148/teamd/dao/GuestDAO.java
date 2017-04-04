@@ -14,6 +14,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 //import org.jdatepicker.impl.JDatePanelImpl;
 //import org.jdatepicker.impl.JDatePickerImpl;
@@ -32,10 +34,15 @@ public class GuestDAO {
     private PersonalDetailsPOJO personPojo = null;
     private ArrayList<GuestFramePOJO> listGF = null;
     
-    public GuestDAO() throws SQLException{
-        conn = OracleDBConnectionUtil.getInstance().getConnectionB();
-        guestPojo = new GuestPOJO();
-        personPojo = new PersonalDetailsPOJO();
+    public GuestDAO(){
+        try {
+            conn = OracleDBConnectionUtil.getInstance().getConnectionB();
+            guestPojo = new GuestPOJO();
+            personPojo = new PersonalDetailsPOJO();
+        } catch (SQLException ex) {
+            System.out.println(("Can't connect to the database"));
+            Logger.getLogger(GuestDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
     }
     
@@ -55,8 +62,9 @@ public class GuestDAO {
         GuestFramePOJO gf = new GuestFramePOJO();
         gf.setGuestId(rs.getInt("GUEST_ID"));
         gf.setPreferences(rs.getString("PREFERENCES"));
-        gf.setCheckedIn(rs.getString("CHECKED_IN").toCharArray()[0]);
+        gf.setCheckedIn(rs.getString("CHECKED_IN"));
         gf.setHotelId(rs.getInt("HOTEL_ID"));
+        gf.setPd_id(rs.getInt("PD_ID"));
         gf.setTitle(rs.getString("TITLE"));
         gf.setF_Name(rs.getString("F_NAME"));
         gf.setL_Name(rs.getString("L_NAME"));
@@ -73,17 +81,18 @@ public class GuestDAO {
     public DefaultTableModel searchByName(String keyword) throws SQLException{
         //  Setup jTable
         Object columnHeaders[] = {"Guest ID","Personal ID","First Name","Email","Phone"};
-        Object data[][] = {{}};
+        Object data[][] = new Object[10][5];
         DefaultTableModel dtm = new DefaultTableModel();
         
         //  DB Statement
         listGF = new ArrayList<>();
         Statement sm = conn.createStatement();
-        String sql = String.format("SELECT GUEST_ID, PREFERENCES,"
-                + "PD_ID, CHECKED_IN, HOTEL_ID, TITLE, F_NAME, L_NAME, DOB, COUNTRY,"
-                + "CITY, STREET, POSTCODE, PH_NO, EMAIL"
+        String sql = "SELECT G.GUEST_ID, G.PREFERENCES,"
+                + "P.PD_ID, G.CHECKED_IN, G.HOTEL_ID, P.TITLE, P.F_NAME, P.L_NAME, P.DOB, P.COUNTRY,"
+                + "P.CITY, P.STREET, P.POSTCODE, P.PH_NO, P.EMAIL "
                 + "FROM GUEST G, PERSONAL_DETAILS P WHERE G.PD_ID=P.PD_ID "
-                + "AND P.F_NAME LIKE '%s'", keyword);
+                + "AND P.F_NAME LIKE '%"+keyword+"%'";
+        System.out.println(sql);
         ResultSet rs = sm.executeQuery(sql);
         for(int i=0; rs.next(); i++){
             data[i][0] = rs.getInt("GUEST_ID");
@@ -104,35 +113,86 @@ public class GuestDAO {
                 + "PD_ID, CHECKED_IN, HOTEL_ID, TITLE, F_NAME, L_NAME, DOB, COUNTRY,"
                 + "CITY, STREET, POSTCODE, PH_NO, EMAIL"
                 + "FROM GUEST G, PERSONAL_DETAILS P WHERE G.PD_ID=P.PD_ID AND PD_ID=%s", keyword);
+        System.out.println(sql);
         ResultSet rs = sm.executeQuery(sql);
         rs.next();
         gf = matchingGuestFrame(rs);
-        
+        sm.close();
         return gf;
     }
 
     public Integer createNewGuest(GuestFramePOJO gf) throws SQLException {
         Statement sm = conn.createStatement();
-        String sql = String.format("INSERT INTO PERSONAL_DETAIL(TITLE, F_NAME, L_NAME,"
+        //  Get Primary key from Sequence first
+        String sql_0 = "select PERSONAL_DETAILS_SEQ.NEXTVAL from dual";
+        Integer primaryKey = -1;
+        ResultSet rs = sm.executeQuery(sql_0);
+        if(rs.next())
+            primaryKey = rs.getInt(1);
+        
+        //  Insert into Personal_Details
+        String sql_1 = String.format("INSERT INTO PERSONAL_DETAILS(PD_ID, TITLE, F_NAME, L_NAME,"
                 + "COUNTRY,CITY,STREET,POSTCODE,PH_NO,EMAIL) VALUES("
-                + "'%s', '%s', '%s', '%s', '%s', '%s', '%s', '%d', '%s')", 
-                gf.getTitle(),gf.getF_Name(),gf.getL_Name(),gf.getCountry(),gf.getCity(),
+                + "%d, '%s', '%s', '%s', '%s', '%s', '%s', '%s', %d, '%s')", 
+                primaryKey, gf.getTitle(),gf.getF_Name(),gf.getL_Name(),gf.getCountry(),gf.getCity(),
                 gf.getStreet(),gf.getPostCode(),gf.getPh_no(),gf.getEmail());
-        int n = sm.executeUpdate(sql, Statement.RETURN_GENERATED_KEYS);
-        if(n>0){
-            ResultSet rs = sm.getGeneratedKeys();
-            rs.next();
-            return rs.getInt(1);
-        }else
-            return -1;
+        System.out.println(sql_1);
+        int n = sm.executeUpdate(sql_1, Statement.RETURN_GENERATED_KEYS);
+        //  Insert into Guest
+        String sql_2 = String.format("INSERT INTO GUEST(GUEST_ID, PREFERENCES, PD_ID, CHECKED_IN, HOTEL_ID) "
+                + "VALUES(GUEST_SEQ.NEXTVAL, '%s', %d, '%s', %d)", 
+                gf.getPreferences(), primaryKey, 'N', 1);
+        System.out.println(sql_2);
+        int m = sm.executeUpdate(sql_2, Statement.RETURN_GENERATED_KEYS);
+        rs.close();;
+        sm.close();
+        if(n>0 && m>0) return primaryKey; else return -1;
     }
 
-    public boolean updateGuest(GuestFramePOJO guestFramePojo) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public boolean updateGuest(GuestFramePOJO gf){
+        try {
+            System.out.println("get in update guest");
+            Statement sm = conn.createStatement();
+            String sql_1 = String.format("UPDATE PERSONAL_DETAILS P "
+                    + "SET P.TITLE='%s', P.F_NAME='%s', P.L_NAME='%s', P.COUNTRY='%s', "
+                    + "P.CITY='%s', P.STREET='%s', P.POSTCODE='%s', P.PH_NO=%d, "
+                    + "P.EMAIL='%s' WHERE "
+                    + "P.PD_ID=%s", gf.getTitle(),
+                    gf.getF_Name(), gf.getL_Name(), gf.getCountry(), gf.getCity(), 
+                    gf.getStreet(), gf.getPostCode(),gf.getPh_no(),gf.getEmail(),
+                    gf.getPd_id());
+            String sql_2 = String.format("UPDATE GUEST G SET G.PREFERENCES='%s', G.CHECKED_IN='%s' "
+                    + "WHERE G.PD_ID='%s'", gf.getPreferences(), gf.getCheckedIn(), gf.getPd_id());
+            System.out.println(sql_1);
+            System.out.println(sql_2);
+            int n = sm.executeUpdate(sql_1);
+            int m = sm.executeUpdate(sql_2);
+            sm.close();
+            if(n>=0 && m>=0) return true;
+            else 
+                return false;
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            return false;
+        }
     }
 
-    public boolean deleteGuest(GuestFramePOJO guestFramePojo) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public boolean deleteGuest(GuestFramePOJO gf){
+        try {
+           Statement sm = conn.createStatement();
+            String sql = "DELETE FROM GUEST WHERE GUEST_ID='"+gf.getGuestId()+"'";
+            int n = sm.executeUpdate(sql);
+            if(n>=0){
+                sm.close();
+                return true;
+            }else{
+                sm.close();
+                return false;
+            } 
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return false;
+        }
     }
 
     public ArrayList<GuestFramePOJO> getListGF() {
