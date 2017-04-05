@@ -180,13 +180,13 @@ public class GuestDAO {
     public boolean deleteGuest(GuestFramePOJO gf){
         try {
            Statement sm = conn.createStatement();
-            String sql = "DELETE FROM GUEST WHERE GUEST_ID='"+gf.getGuestId()+"'";
+            String sql = "DELETE FROM GUEST WHERE GUEST_ID="+gf.getGuestId();
+            System.out.println(sql);
             int n = sm.executeUpdate(sql);
+            sm.close();
             if(n>=0){
-                sm.close();
                 return true;
             }else{
-                sm.close();
                 return false;
             } 
         } catch (Exception e) {

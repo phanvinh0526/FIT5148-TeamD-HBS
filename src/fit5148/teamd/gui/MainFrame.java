@@ -5,19 +5,35 @@
  */
 package fit5148.teamd.gui;
 
+import fit5148.teamd.dao.OracleDBConnectionUtil;
+import java.sql.SQLException;
+import javax.swing.JFrame;
+
 /**
  *
  * @author Vinh Phan
  */
 public class MainFrame extends javax.swing.JFrame {
 
+    BookingFrame    bookingFrame = null;
+    GuestFrame      guestFrame = null;
+    
     /**
      * Creates new form MainFrame
      */
     public MainFrame() {
         initComponents();
+        initConfiguration();
     }
 
+    private void initConfiguration(){
+//        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+//        this.setUndecorated(true);
+//        this.setVisible(true);
+        this.pack();
+        this.setLocationRelativeTo(null);
+        this.setVisible(true);
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -27,24 +43,26 @@ public class MainFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel2 = new javax.swing.JPanel();
-        jSeparator1 = new javax.swing.JSeparator();
+        jPanel1 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         jLabel_Date = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
-        jButton9 = new javax.swing.JButton();
+        jbtnExit = new javax.swing.JButton();
         jButton10 = new javax.swing.JButton();
         jButton11 = new javax.swing.JButton();
         jButton12 = new javax.swing.JButton();
         jButton13 = new javax.swing.JButton();
         jButton14 = new javax.swing.JButton();
         jButton15 = new javax.swing.JButton();
+        jButton16 = new javax.swing.JButton();
         jPanel6 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTextArea2 = new javax.swing.JTextArea();
+        jPanel2 = new javax.swing.JPanel();
+        jSeparator1 = new javax.swing.JSeparator();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("FIT5148 - Team D - Hotel Booking");
@@ -53,9 +71,15 @@ public class MainFrame extends javax.swing.JFrame {
         setPreferredSize(new java.awt.Dimension(800, 600));
         setResizable(false);
         setSize(new java.awt.Dimension(800, 600));
-        getContentPane().setLayout(new java.awt.FlowLayout());
-
-        jPanel2.add(jSeparator1);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
+        getContentPane().setLayout(new java.awt.CardLayout());
 
         jPanel4.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED, java.awt.Color.gray, java.awt.Color.white));
 
@@ -105,28 +129,27 @@ public class MainFrame extends javax.swing.JFrame {
                     .addContainerGap()))
         );
 
-        jPanel2.add(jPanel4);
-
-        getContentPane().add(jPanel2);
+        jPanel1.add(jPanel4);
 
         jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jButton9.setBackground(new java.awt.Color(255, 153, 51));
-        jButton9.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jButton9.setText("Payment");
-        jButton9.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jButton9.addActionListener(new java.awt.event.ActionListener() {
+        jbtnExit.setBackground(new java.awt.Color(255, 153, 51));
+        jbtnExit.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jbtnExit.setForeground(new java.awt.Color(255, 0, 0));
+        jbtnExit.setText("Exit");
+        jbtnExit.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jbtnExit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton9ActionPerformed(evt);
+                jbtnExitActionPerformed(evt);
             }
         });
-        jPanel5.add(jButton9, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 370, 100, 50));
+        jPanel5.add(jbtnExit, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 420, 100, 50));
 
         jButton10.setBackground(new java.awt.Color(255, 153, 51));
         jButton10.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jButton10.setText("Hotel");
         jButton10.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jPanel5.add(jButton10, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 100, 50));
+        jPanel5.add(jButton10, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 100, 50));
 
         jButton11.setBackground(new java.awt.Color(255, 153, 51));
         jButton11.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
@@ -137,7 +160,7 @@ public class MainFrame extends javax.swing.JFrame {
                 jButton11ActionPerformed(evt);
             }
         });
-        jPanel5.add(jButton11, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 100, 50));
+        jPanel5.add(jButton11, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 100, 50));
 
         jButton12.setBackground(new java.awt.Color(255, 153, 51));
         jButton12.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
@@ -148,7 +171,7 @@ public class MainFrame extends javax.swing.JFrame {
                 jButton12ActionPerformed(evt);
             }
         });
-        jPanel5.add(jButton12, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, 100, 50));
+        jPanel5.add(jButton12, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, 100, 50));
 
         jButton13.setBackground(new java.awt.Color(255, 153, 51));
         jButton13.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
@@ -159,7 +182,7 @@ public class MainFrame extends javax.swing.JFrame {
                 jButton13ActionPerformed(evt);
             }
         });
-        jPanel5.add(jButton13, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 190, 100, 50));
+        jPanel5.add(jButton13, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 180, 100, 50));
 
         jButton14.setBackground(new java.awt.Color(255, 153, 51));
         jButton14.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
@@ -170,7 +193,7 @@ public class MainFrame extends javax.swing.JFrame {
                 jButton14ActionPerformed(evt);
             }
         });
-        jPanel5.add(jButton14, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 250, 100, 50));
+        jPanel5.add(jButton14, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 240, 100, 50));
 
         jButton15.setBackground(new java.awt.Color(255, 153, 51));
         jButton15.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
@@ -181,7 +204,18 @@ public class MainFrame extends javax.swing.JFrame {
                 jButton15ActionPerformed(evt);
             }
         });
-        jPanel5.add(jButton15, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 310, 100, 50));
+        jPanel5.add(jButton15, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 300, 100, 50));
+
+        jButton16.setBackground(new java.awt.Color(255, 153, 51));
+        jButton16.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jButton16.setText("Payment");
+        jButton16.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jButton16.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton16ActionPerformed(evt);
+            }
+        });
+        jPanel5.add(jButton16, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 360, 100, 50));
 
         jPanel3.add(jPanel5);
 
@@ -196,16 +230,24 @@ public class MainFrame extends javax.swing.JFrame {
 
         jPanel3.add(jPanel6);
 
-        getContentPane().add(jPanel3);
+        jPanel1.add(jPanel3);
+
+        jPanel2.add(jSeparator1);
+
+        jPanel1.add(jPanel2);
+
+        getContentPane().add(jPanel1, "card2");
 
         getAccessibleContext().setAccessibleDescription("This is the booking application of Team D - FIT5148");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton9ActionPerformed
+    private void jbtnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnExitActionPerformed
+        OracleDBConnectionUtil.closeAllConnections();
+        this.removeAll();
+        this.dispose();
+    }//GEN-LAST:event_jbtnExitActionPerformed
 
     private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
         // TODO add your handling code here:
@@ -217,6 +259,7 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
         // TODO add your handling code here:
+        guestFrame = new GuestFrame();
     }//GEN-LAST:event_jButton13ActionPerformed
 
     private void jButton14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton14ActionPerformed
@@ -225,7 +268,25 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void jButton15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton15ActionPerformed
         // TODO add your handling code here:
+        bookingFrame = new BookingFrame();
+        
     }//GEN-LAST:event_jButton15ActionPerformed
+
+    private void jButton16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton16ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton16ActionPerformed
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_formWindowClosed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        // TODO add your handling code here:
+        System.out.println("Closing MainFrame");
+        OracleDBConnectionUtil.closeAllConnections();
+        this.removeAll();
+        this.dispose();
+    }//GEN-LAST:event_formWindowClosing
 
     /**
      * @param args the command line arguments
@@ -269,10 +330,11 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JButton jButton13;
     private javax.swing.JButton jButton14;
     private javax.swing.JButton jButton15;
-    private javax.swing.JButton jButton9;
+    private javax.swing.JButton jButton16;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel_Date;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
@@ -281,5 +343,6 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTextArea jTextArea2;
+    private javax.swing.JButton jbtnExit;
     // End of variables declaration//GEN-END:variables
 }

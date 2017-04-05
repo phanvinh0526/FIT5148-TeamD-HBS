@@ -8,10 +8,10 @@ package fit5148.teamd.gui;
 import fit5148.teamd.dao.GuestDAO;
 import fit5148.teamd.pojo.GuestFramePOJO;
 import java.awt.event.KeyEvent;
-import java.awt.event.WindowEvent;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 //import org.jdatepicker.impl.JDatePickerImpl;
@@ -27,6 +27,7 @@ public class GuestFrame extends javax.swing.JFrame {
     private GuestFramePOJO guestFramePojo = new GuestFramePOJO();
     private GuestDAO guestDao = new GuestDAO();
     private Boolean clickUpdate = false;
+    private Boolean clickDelete = false;
     private Boolean clickRegister = false;
     private Boolean clickSelect = false;
     /**
@@ -38,11 +39,20 @@ public class GuestFrame extends javax.swing.JFrame {
     }
 
     private void injectComponents() {
+        initJFrame(this, true, true);
+        
         jradioName.setSelected(true);
         jbtnGroupBy.add(jradioId);
         jbtnGroupBy.add(jradioName);
-               
     }
+    
+    private void initJFrame(JFrame jf, Boolean enable, Boolean visible){
+        jf.pack();
+        jf.setLocationRelativeTo(null);
+        jf.setVisible(visible);
+        jf.setEnabled(enable);
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -338,6 +348,11 @@ public class GuestFrame extends javax.swing.JFrame {
         jpanelEdit.add(jcbDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 160, 270, 36));
 
         jbCancel.setText("Cancel");
+        jbCancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbCancelActionPerformed(evt);
+            }
+        });
         jpanelEdit.add(jbCancel, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 220, -1, -1));
 
         jbApply.setText("Apply");
@@ -484,7 +499,7 @@ public class GuestFrame extends javax.swing.JFrame {
             }else if(jcbDelete.isSelected()){
                 // Delete record
                 if(guestDao.deleteGuest(guestFramePojo)){
-                    JOptionPane.showMessageDialog(null, "Updated Successfully!", "Notification", JOptionPane.INFORMATION_MESSAGE);             
+                    JOptionPane.showMessageDialog(null, "Deleted Successfully!", "Notification", JOptionPane.INFORMATION_MESSAGE);             
                     returnPreviousFrame();
                 }
                 else{
@@ -515,13 +530,13 @@ public class GuestFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jbApplyActionPerformed
 
     private void jcbDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbDeleteActionPerformed
-        if(clickUpdate==false){
+        if(clickDelete==false){
             jbApply.setEnabled(true);
-            clickUpdate=true;
+            clickDelete=true;
         }
         else{
             jbApply.setEnabled(false);
-            clickUpdate=false;
+            clickDelete=false;
         }
     }//GEN-LAST:event_jcbDeleteActionPerformed
 
@@ -590,7 +605,6 @@ public class GuestFrame extends javax.swing.JFrame {
     
     private void jbtnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnSearchActionPerformed
         searchProcess();
-        clickSelect = true;
     }//GEN-LAST:event_jbtnSearchActionPerformed
 
     private void searchProcess(){
@@ -603,12 +617,21 @@ public class GuestFrame extends javax.swing.JFrame {
             jpanelEdit.setEnabled(true);
             jcbUpdate.setEnabled(true);
             jcbDelete.setEnabled(true);
+            this.setEnabled(false);
+            clickSelect = true;
+            initJFrame(jfSearchResult, true, true);
             // Searching guest by condition
             if(jbtnGroupBy.getSelection().equals(jradioName.getModel())){
                 //  Pop up the jTable Result frame
-                jfSearchResult.setVisible(true);
-                jfSearchResult.setEnabled(true);
-                this.setEnabled(false);
+                DefaultTableModel dtm = null;
+                try {
+                    dtm = guestDao.searchByName(jtfSearchKey.getText());
+                } catch (SQLException ex) {
+                    jlMessage.setText("Can't search Name due to the conenction");
+                    Logger.getLogger(GuestFrame.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                jtResult.setModel(dtm);
+                jScrollPane.setViewportView(jtResult);
             }
             else{
                 String keyword = jtfSearchKey.getText();
@@ -639,15 +662,6 @@ public class GuestFrame extends javax.swing.JFrame {
 
     private void jfSearchResultWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_jfSearchResultWindowActivated
         // TODO add your handling code here:
-        DefaultTableModel dtm = null;
-        try {
-            dtm = guestDao.searchByName(jtfSearchKey.getText());
-        } catch (SQLException ex) {
-            jlMessage.setText("Can't search Name due to the conenction");
-            Logger.getLogger(GuestFrame.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        jtResult.setModel(dtm);
-        jScrollPane.setViewportView(jtResult);
     }//GEN-LAST:event_jfSearchResultWindowActivated
 
     private void jtResultKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtResultKeyPressed
@@ -704,6 +718,17 @@ public class GuestFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jtfSearchKeyActionPerformed
 
+    private void jbCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCancelActionPerformed
+        // TODO add your handling code here:
+        System.out.println("Closing Guest Frame");
+        returnMainFrame();
+    }//GEN-LAST:event_jbCancelActionPerformed
+    
+    private void returnMainFrame(){
+        this.removeAll();
+        this.dispose();
+    }
+    
     private void showUpData(GuestFramePOJO gf){
         if(gf.getGuestId()==null){
             jlMessage.setText("Couldn't load data from DB_B");
