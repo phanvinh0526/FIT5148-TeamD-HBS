@@ -11,7 +11,12 @@ import fit5148.teamd.pojo.BookingFramePOJO;
 import fit5148.teamd.pojo.CustomerFramePOJO;
 import java.awt.event.KeyEvent;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -24,6 +29,7 @@ public class BookingFrame extends javax.swing.JFrame {
     private CustomerDAO customerDao = null;
     private BookingFramePOJO bookingFramePojo = null;
     private CustomerFramePOJO custFramePojo = null;
+    private SimpleDateFormat formatter = null;
     /**
      * Creates new form BookingFrame
      */
@@ -42,6 +48,7 @@ public class BookingFrame extends javax.swing.JFrame {
         this.bookingFramePojo = new BookingFramePOJO();
         this.custFramePojo = new CustomerFramePOJO();
         this.customerDao = new CustomerDAO();
+        this.formatter = new SimpleDateFormat("dd/MM/yyyy");
         
     }
     
@@ -104,7 +111,7 @@ public class BookingFrame extends javax.swing.JFrame {
         jLabel28 = new javax.swing.JLabel();
         jLabel29 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
-        jButton3 = new javax.swing.JButton();
+        jbtnMainApply = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel31 = new javax.swing.JLabel();
@@ -118,6 +125,7 @@ public class BookingFrame extends javax.swing.JFrame {
         jtfEmail = new javax.swing.JTextField();
         jLabel34 = new javax.swing.JLabel();
         jLabel36 = new javax.swing.JLabel();
+        jlModeMessage = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jLabel32 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
@@ -152,6 +160,8 @@ public class BookingFrame extends javax.swing.JFrame {
         jLabel38 = new javax.swing.JLabel();
         jLabel39 = new javax.swing.JLabel();
         jtfRoomType = new javax.swing.JTextField();
+        jtfPayStatus = new javax.swing.JTextField();
+        jLabel18 = new javax.swing.JLabel();
         jlMainMessage = new javax.swing.JLabel();
         jPanel10 = new javax.swing.JPanel();
         jbtnBookRoom = new javax.swing.JButton();
@@ -565,8 +575,8 @@ public class BookingFrame extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jfBookingFrame.setPreferredSize(new java.awt.Dimension(862, 305));
-        jfBookingFrame.setSize(new java.awt.Dimension(862, 305));
+        jfBookingFrame.setPreferredSize(new java.awt.Dimension(900, 450));
+        jfBookingFrame.setSize(new java.awt.Dimension(700, 300));
 
         jPanel9.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jPanel9.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -581,7 +591,12 @@ public class BookingFrame extends javax.swing.JFrame {
         jLabel29.setText("BOOKING  FRAME");
         jPanel9.add(jLabel29, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
 
-        jButton3.setText("Apply");
+        jbtnMainApply.setText("Apply");
+        jbtnMainApply.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtnMainApplyActionPerformed(evt);
+            }
+        });
 
         jButton1.setText("Cancel");
 
@@ -608,6 +623,10 @@ public class BookingFrame extends javax.swing.JFrame {
         jLabel36.setFont(new java.awt.Font("Tahoma", 3, 14)); // NOI18N
         jLabel36.setForeground(new java.awt.Color(0, 0, 204));
         jLabel36.setText("Customer Info");
+
+        jlModeMessage.setBackground(new java.awt.Color(255, 204, 51));
+        jlModeMessage.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jlModeMessage.setForeground(new java.awt.Color(0, 0, 255));
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -637,6 +656,7 @@ public class BookingFrame extends javax.swing.JFrame {
                 .addGap(26, 26, 26)
                 .addComponent(jLabel36, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jlModeMessage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -663,7 +683,8 @@ public class BookingFrame extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel34)
                     .addComponent(jtfEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(22, 22, 22)
+                .addComponent(jlModeMessage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jLabel32.setFont(new java.awt.Font("Tahoma", 3, 14)); // NOI18N
@@ -735,6 +756,10 @@ public class BookingFrame extends javax.swing.JFrame {
 
         jtfRoomType.setEnabled(false);
 
+        jtfPayStatus.setEnabled(false);
+
+        jLabel18.setText("Pay Status");
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -804,11 +829,15 @@ public class BookingFrame extends javax.swing.JFrame {
                                     .addComponent(jtfRoomNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                                    .addGap(24, 24, 24)
-                                    .addComponent(jLabel39)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(jtfRoomType, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(24, 24, 24)))
+                                    .addGap(18, 18, 18)
+                                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel18)
+                                        .addComponent(jLabel39, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(jtfRoomType, javax.swing.GroupLayout.DEFAULT_SIZE, 75, Short.MAX_VALUE)
+                                        .addComponent(jtfPayStatus))
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                             .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addGroup(jPanel3Layout.createSequentialGroup()
                                     .addComponent(jLabel38)
@@ -818,7 +847,7 @@ public class BookingFrame extends javax.swing.JFrame {
                                     .addComponent(jLabel37)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                     .addComponent(jtfGuest4, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE))))))
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addContainerGap(38, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -882,12 +911,13 @@ public class BookingFrame extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
-                    .addComponent(jtfHotel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jtfHotel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel18)
+                    .addComponent(jtfPayStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
         jlMainMessage.setFont(new java.awt.Font("Tahoma", 2, 11)); // NOI18N
         jlMainMessage.setForeground(new java.awt.Color(255, 0, 0));
-        jlMainMessage.setText("jLabel1");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -898,23 +928,24 @@ public class BookingFrame extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(jlMainMessage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jbtnMainApply, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())))
+                        .addGap(18, 18, 18))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton3)
+                    .addComponent(jbtnMainApply)
                     .addComponent(jButton1)
-                    .addComponent(jlMainMessage)))
+                    .addComponent(jlMainMessage))
+                .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
@@ -974,7 +1005,7 @@ public class BookingFrame extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jbtnBookRoom, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jbtnCreate3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jbtnCreate3, javax.swing.GroupLayout.DEFAULT_SIZE, 159, Short.MAX_VALUE)
                     .addComponent(jbtnCreate4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jbtnCreate5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -991,7 +1022,7 @@ public class BookingFrame extends javax.swing.JFrame {
                 .addComponent(jbtnCreate5, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jbtnCreate4, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(40, Short.MAX_VALUE))
             .addGroup(jPanel10Layout.createSequentialGroup()
                 .addComponent(jSeparator1)
                 .addContainerGap())
@@ -1018,10 +1049,10 @@ public class BookingFrame extends javax.swing.JFrame {
                 .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jfBookingFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jfBookingFrameLayout.createSequentialGroup()
+                    .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jfBookingFrameLayout.createSequentialGroup()
                         .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addContainerGap())
-                    .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addContainerGap())))
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -1068,6 +1099,7 @@ public class BookingFrame extends javax.swing.JFrame {
     }
     
     private void returnBookingFrame(){
+        initJFrame(jfBookingSearchFrame, false, false);
         initJFrame(jfSearchResult, false, false);
         initJFrame(jfBookingFrame, true, true);
     }
@@ -1261,6 +1293,8 @@ public class BookingFrame extends javax.swing.JFrame {
 
     private void jbtnCreate5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnCreate5ActionPerformed
         // TODO add your handling code here:
+        enableUpdateBooking(true);
+        jlModeMessage.setText("Update Booking Mode");
     }//GEN-LAST:event_jbtnCreate5ActionPerformed
 
     private void jbtnCreate4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnCreate4ActionPerformed
@@ -1282,9 +1316,72 @@ public class BookingFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
         bookingFramePojo = bookingDao.getBookingFramePojo().get(jtSearch_MainFrame.getSelectedRow());
         showUpBookingFrameData(bookingFramePojo); // Show up the personal data to the booking frame
+        enableMakeBooking(true);
         returnBookingFrame();
     }//GEN-LAST:event_jbtnSearchApplyActionPerformed
 
+    private void costCalculation(BookingFramePOJO bf){
+        Long diffDay = (bf.getCheckOut().getTime() - bf.getCheckIn().getTime()) / (24 * 60 * 60 * 1000); 
+        Float cost = diffDay * bf.getRoomPrice();
+        bf.setTotAmt(cost);
+        bf.setPayStatus("PENDING"); // PAID, PENDING, CANCELED
+    }
+    
+    private void jbtnMainApplyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnMainApplyActionPerformed
+        // TODO add your handling code here:
+        if("Make Booking Mode".equals(jlModeMessage.getText())){
+            if(updateBookingFrame(bookingFramePojo))
+                costCalculation(bookingFramePojo);
+            else{
+                jlMainMessage.setText("Can't update the form");
+                return;
+            }
+            if(bookingDao.insert(bookingFramePojo)!=-1)
+                JOptionPane.showMessageDialog(null, "Making a Booking successfully!", "Notification", JOptionPane.INFORMATION_MESSAGE);
+            else
+                JOptionPane.showMessageDialog(null, "Making a Booking failed!", "Notification", JOptionPane.ERROR_MESSAGE);
+        } else if("Update Booking Mode".equals(jlModeMessage.getText())){
+            if(updateBookingFrame(bookingFramePojo))
+                costCalculation(bookingFramePojo);
+            else{
+                jlMainMessage.setText("Can't update the form");
+                return;
+            }
+            bookingDao.update(bookingFramePojo);
+            JOptionPane.showMessageDialog(null, "Updated Successfully!", "Notification", JOptionPane.INFORMATION_MESSAGE);
+        }else{
+            jlModeMessage.setText("No Mode Identified");
+        }
+    }//GEN-LAST:event_jbtnMainApplyActionPerformed
+
+    private void enableUpdateBooking(Boolean flag){
+        jlModeMessage.setText("Update Booking Mode");
+        jtfCheckIn.setEnabled(flag);
+        jtfCheckOut.setEnabled(flag);
+        jtfPhone.setEnabled(flag);
+        jtfEmail.setEnabled(flag);
+        jtfBookDate.setEnabled(flag);
+        jtfGuest1.setEnabled(flag);
+        jtfGuest2.setEnabled(flag);
+        jtfGuest3.setEnabled(flag);
+        jtfGuest4.setEnabled(flag);
+        jtfGuest5.setEnabled(flag);
+    }
+    
+    private void enableMakeBooking(Boolean flag){
+        jlModeMessage.setText("Make Booking Mode");
+        jtfCheckIn.setEnabled(flag);
+        jtfCheckOut.setEnabled(flag);
+        jtfPhone.setEnabled(flag);
+        jtfEmail.setEnabled(flag);
+        jtfBookDate.setEnabled(flag);
+        jtfGuest1.setEnabled(flag);
+        jtfGuest2.setEnabled(flag);
+        jtfGuest3.setEnabled(flag);
+        jtfGuest4.setEnabled(flag);
+        jtfGuest5.setEnabled(flag);
+    }
+    
     private void showUpBookingFrameData(BookingFramePOJO bf) {
         //  Booking Info filling out
         if(bf.getBookId()!=null)
@@ -1293,20 +1390,62 @@ public class BookingFrame extends javax.swing.JFrame {
             jtfCheckIn.setText(bf.getCheckIn().toString());
         if(bf.getCheckOut()!=null)
             jtfCheckOut.setText(bf.getCheckOut().toString());
-        jtfContactPhone.setText(bf.getContactPerson());
-        jtfContactEmail.setText(bf.getContactEmail());
-        jtfHotel.setText(bf.getHotelId().toString());
-        jtfBookDate.setText(bf.getBookDate().toString());
-        jtfTotalAmount.setText(bf.getTotAmt().toString());
-        jtfRoomId.setText(bf.getRoomId().toString());
-        jtfRoomNumber.setText(bf.getRoomNo());
-        jtfRoomType.setText(bf.getRoomType());
-        jtfGuest1.setText(bf.getGuest1().toString());
-        jtfGuest2.setText(bf.getGuest2().toString());
-        jtfGuest3.setText(bf.getGuest3().toString());
-        jtfGuest4.setText(bf.getGuest4().toString());
-        jtfGuest5.setText(bf.getGuest5().toString());
-        
+        if(bf.getContactPerson()!=null)
+            jtfContactPhone.setText(bf.getContactPerson());
+        if(bf.getContactEmail()!=null)
+            jtfContactEmail.setText(bf.getContactEmail());
+        if(bf.getHotelId()!=null)
+            jtfHotel.setText(bf.getHotelId().toString());
+        if(bf.getBookDate()!=null)
+            jtfBookDate.setText(bf.getBookDate().toString());
+        if(bf.getTotAmt()!=null)
+            jtfTotalAmount.setText(bf.getTotAmt().toString());
+        if(bf.getRoomId()!=null)
+            jtfRoomId.setText(bf.getRoomId().toString());
+        if(bf.getRoomNo()!=null)
+            jtfRoomNumber.setText(bf.getRoomNo());
+        if(bf.getRoomType()!=null)
+            jtfRoomType.setText(bf.getRoomType());
+        if(bf.getGuest1()!=null)
+            jtfGuest1.setText(bf.getGuest1().toString());
+        if(bf.getGuest2()!=null)
+            jtfGuest2.setText(bf.getGuest2().toString());
+        if(bf.getGuest3()!=null)
+            jtfGuest3.setText(bf.getGuest3().toString());
+        if(bf.getGuest4()!=null)
+            jtfGuest4.setText(bf.getGuest4().toString());
+        if(bf.getGuest5()!=null)
+            jtfGuest5.setText(bf.getGuest5().toString());
+        if(bf.getPayStatus()!=null)
+            jtfPayStatus.setText(bf.getPayStatus());
+    }
+    
+    private Boolean updateBookingFrame(BookingFramePOJO bf) {
+        try {
+            if(jtfCheckIn.getText()==null || jtfCheckOut.getText()==null){
+                jlMainMessage.setText("Fill out check in / out");
+                return false;
+            }
+            bf.setCheckIn(formatter.parse(jtfCheckIn.getText()));
+            bf.setCheckOut(formatter.parse(jtfCheckOut.getText()));
+            bf.setBookDate(formatter.parse(jtfBookDate.getText()));
+        } catch (ParseException ex) {
+            Logger.getLogger(BookingFrame.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+        bf.setContactPerson(jtfPhone.getText());
+        bf.setContactEmail(jtfEmail.getText());
+        if(jtfGuest1.getText()!=null)
+            bf.setGuest1(Integer.parseInt(jtfGuest1.getText()));
+        if(jtfGuest2.getText()!=null)
+            bf.setGuest2(Integer.parseInt(jtfGuest2.getText()));
+        if(jtfGuest3.getText()!=null)
+            bf.setGuest3(Integer.parseInt(jtfGuest3.getText()));
+        if(jtfGuest4.getText()!=null)
+            bf.setGuest4(Integer.parseInt(jtfGuest4.getText()));
+        if(jtfGuest5.getText()!=null)
+            bf.setGuest5(Integer.parseInt(jtfGuest5.getText()));
+        return true;
     }
     
     private void queryCustomer2JTable(){
@@ -1355,7 +1494,6 @@ public class BookingFrame extends javax.swing.JFrame {
     private javax.swing.JLabel Price1;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -1365,6 +1503,7 @@ public class BookingFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
@@ -1408,6 +1547,7 @@ public class BookingFrame extends javax.swing.JFrame {
     private javax.swing.JButton jbtnCreate3;
     private javax.swing.JButton jbtnCreate4;
     private javax.swing.JButton jbtnCreate5;
+    private javax.swing.JButton jbtnMainApply;
     private javax.swing.JButton jbtnOkay;
     private javax.swing.JButton jbtnSearch;
     private javax.swing.JButton jbtnSearchApply;
@@ -1425,6 +1565,7 @@ public class BookingFrame extends javax.swing.JFrame {
     private javax.swing.JFrame jfSearchResult;
     private javax.swing.JLabel jlMainMessage;
     private javax.swing.JLabel jlMessage;
+    private javax.swing.JLabel jlModeMessage;
     private javax.swing.JTable jtResult;
     private javax.swing.JTable jtSearch_MainFrame;
     private javax.swing.JTextField jtfBookDate;
@@ -1445,6 +1586,7 @@ public class BookingFrame extends javax.swing.JFrame {
     private javax.swing.JTextField jtfHotel;
     private javax.swing.JTextField jtfKeyWord;
     private javax.swing.JTextField jtfLastName;
+    private javax.swing.JTextField jtfPayStatus;
     private javax.swing.JTextField jtfPhone;
     private javax.swing.JTextField jtfRoomId;
     private javax.swing.JTextField jtfRoomNumber;

@@ -134,5 +134,66 @@ public class BookingDAO {
     public ArrayList<BookingFramePOJO> getBookingFramePojo() {
         return bookingFramePojo;
     }
+
+    public Integer insert(BookingFramePOJO bf) {
+        try {
+            Statement sm = conn.createStatement();
+            //  Get Primary key from Sequence first
+            String sql_0 = "SELECT BOOKING_SEQ.NEXTVAL FROM dual";
+            Integer primaryKey = -1;
+            ResultSet rs = sm.executeQuery(sql_0);
+            if(rs.next())
+                primaryKey = rs.getInt(1);
+            
+            //  Insert into Personal_Details
+            String sql_1 = String.format("INSERT INTO BOOKING(BOOK_ID, CHECK_IN, CHECK_OUT, CONTACT_P "
+                    + "CONTACT_EML, TOT_AMT, PAY_STATUS, CUST_ID, BOOK_DATE, HOTEL_ID) VALUES("
+                    + "%d, '%s', '%s', '%s', '%s', '%f', '%s', '%d', %s, '%d')",
+                    primaryKey, bf.getCheckIn(),bf.getCheckOut(),bf.getContactPerson(),
+                    bf.getContactEmail(),bf.getTotAmt(),bf.getTotAmt(),bf.getCustId(),bf.getBookDate(),
+                    bf.getHotelId());
+            System.out.println(sql_1);
+            int n = sm.executeUpdate(sql_1, Statement.RETURN_GENERATED_KEYS);
+            //  Insert into Guest
+            String sql_2 = String.format("INSERT INTO SUBBOOKING(ROOM_ID, BOOK_ID) "
+                    + "VALUES(%d, %d)", bf.getRoomId(), primaryKey);
+            System.out.println(sql_2);
+            int m = sm.executeUpdate(sql_2, Statement.RETURN_GENERATED_KEYS);
+            rs.close();
+            sm.close();
+            if(n>0 && m>0) return primaryKey; else return -1;
+        } catch (SQLException ex) {
+            Logger.getLogger(BookingDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return -1;
+        }
+    }
+
+    public Integer update(BookingFramePOJO bf) {
+        try {
+            Statement sm = conn.createStatement();
+            int n, m = -1;
+            String sql_1 = String.format("UPDATE BOOKING B "
+                    + "SET B.CHECK_IN='%s', B.CHECK_OUT='%s', B.CONTACT_P='%s', B_CONTACT_EML='%s', "
+                    + "B.TOT_AMT='%d', B.PAY_STATUS='%s', B.CUST_ID='%d', B.BOOK_DATE=%d, "
+                    + "B.HOTEL_ID='%d' WHERE "
+                    + "B.BOOK_ID=%d", bf.getCheckIn(),bf.getCheckOut(),bf.getContactPerson(),bf.getContactEmail(),
+                    bf.getTotAmt(),bf.getPayStatus(),bf.getCustId(),bf.getBookDate(),bf.getHotelId(),bf.getBookId());
+            System.out.println(sql_1);
+            n = sm.executeUpdate(sql_1);
+            if(n>=0){
+                String sql_2 = String.format("UPDATE SUBBOOKNG S SET S.ROOM_ID=%d "
+                        + "WHERE S.BOOK_ID=%d", bf.getRoomId(), bf.getBookId());
+
+                System.out.println(sql_2);
+                m = sm.executeUpdate(sql_2);
+            }
+            else return -1;
+            sm.close();
+            if(n>=0 && m>=0) return 1; else  return -1;
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            return -1;
+        }
+    }
     
 }
