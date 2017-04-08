@@ -33,7 +33,12 @@ public class BookingFramePOJO {
     private Integer roomMaxCap;
     private String  roomAvailable;
 
-    
+    //  Guest
+    private Integer guest1;
+    private Integer guest2;
+    private Integer guest3;
+    private Integer guest4;
+    private Integer guest5;
     
     public Integer getBookId() {
         return bookId;
@@ -171,6 +176,44 @@ public class BookingFramePOJO {
         this.roomAvailable = roomAvailable;
     }
 
-    
+    public Integer getGuest1() {
+        return guest1;
+    }
+
+    public Integer getGuest2() {
+        return guest2;
+    }
+
+    public Integer getGuest3() {
+        return guest3;
+    }
+
+    public Integer getGuest4() {
+        return guest4;
+    }
+
+    public Integer getGuest5() {
+        return guest5;
+    }
+
+    public void setGuest1(Integer guest1) {
+        this.guest1 = guest1;
+    }
+
+    public void setGuest2(Integer guest2) {
+        this.guest2 = guest2;
+    }
+
+    public void setGuest3(Integer guest3) {
+        this.guest3 = guest3;
+    }
+
+    public void setGuest4(Integer guest4) {
+        this.guest4 = guest4;
+    }
+
+    public void setGuest5(Integer guest5) {
+        this.guest5 = guest5;
+    }
     
 }

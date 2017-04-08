@@ -26,7 +26,7 @@ public class BookingDAO {
     private BookingPOJO bookingPojo = null;
     private RoomPOJO roomPojo = null;
     private Object columnHeaders[] = {"ROOM ID","ROOM TYPE","PRICE", "ROOM NO", "MAX CAP","HOTEL_ID","AVAILABLE"};
-    private ArrayList<BookingFramePOJO> bfPojo = null;
+    private ArrayList<BookingFramePOJO> bookingFramePojo = null;
     private Statement sm = null;
     private DefaultTableModel tableModel = null;
     
@@ -35,7 +35,7 @@ public class BookingDAO {
             conn = OracleDBConnectionUtil.getInstance().getConnectionB();
             bookingPojo = new BookingPOJO();
             roomPojo = new RoomPOJO();
-            bfPojo = new ArrayList<>();
+            bookingFramePojo = new ArrayList<>();
             tableModel = new DefaultTableModel();
             
         } catch (SQLException e) {
@@ -45,7 +45,7 @@ public class BookingDAO {
 
     public DefaultTableModel search(String navigator, String... keys) {
         Object data[][] = new Object[100][7];
-        bfPojo.clear();
+        bookingFramePojo.clear();
         
         try {
             sm = conn.createStatement();
@@ -112,26 +112,27 @@ public class BookingDAO {
             data[i][4] = rsr.getInt("MAX_CAP");
             data[i][5] = rsr.getInt("HOTEL_ID");
             data[i][6] = rsr.getString("AVAILABLE");
-            bfPojo.add(matchingBookingFrame(rsr));
-            System.out.println(data[i][0]); // why just 5?
+            bookingFramePojo.add(matchingBookingFrame(rsr));
         }
         tableModel.setRowCount(0); // reset content
         tableModel.setDataVector(data, columnHeaders);
     }
     
     private BookingFramePOJO matchingBookingFrame(ResultSet rs) throws SQLException{
-        BookingFramePOJO bfPojo = new BookingFramePOJO();
-        bfPojo.setRoomId(rs.getInt("ROOM_ID"));
-        bfPojo.setRoomType(rs.getString("ROOM_TYPE"));
-        bfPojo.setRoomPrice(rs.getFloat("PRICE"));
-        bfPojo.setRoomDesc(rs.getString("DESCR"));
-        bfPojo.setRoomNo(rs.getString("ROOM_NO"));
-        bfPojo.setRoomMaxCap(rs.getInt("MAX_CAP"));
-        bfPojo.setHotelId(rs.getInt("HOTEL_ID"));
-        bfPojo.setRoomAvailable(rs.getString("AVAILABLE"));
-        return bfPojo;
+        BookingFramePOJO bookingFramePojo = new BookingFramePOJO();
+        bookingFramePojo.setRoomId(rs.getInt("ROOM_ID"));
+        bookingFramePojo.setRoomType(rs.getString("ROOM_TYPE"));
+        bookingFramePojo.setRoomPrice(rs.getFloat("PRICE"));
+        bookingFramePojo.setRoomDesc(rs.getString("DESCR"));
+        bookingFramePojo.setRoomNo(rs.getString("ROOM_NO"));
+        bookingFramePojo.setRoomMaxCap(rs.getInt("MAX_CAP"));
+        bookingFramePojo.setHotelId(rs.getInt("HOTEL_ID"));
+        bookingFramePojo.setRoomAvailable(rs.getString("AVAILABLE"));
+        return bookingFramePojo;
     }
 
-    
+    public ArrayList<BookingFramePOJO> getBookingFramePojo() {
+        return bookingFramePojo;
+    }
     
 }
