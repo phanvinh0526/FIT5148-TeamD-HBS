@@ -66,6 +66,7 @@ public class OracleDBConnectionUtil {
             try {
                 oracleDb.connectionA.close();
                 oracleDb.connectionB.close();
+                oracleDb = null;
                 Logger.getLogger(OracleDBConnectionUtil.class.getName()).log(Level.SEVERE, "OracleDB Connection's Closed!");
                 System.out.println("Connection to OracleDB is closed!");
             } catch (SQLException e) {

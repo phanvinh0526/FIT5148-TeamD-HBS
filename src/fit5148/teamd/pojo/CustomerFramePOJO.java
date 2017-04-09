@@ -12,6 +12,11 @@ import java.util.Date;
  * @author Vinh Phan
  */
 public class CustomerFramePOJO {
+    //  Customer
+    private Integer custId;
+    private Integer memCredit;
+    private String memTier;
+    
     //  Personal Details
     private Integer perId;
     private String  perTitle;
@@ -111,6 +116,30 @@ public class CustomerFramePOJO {
 
     public void setPerPhone(Integer perPhone) {
         this.perPhone = perPhone;
+    }
+
+    public Integer getCustId() {
+        return custId;
+    }
+
+    public Integer getMemCredit() {
+        return memCredit;
+    }
+
+    public String getMemTier() {
+        return memTier;
+    }
+
+    public void setCustId(Integer custId) {
+        this.custId = custId;
+    }
+
+    public void setMemCredit(Integer memCredit) {
+        this.memCredit = memCredit;
+    }
+
+    public void setMemTier(String memTier) {
+        this.memTier = memTier;
     }
     
 }

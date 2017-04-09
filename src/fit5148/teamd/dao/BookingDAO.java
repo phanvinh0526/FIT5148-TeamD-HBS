@@ -48,7 +48,7 @@ public class BookingDAO {
     public DefaultTableModel search(String navigator, String... keys) {
         Object data[][] = new Object[100][7];
         bookingFramePojo.clear();
-        
+        bookingFramePojo = new ArrayList<>();
         try {
             sm = conn.createStatement();
         } catch (SQLException ex) {
@@ -209,7 +209,8 @@ public class BookingDAO {
             sm = conn.createStatement();
             String sql_1 = String.format("INSERT INTO BOOKING(BOOK_ID, CHECK_IN, CHECK_OUT, CONTACT_P, "
                     + "CONTACT_EML, TOT_AMT, PAY_STATUS, CUST_ID, BOOK_DATE, HOTEL_ID) "
-                    + "VALUES(%d,'%s','%s','%s','%s',%f,'%s',%d,'%s',%d)",
+                    + "VALUES(%d,TO_DATE('%s', 'YYYY-MM-DD'),TO_DATE('%s', 'YYYY-MM-DD'),"
+                    + "'%s','%s',%f,'%s',%d,TO_DATE('%s', 'YYYY-MM-DD'),%d)",
                     primaryKey,bf.getCheckIn()==null?null: new Date(bf.getCheckIn().getTime()),
                     bf.getCheckOut()==null?null:new Date(bf.getCheckOut().getTime()),
                     bf.getContactPhone(),
@@ -227,16 +228,16 @@ public class BookingDAO {
                 return -1;
             }
             sm.close();
-            conn.commit();
+//            conn.commit();
 //          Insert into Guest
             sm = conn.createStatement();
             String sql_2 = String.format("INSERT INTO SUBBOOKING(ROOM_ID, BOOK_ID) VALUES(%d,%d)",
-                    bf.getRoomId(),bf.getBookId());
+                    bf.getRoomId(),primaryKey);
             System.out.println(sql_2);
             
             if(sm.executeUpdate(sql_2)>=0){
                 sm.close();
-                conn.commit();
+//                conn.commit();
                 return primaryKey;
             } else{
                 sm.close();

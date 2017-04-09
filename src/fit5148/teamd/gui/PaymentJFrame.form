@@ -213,7 +213,9 @@
                                       <Component id="searchPmtTabModifyCustSearchResultScrollPane" min="-2" pref="900" max="-2" attributes="0"/>
                                       <Group type="102" alignment="1" attributes="0">
                                           <Component id="searchPmtTabModifyOrSavePmtPanel" min="-2" pref="778" max="-2" attributes="0"/>
-                                          <EmptySpace min="-2" pref="72" max="-2" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="jbCancel" min="-2" pref="83" max="-2" attributes="0"/>
+                                          <EmptySpace min="-2" pref="1" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
                                   <EmptySpace max="32767" attributes="0"/>
@@ -223,11 +225,16 @@
                         <DimensionLayout dim="1">
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
-                                  <Component id="searchPmtTabSelectCustomerLabel" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                  <Component id="searchPmtTabModifyCustSearchResultScrollPane" min="-2" pref="123" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
-                                  <Component id="searchPmtTabModifyOrSavePmtPanel" min="-2" pref="117" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="1" attributes="0">
+                                      <Component id="jbCancel" min="-2" pref="39" max="-2" attributes="0"/>
+                                      <Group type="102" attributes="0">
+                                          <Component id="searchPmtTabSelectCustomerLabel" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                          <Component id="searchPmtTabModifyCustSearchResultScrollPane" min="-2" pref="123" max="-2" attributes="0"/>
+                                          <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
+                                          <Component id="searchPmtTabModifyOrSavePmtPanel" min="-2" pref="117" max="-2" attributes="0"/>
+                                      </Group>
+                                  </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                               </Group>
                           </Group>
@@ -346,7 +353,7 @@
                                               <Component id="searchPmtTabChildPanel1DelButton" alignment="0" min="-2" max="-2" attributes="0"/>
                                               <Component id="searchPmtTabChildPanel1Label1" alignment="0" min="-2" max="-2" attributes="0"/>
                                           </Group>
-                                          <EmptySpace pref="313" max="32767" attributes="0"/>
+                                          <EmptySpace pref="259" max="32767" attributes="0"/>
                                       </Group>
                                   </Group>
                                 </DimensionLayout>
@@ -380,6 +387,14 @@
                             </Container>
                           </SubComponents>
                         </Container>
+                        <Component class="javax.swing.JButton" name="jbCancel">
+                          <Properties>
+                            <Property name="text" type="java.lang.String" value="Cancel"/>
+                          </Properties>
+                          <Events>
+                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbCancelActionPerformed"/>
+                          </Events>
+                        </Component>
                       </SubComponents>
                     </Container>
                     <Component class="javax.swing.JLabel" name="searchPmtEmlLabel">

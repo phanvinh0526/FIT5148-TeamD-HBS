@@ -22,6 +22,7 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JComponent;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -56,19 +57,35 @@ public class CustomerJFrame extends javax.swing.JFrame {
         
            
                 initComponents();
-                
+                injectComponents();
                 this.currentHotelId = 1;
-            try {
                 custDao= new CustomerDAO();
-                
                 memDao= new MembershipDAO();
-                 
-            } catch (SQLException ex) {
-                setErrorMessage(glbErrLabel, "There was a problem accessing Database. Please reopen");
-                Logger.getLogger(CustomerJFrame.class.getName()).log(Level.SEVERE, null, ex);
-            }
             init();
     }
+    
+    private void injectComponents() {
+        initJFrame(this, true, true);
+        
+    }
+    
+    private void initJFrame(JFrame jf, Boolean enable, Boolean visible){
+        jf.pack();
+        jf.setLocationRelativeTo(null);
+        jf.setVisible(visible);
+        jf.setEnabled(enable);
+    }
+
+    private void returnPreviousFrame(){
+        // How to return?
+        
+    }
+    
+    private void returnMainFrame(){
+        this.removeAll();
+        this.dispose();
+    }
+    
     private void init(){
         searchModifyTabbedPane.setEnabledAt(2, false);
         displayToggleComponent(modifyCustSearchResultPanel);
@@ -325,6 +342,7 @@ public class CustomerJFrame extends javax.swing.JFrame {
         modifyCustChildPanelUpdateBtn = new javax.swing.JButton();
         modifyCustChildPanelLabel1 = new javax.swing.JLabel();
         modifyCustChildPanelDelButton = new javax.swing.JButton();
+        jbCancel = new javax.swing.JButton();
         searchModifyCustErrorMsgLabel = new javax.swing.JLabel();
         searchCatEmlRad = new javax.swing.JRadioButton();
         searchCatMemRad = new javax.swing.JRadioButton();
@@ -499,6 +517,13 @@ public class CustomerJFrame extends javax.swing.JFrame {
 
         modifyOrSavePanel.add(modifyCustChildPanel, "card3");
 
+        jbCancel.setText("Cancel");
+        jbCancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbCancelActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout modifyCustSearchResultPanelLayout = new javax.swing.GroupLayout(modifyCustSearchResultPanel);
         modifyCustSearchResultPanel.setLayout(modifyCustSearchResultPanelLayout);
         modifyCustSearchResultPanelLayout.setHorizontalGroup(
@@ -509,24 +534,27 @@ public class CustomerJFrame extends javax.swing.JFrame {
                         .addContainerGap()
                         .addComponent(modifyCustSearchResultScrollPane))
                     .addGroup(modifyCustSearchResultPanelLayout.createSequentialGroup()
-                        .addGroup(modifyCustSearchResultPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(modifyCustSearchResultPanelLayout.createSequentialGroup()
-                                .addGap(494, 494, 494)
-                                .addComponent(selectCustomerLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(modifyCustSearchResultPanelLayout.createSequentialGroup()
-                                .addGap(233, 233, 233)
-                                .addComponent(modifyOrSavePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 226, Short.MAX_VALUE)))
+                        .addGap(494, 494, 494)
+                        .addComponent(selectCustomerLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 499, Short.MAX_VALUE))
+                    .addGroup(modifyCustSearchResultPanelLayout.createSequentialGroup()
+                        .addGap(233, 233, 233)
+                        .addComponent(modifyOrSavePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jbCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         modifyCustSearchResultPanelLayout.setVerticalGroup(
             modifyCustSearchResultPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(modifyCustSearchResultPanelLayout.createSequentialGroup()
-                .addComponent(selectCustomerLabel)
-                .addGap(14, 14, 14)
-                .addComponent(modifyCustSearchResultScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(modifyOrSavePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(modifyCustSearchResultPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jbCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(modifyCustSearchResultPanelLayout.createSequentialGroup()
+                        .addComponent(selectCustomerLabel)
+                        .addGap(14, 14, 14)
+                        .addComponent(modifyCustSearchResultScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(modifyOrSavePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(0, 11, Short.MAX_VALUE))
         );
 
@@ -1082,6 +1110,12 @@ public class CustomerJFrame extends javax.swing.JFrame {
         
     }//GEN-LAST:event_modifyCustChildPanelDelButtonActionPerformed
 
+    private void jbCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCancelActionPerformed
+        // TODO add your handling code here:
+        System.out.println("Closing Customer Frame");
+        returnMainFrame();
+    }//GEN-LAST:event_jbCancelActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1145,6 +1179,7 @@ public class CustomerJFrame extends javax.swing.JFrame {
     private javax.swing.JPanel addNewCustomerPanel;
     private javax.swing.ButtonGroup custSearchBtnGrp;
     private javax.swing.JLabel glbErrLabel;
+    private javax.swing.JButton jbCancel;
     private javax.swing.JLabel manageCustFrameLabel;
     private javax.swing.JComboBox<String> memTierSearchComboBox;
     private javax.swing.JPanel modifyCustChildPanel;

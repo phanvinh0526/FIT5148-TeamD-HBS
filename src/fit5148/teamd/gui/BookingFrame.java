@@ -605,7 +605,8 @@ public class BookingFrame extends javax.swing.JFrame {
             }
         });
 
-        jLabel31.setText("Cus_Id");
+        jLabel31.setForeground(new java.awt.Color(255, 102, 102));
+        jLabel31.setText("Customer Id");
 
         jtfCustomerId.setEnabled(false);
 
@@ -1336,7 +1337,7 @@ public class BookingFrame extends javax.swing.JFrame {
         Long diffDay = (bf.getCheckOut().getTime() - bf.getCheckIn().getTime()) / (24 * 60 * 60 * 1000); 
         Float cost = diffDay * bf.getRoomPrice();
         bf.setTotAmt(cost);
-        bf.setPayStatus("PENDING"); // PAID, PENDING, CANCELED
+        bf.setPayStatus("UNPAID"); // PAID, UNPAID
     }
     
     private void jbtnMainApplyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnMainApplyActionPerformed
@@ -1616,7 +1617,7 @@ public class BookingFrame extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void showUpPersonData(CustomerFramePOJO bf) {
-        jtfCustomerId.setText(bf.getPerId().toString());
+        jtfCustomerId.setText(bf.getCustId().toString());
         jtfFirstName.setText(bf.getPerFName());
         jtfLastName.setText(bf.getPerLName());
         jtfPhone.setText(bf.getPerPhone().toString());

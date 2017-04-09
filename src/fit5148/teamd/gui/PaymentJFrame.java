@@ -13,6 +13,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFrame;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
@@ -34,6 +35,7 @@ public class PaymentJFrame extends javax.swing.JFrame {
      */
     public PaymentJFrame() {
         initComponents();
+        injectComponents();
         this.currentHotelId = 1;
         try {
 
@@ -45,7 +47,29 @@ public class PaymentJFrame extends javax.swing.JFrame {
         }
         init();
     }
+    
+    private void injectComponents() {
+        initJFrame(this, true, true);
+        
+    }
+    
+    private void initJFrame(JFrame jf, Boolean enable, Boolean visible){
+        jf.pack();
+        jf.setLocationRelativeTo(null);
+        jf.setVisible(visible);
+        jf.setEnabled(enable);
+    }
 
+    private void returnPreviousFrame(){
+        // How to return?
+        
+    }
+    
+    private void returnMainFrame(){
+        this.removeAll();
+        this.dispose();
+    }
+    
     private void init() {
 //        Util.displayToggleComponent(modifyCustSearchResultTable);
 //      
@@ -136,6 +160,7 @@ public class PaymentJFrame extends javax.swing.JFrame {
         searchPmtTabChildPanel = new javax.swing.JPanel();
         searchPmtTabChildPanel1Label1 = new javax.swing.JLabel();
         searchPmtTabChildPanel1DelButton = new javax.swing.JButton();
+        jbCancel = new javax.swing.JButton();
         searchPmtEmlLabel = new javax.swing.JLabel();
         makePmtTabPanel = new javax.swing.JPanel();
         searchPmtLabel = new javax.swing.JLabel();
@@ -232,7 +257,7 @@ public class PaymentJFrame extends javax.swing.JFrame {
                 .addGroup(searchPmtTabChildPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(searchPmtTabChildPanel1DelButton)
                     .addComponent(searchPmtTabChildPanel1Label1))
-                .addContainerGap(313, Short.MAX_VALUE))
+                .addContainerGap(259, Short.MAX_VALUE))
         );
         searchPmtTabChildPanelLayout.setVerticalGroup(
             searchPmtTabChildPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -245,6 +270,13 @@ public class PaymentJFrame extends javax.swing.JFrame {
         );
 
         searchPmtTabModifyOrSavePmtPanel.add(searchPmtTabChildPanel, "card2");
+
+        jbCancel.setText("Cancel");
+        jbCancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbCancelActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout searchPmtTabSearchResultPanelLayout = new javax.swing.GroupLayout(searchPmtTabSearchResultPanel);
         searchPmtTabSearchResultPanel.setLayout(searchPmtTabSearchResultPanelLayout);
@@ -260,17 +292,22 @@ public class PaymentJFrame extends javax.swing.JFrame {
                     .addComponent(searchPmtTabModifyCustSearchResultScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 900, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, searchPmtTabSearchResultPanelLayout.createSequentialGroup()
                         .addComponent(searchPmtTabModifyOrSavePmtPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 778, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(72, 72, 72)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jbCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(1, 1, 1)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         searchPmtTabSearchResultPanelLayout.setVerticalGroup(
             searchPmtTabSearchResultPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(searchPmtTabSearchResultPanelLayout.createSequentialGroup()
-                .addComponent(searchPmtTabSelectCustomerLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(searchPmtTabModifyCustSearchResultScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(29, 29, 29)
-                .addComponent(searchPmtTabModifyOrSavePmtPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(searchPmtTabSearchResultPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jbCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(searchPmtTabSearchResultPanelLayout.createSequentialGroup()
+                        .addComponent(searchPmtTabSelectCustomerLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(searchPmtTabModifyCustSearchResultScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(29, 29, 29)
+                        .addComponent(searchPmtTabModifyOrSavePmtPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
 
@@ -766,6 +803,12 @@ public class PaymentJFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_addPmtButtonActionPerformed
 
+    private void jbCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCancelActionPerformed
+        // TODO add your handling code here:
+        System.out.println("Closing Payment Frame");
+        returnMainFrame();
+    }//GEN-LAST:event_jbCancelActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -813,6 +856,7 @@ public class PaymentJFrame extends javax.swing.JFrame {
     private javax.swing.JTabbedPane custPmtTabbedPane;
     private javax.swing.JLabel glbErrLabel;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JButton jbCancel;
     private javax.swing.JPanel makePmtTabPanel;
     private javax.swing.JLabel mgtPmtLabel;
     private javax.swing.JTable modifyCustSearchResultTable;

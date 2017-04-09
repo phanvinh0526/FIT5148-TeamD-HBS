@@ -53,6 +53,15 @@ public class GuestFrame extends javax.swing.JFrame {
         jf.setEnabled(enable);
     }
     
+    private void returnPreviousFrame(){
+        // How to return?
+        
+    }
+    
+    private void returnMainFrame(){
+        this.removeAll();
+        this.dispose();
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -724,10 +733,7 @@ public class GuestFrame extends javax.swing.JFrame {
         returnMainFrame();
     }//GEN-LAST:event_jbCancelActionPerformed
     
-    private void returnMainFrame(){
-        this.removeAll();
-        this.dispose();
-    }
+    
     
     private void showUpData(GuestFramePOJO gf){
         if(gf.getGuestId()==null){
@@ -749,11 +755,6 @@ public class GuestFrame extends javax.swing.JFrame {
         jtfPostcode.setText(gf.getPostCode());
         jtfPhone.setText(gf.getPh_no().toString());
         jtfEmail.setText(gf.getEmail());
-    }
-    
-    private void returnPreviousFrame(){
-        // How to return?
-        
     }
     
     /**

@@ -17,6 +17,8 @@ public class MainFrame extends javax.swing.JFrame {
 
     BookingFrame    bookingFrame = null;
     GuestFrame      guestFrame = null;
+    PaymentJFrame   paymentFrame = null;
+    CustomerJFrame  cutomerFrame = null;
     
     /**
      * Creates new form MainFrame
@@ -53,11 +55,11 @@ public class MainFrame extends javax.swing.JFrame {
         jbtnExit = new javax.swing.JButton();
         jButton10 = new javax.swing.JButton();
         jButton11 = new javax.swing.JButton();
-        jButton12 = new javax.swing.JButton();
+        jbtnCustomer = new javax.swing.JButton();
         jButton13 = new javax.swing.JButton();
         jButton14 = new javax.swing.JButton();
         jButton15 = new javax.swing.JButton();
-        jButton16 = new javax.swing.JButton();
+        jbtnPayment = new javax.swing.JButton();
         jPanel6 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTextArea2 = new javax.swing.JTextArea();
@@ -162,16 +164,16 @@ public class MainFrame extends javax.swing.JFrame {
         });
         jPanel5.add(jButton11, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 100, 50));
 
-        jButton12.setBackground(new java.awt.Color(255, 153, 51));
-        jButton12.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jButton12.setText("Customer");
-        jButton12.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jButton12.addActionListener(new java.awt.event.ActionListener() {
+        jbtnCustomer.setBackground(new java.awt.Color(255, 153, 51));
+        jbtnCustomer.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jbtnCustomer.setText("Customer");
+        jbtnCustomer.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jbtnCustomer.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton12ActionPerformed(evt);
+                jbtnCustomerActionPerformed(evt);
             }
         });
-        jPanel5.add(jButton12, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, 100, 50));
+        jPanel5.add(jbtnCustomer, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, 100, 50));
 
         jButton13.setBackground(new java.awt.Color(255, 153, 51));
         jButton13.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
@@ -206,16 +208,16 @@ public class MainFrame extends javax.swing.JFrame {
         });
         jPanel5.add(jButton15, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 300, 100, 50));
 
-        jButton16.setBackground(new java.awt.Color(255, 153, 51));
-        jButton16.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jButton16.setText("Payment");
-        jButton16.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jButton16.addActionListener(new java.awt.event.ActionListener() {
+        jbtnPayment.setBackground(new java.awt.Color(255, 153, 51));
+        jbtnPayment.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jbtnPayment.setText("Payment");
+        jbtnPayment.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jbtnPayment.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton16ActionPerformed(evt);
+                jbtnPaymentActionPerformed(evt);
             }
         });
-        jPanel5.add(jButton16, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 360, 100, 50));
+        jPanel5.add(jbtnPayment, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 360, 100, 50));
 
         jPanel3.add(jPanel5);
 
@@ -246,6 +248,25 @@ public class MainFrame extends javax.swing.JFrame {
     private void jbtnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnExitActionPerformed
         OracleDBConnectionUtil.closeAllConnections();
         System.out.println("All connections have been closed");
+        System.out.println("Closing Main Frame");
+        
+        if(this.bookingFrame!=null){
+            this.bookingFrame.removeAll();
+            this.bookingFrame.dispose();
+        }
+        if(this.guestFrame!=null){
+            this.guestFrame.removeAll();
+            this.guestFrame.dispose();
+        }
+        if(this.cutomerFrame!=null){
+            this.cutomerFrame.removeAll();
+            this.cutomerFrame.dispose();
+        }
+        if(this.paymentFrame!=null){
+            this.paymentFrame.removeAll();
+            this.paymentFrame.dispose();
+        }
+        
         this.removeAll();
         this.dispose();
     }//GEN-LAST:event_jbtnExitActionPerformed
@@ -254,9 +275,11 @@ public class MainFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton11ActionPerformed
 
-    private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
+    private void jbtnCustomerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnCustomerActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton12ActionPerformed
+        cutomerFrame = new CustomerJFrame();
+        
+    }//GEN-LAST:event_jbtnCustomerActionPerformed
 
     private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
         // TODO add your handling code here:
@@ -273,9 +296,10 @@ public class MainFrame extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jButton15ActionPerformed
 
-    private void jButton16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton16ActionPerformed
+    private void jbtnPaymentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnPaymentActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton16ActionPerformed
+        paymentFrame = new PaymentJFrame();
+    }//GEN-LAST:event_jbtnPaymentActionPerformed
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
         // TODO add your handling code here:
@@ -283,10 +307,7 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         // TODO add your handling code here:
-        System.out.println("Closing MainFrame");
-        OracleDBConnectionUtil.closeAllConnections();
-        this.removeAll();
-        this.dispose();
+       jbtnExitActionPerformed(null);
     }//GEN-LAST:event_formWindowClosing
 
     /**
@@ -327,11 +348,9 @@ public class MainFrame extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton11;
-    private javax.swing.JButton jButton12;
     private javax.swing.JButton jButton13;
     private javax.swing.JButton jButton14;
     private javax.swing.JButton jButton15;
-    private javax.swing.JButton jButton16;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel_Date;
@@ -344,6 +363,8 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTextArea jTextArea2;
+    private javax.swing.JButton jbtnCustomer;
     private javax.swing.JButton jbtnExit;
+    private javax.swing.JButton jbtnPayment;
     // End of variables declaration//GEN-END:variables
 }
