@@ -12,7 +12,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
@@ -181,7 +180,7 @@ public class CustomerDAO {
         CustomerPOJO cust = null;
         PreparedStatement sm = null;
         boolean status = true;
-        ResultSet rs = null;
+        ResultSet rs=null;
         try {
             conn.setAutoCommit(false);
             conn.commit();
@@ -224,7 +223,7 @@ public class CustomerDAO {
                         return false;
                     }
                 } else {
-                    return false;
+                   return false;
                 }
                 if (!status) {
                     conn.rollback();
@@ -235,21 +234,21 @@ public class CustomerDAO {
                 sm.close();
             }
         } catch (SQLException ex) {
-            ex.printStackTrace();
-            return false;
-        } finally {
-            try {
-                if (sm != null && !sm.isClosed()) {
+             ex.printStackTrace();
+             return false;
+        }finally{
+             try {
+                if (sm!=null && !sm.isClosed()) {
                     sm.close();
                 }
-                if (rs != null && !rs.isClosed()) {
+                 if (rs!=null && !rs.isClosed()) {
                     rs.close();
                 }
                 conn.rollback();
             } catch (Exception ex2) {
                 ex2.printStackTrace();
             }
-
+        
         }
         return status;
     }
@@ -299,40 +298,4 @@ public class CustomerDAO {
         return status;
     }
 
-    public HashMap<CustomerPOJO, PersonalDetailsPOJO> searchAllCustomers(){
-         HashMap<CustomerPOJO, PersonalDetailsPOJO> cust = new HashMap<CustomerPOJO, PersonalDetailsPOJO>();
-          Statement stmt =null;
-           ResultSet rs =null;
-        try {
-
-             stmt = conn.createStatement();
-            
-
-             rs = stmt.executeQuery("select * from customer  natural join personal_details  ");
-            boolean empty = true;
-            while (rs.next()) {
-
-                cust.put(new CustomerPOJO(rs.getInt("cust_id"), rs.getInt("mem_Credit"), rs.getString("mem_Tier"), rs.getInt("pd_id")), new PersonalDetailsPOJO(rs.getInt("pd_id"), rs.getString("title"), rs.getString("f_name"), rs.getString("l_name"), rs.getDate("DOB"), rs.getString("City"), rs.getString("Country"), rs.getString("Street"), rs.getString("Postcode"), rs.getInt("ph_no"), rs.getString("Email")));
-                empty = false;
-            }
-
-            rs.close();
-            stmt.close();
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-             
-            try {
-                if (stmt!=null & !stmt.isClosed()) {
-                    stmt.close();
-                }if (rs!=null & !rs.isClosed()) {
-                    rs.close();
-                }
-                conn.rollback();
-            } catch (Exception ex2) {
-                ex2.printStackTrace();
-            }
-            return cust;
-        }
-        return cust;
-    }
 }

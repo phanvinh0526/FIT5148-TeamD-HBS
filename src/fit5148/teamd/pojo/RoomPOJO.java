@@ -10,66 +10,45 @@ package fit5148.teamd.pojo;
  * @author VinhPQ
  */
 public class RoomPOJO {
-
-    private int id;
-    private String type = null;
-    private String description = null;
-    private float price;
-    private String roomNo;
+    private int id ;
+    private String  type = null;
+    private String  description =null;
+    private float price ;
+    private String  roomNo ;
     private Integer maxCap;
-    private Integer hotelId;
+    private Integer hotelId ;
+    private Integer facilityId ;
+    private char available ;
 
-    private char available;
 
-    public RoomPOJO(int id, float price, String roomNo, int maxCap, int hotelId, String type, String description) {
-
-        this.price = price;
-        this.roomNo = roomNo;
-        this.maxCap = maxCap;
-        this.hotelId = hotelId;
+   
+    public RoomPOJO(int id, float price, String roomNo, int maxCap, int hotelId, int facilityId, char available) {
         this.id = id;
-        this.type = type;
-        this.description = description;
-    }
-//constructor for inserting data
-
-    public RoomPOJO(float price, String type, String roomNo, Integer maxCap, Integer hotelId, String description) {
         this.price = price;
         this.roomNo = roomNo;
         this.maxCap = maxCap;
         this.hotelId = hotelId;
-        this.type = type;
-        this.description = description;
-
-    }
-
-    //constructor for fetching room
-    public RoomPOJO(int id, String type, String description, int price, String roomNo, int maxCap, int hotelId) {
-        this.id = id;
-        this.type = type;
-        this.description = description;
-        this.price = price;
-        this.roomNo = roomNo;
-        this.maxCap = maxCap;
-        this.hotelId = hotelId;
-
-    }
-
-    public RoomPOJO(int id, String type, String description, int price, String roomNo, int maxCap, int hotelId, char available) {
-        this.id = id;
-        this.type = type;
-        this.description = description;
-        this.price = price;
-        this.roomNo = roomNo;
-        this.maxCap = maxCap;
-        this.hotelId = hotelId;
-
+        this.facilityId = facilityId;
         this.available = available;
     }
 
-    public int getId() {
+  
+    public RoomPOJO(int id, String type, String description, int price, String roomNo, int maxCap, int hotelId, int facilityId, char available) {
+        this.id = id;
+        this.type = type;
+        this.description = description;
+        this.price = price;
+        this.roomNo = roomNo;
+        this.maxCap = maxCap;
+        this.hotelId = hotelId;
+        this.facilityId = facilityId;
+        this.available = available;
+    }
+    
+     public int getId() {
         return id;
     }
+
 
 
     public String getType() {
@@ -94,6 +73,10 @@ public class RoomPOJO {
 
     public int getHotelId() {
         return hotelId;
+    }
+
+    public int getFacilityId() {
+        return facilityId;
     }
 
     public char getAvailable() {
@@ -128,8 +111,12 @@ public class RoomPOJO {
         this.hotelId = hotelId;
     }
 
+    public void setFacilityId(int facilityId) {
+        this.facilityId = facilityId;
+    }
+
     public void setAvailable(char available) {
         this.available = available;
     }
-
+    
 }
