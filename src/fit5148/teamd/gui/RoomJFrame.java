@@ -60,7 +60,7 @@ public class RoomJFrame extends javax.swing.JFrame {
         }
         init();
     }
-
+    
     private void injectComponents() {
         initJFrame(this, true, true);
     }
@@ -81,6 +81,7 @@ public class RoomJFrame extends javax.swing.JFrame {
         this.removeAll();
         this.dispose();
     }
+    
     
     private void init() {
         manRoomTabbedPane.setEnabledAt(2, false);
@@ -228,11 +229,11 @@ public class RoomJFrame extends javax.swing.JFrame {
         resultPanel3 = new javax.swing.JPanel();
         updateRoomButton = new javax.swing.JButton();
         delRoomButton = new javax.swing.JButton();
-        jbCancel = new javax.swing.JButton();
         rFacComboBox = new javax.swing.JComboBox<>();
         vAllButton = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         rmSrchResTable = new javax.swing.JTable();
+        jbCancel = new javax.swing.JButton();
         createRoomPanel = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
@@ -317,13 +318,6 @@ public class RoomJFrame extends javax.swing.JFrame {
             }
         });
 
-        jbCancel.setText("Cancel");
-        jbCancel.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbCancelActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout resultPanel3Layout = new javax.swing.GroupLayout(resultPanel3);
         resultPanel3.setLayout(resultPanel3Layout);
         resultPanel3Layout.setHorizontalGroup(
@@ -333,9 +327,7 @@ public class RoomJFrame extends javax.swing.JFrame {
                 .addComponent(updateRoomButton)
                 .addGap(256, 256, 256)
                 .addComponent(delRoomButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 233, Short.MAX_VALUE)
-                .addComponent(jbCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addContainerGap(242, Short.MAX_VALUE))
         );
         resultPanel3Layout.setVerticalGroup(
             resultPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -345,9 +337,6 @@ public class RoomJFrame extends javax.swing.JFrame {
                     .addComponent(updateRoomButton)
                     .addComponent(delRoomButton))
                 .addContainerGap(34, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, resultPanel3Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jbCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         vAllButton.setText("View All");
@@ -392,6 +381,13 @@ public class RoomJFrame extends javax.swing.JFrame {
             rmSrchResTable.getColumnModel().getColumn(5).setMaxWidth(100);
         }
 
+        jbCancel.setText("Cancel");
+        jbCancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbCancelActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -417,7 +413,10 @@ public class RoomJFrame extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(resultPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(resultPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jbCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jScrollPane2))))
                 .addContainerGap())
         );
@@ -425,19 +424,22 @@ public class RoomJFrame extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(32, 32, 32)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(rFacComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3))
-                .addGap(24, 24, 24)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(srchRoomsButton)
-                    .addComponent(vAllButton))
-                .addGap(33, 33, 33)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(resultPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jbCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(32, 32, 32)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(rFacComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel3))
+                        .addGap(24, 24, 24)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(srchRoomsButton)
+                            .addComponent(vAllButton))
+                        .addGap(33, 33, 33)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(resultPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(31, Short.MAX_VALUE))
         );
 

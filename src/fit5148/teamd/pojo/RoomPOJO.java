@@ -10,20 +10,21 @@ package fit5148.teamd.pojo;
  * @author VinhPQ
  */
 public class RoomPOJO {
-    private int id ;
-    private String  type = null;
-    private String  description =null;
-    private float price ;
-    private String  roomNo ;
+
+    private int id;
+    private String type = null;
+    private String description = null;
+    private float price;
+    private String roomNo;
     private Integer maxCap;
-    private Integer hotelId ;
-    private Integer facilityId ;
-    private char available ;
+    private Integer hotelId;
+
+    private char available;
 
     public RoomPOJO(){
         
     }
-   
+    
     public RoomPOJO(int id, float price, String roomNo, int maxCap, int hotelId, String type, String description) {
 
         this.price = price;
@@ -70,15 +71,9 @@ public class RoomPOJO {
         this.available = available;
     }
 
-    public RoomPOJO(Float crtRPrice, String crtRType, String crtRNo, int crtRMaxCap, int currentHotelId, String text) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    
-     public int getId() {
+    public int getId() {
         return id;
     }
-
-
 
     public String getType() {
         return type;
@@ -102,10 +97,6 @@ public class RoomPOJO {
 
     public int getHotelId() {
         return hotelId;
-    }
-
-    public int getFacilityId() {
-        return facilityId;
     }
 
     public char getAvailable() {
@@ -140,12 +131,8 @@ public class RoomPOJO {
         this.hotelId = hotelId;
     }
 
-    public void setFacilityId(int facilityId) {
-        this.facilityId = facilityId;
-    }
-
     public void setAvailable(char available) {
         this.available = available;
     }
-    
+
 }
