@@ -245,6 +245,7 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void jbtnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnExitActionPerformed
         OracleDBConnectionUtil.closeAllConnections();
+        System.out.println("All connections have been closed");
         this.removeAll();
         this.dispose();
     }//GEN-LAST:event_jbtnExitActionPerformed

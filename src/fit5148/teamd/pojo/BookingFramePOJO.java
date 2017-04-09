@@ -16,7 +16,7 @@ public class BookingFramePOJO {
     private Integer bookId;
     private Date    checkIn;
     private Date    checkOut;
-    private String  contactPerson;
+    private String  contactPhone;
     private String  contactEmail;
     private Float   totAmt;
     private String  payStatus;
@@ -52,8 +52,8 @@ public class BookingFramePOJO {
         return checkOut;
     }
 
-    public String getContactPerson() {
-        return contactPerson;
+    public String getContactPhone() {
+        return contactPhone;
     }
 
     public String getContactEmail() {
@@ -120,8 +120,8 @@ public class BookingFramePOJO {
         this.checkOut = checkOut;
     }
 
-    public void setContactPerson(String contactPerson) {
-        this.contactPerson = contactPerson;
+    public void setContactPhone(String contactPhone) {
+        this.contactPhone = contactPhone;
     }
 
     public void setContactEmail(String contactEmail) {

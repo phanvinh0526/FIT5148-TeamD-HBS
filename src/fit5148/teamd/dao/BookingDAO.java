@@ -9,6 +9,8 @@ import fit5148.teamd.pojo.BookingFramePOJO;
 import fit5148.teamd.pojo.BookingPOJO;
 import fit5148.teamd.pojo.RoomPOJO;
 import java.sql.Connection;
+import java.sql.Date;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -119,65 +121,147 @@ public class BookingDAO {
     }
     
     private BookingFramePOJO matchingBookingFrame(ResultSet rs) throws SQLException{
-        BookingFramePOJO bookingFramePojo = new BookingFramePOJO();
-        bookingFramePojo.setRoomId(rs.getInt("ROOM_ID"));
-        bookingFramePojo.setRoomType(rs.getString("ROOM_TYPE"));
-        bookingFramePojo.setRoomPrice(rs.getFloat("PRICE"));
-        bookingFramePojo.setRoomDesc(rs.getString("DESCR"));
-        bookingFramePojo.setRoomNo(rs.getString("ROOM_NO"));
-        bookingFramePojo.setRoomMaxCap(rs.getInt("MAX_CAP"));
-        bookingFramePojo.setHotelId(rs.getInt("HOTEL_ID"));
-        bookingFramePojo.setRoomAvailable(rs.getString("AVAILABLE"));
-        return bookingFramePojo;
+        BookingFramePOJO bf = new BookingFramePOJO();
+        bf.setRoomId(rs.getInt("ROOM_ID"));
+        bf.setRoomType(rs.getString("ROOM_TYPE"));
+        bf.setRoomPrice(rs.getFloat("PRICE"));
+        bf.setRoomDesc(rs.getString("DESCR"));
+        bf.setRoomNo(rs.getString("ROOM_NO"));
+        bf.setRoomMaxCap(rs.getInt("MAX_CAP"));
+        bf.setHotelId(rs.getInt("HOTEL_ID"));
+        bf.setRoomAvailable(rs.getString("AVAILABLE"));
+        return bf;
     }
 
     public ArrayList<BookingFramePOJO> getBookingFramePojo() {
         return bookingFramePojo;
     }
 
+//    public Integer insert(BookingFramePOJO bf) {
+//        try {
+//            PreparedStatement ps = null;
+//            //  Get Primary key from Sequence first
+//            String sql_0 = "SELECT BOOKING_SEQ.NEXTVAL FROM dual";
+//            ps = conn.prepareStatement(sql_0);
+//            Integer primaryKey = -1;
+//            ResultSet rs = ps.executeQuery(sql_0);
+//            if(rs.next())
+//                primaryKey = rs.getInt(1);
+//            rs.close();
+//            ps.close();
+//            
+//            //  Insert into Personal_Details
+//            String sql_1 = "INSERT INTO BOOKING(BOOK_ID, CHECK_IN, CHECK_OUT, CONTACT_P, "
+//                    + "CONTACT_EML, TOT_AMT, PAY_STATUS, CUST_ID, BOOK_DATE, HOTEL_ID) VALUES(?,?,?,?,?,?,?,?,?,?)";   
+//            ps = conn.prepareStatement(sql_1);
+//            ps.setInt(1, primaryKey);
+//            ps.setDate(2, bf.getCheckIn()==null?null: new Date(bf.getCheckIn().getTime())); // Must convert to sql.date from util.date
+//            ps.setDate(3, bf.getCheckOut()==null?null:new Date(bf.getCheckOut().getTime()));
+//            ps.setString(4, bf.getContactPhone());
+//            ps.setString(5, bf.getContactEmail());
+//            ps.setFloat(6, bf.getTotAmt());
+//            ps.setString(7, bf.getPayStatus());
+//            ps.setInt(8, bf.getCustId());
+//            ps.setDate(9, bf.getBookDate()==null?null:new Date(bf.getBookDate().getTime()));
+//            ps.setInt(10, bf.getHotelId());
+//            
+//            int n = ps.executeUpdate(); 
+//            if(n==0){
+//                ps.close();
+//                return -1;
+//            }
+//            ps.close();
+////          Insert into Guest
+//            String sql_2 = "INSERT INTO SUBBOOKING(ROOM_ID, BOOK_ID) VALUES(?,?)";
+//            System.out.println(sql_2);
+//            ps = conn.prepareStatement(sql_2);
+//            ps.setInt(1, bf.getRoomId());
+//            ps.setInt(2, bf.getBookId());
+//            
+//            if(ps.executeUpdate(sql_2)!=0){
+//                ps.close();
+//                return primaryKey;
+//            } else{
+//                ps.close();
+//                return -1;
+//            }
+//        } catch (SQLException ex) {
+//            System.out.println(ex.getMessage());
+//            Logger.getLogger(BookingDAO.class.getName()).log(Level.SEVERE, null, ex);
+//            return -1;
+//        }
+//    }
+
     public Integer insert(BookingFramePOJO bf) {
         try {
             Statement sm = conn.createStatement();
             //  Get Primary key from Sequence first
             String sql_0 = "SELECT BOOKING_SEQ.NEXTVAL FROM dual";
+            
             Integer primaryKey = -1;
             ResultSet rs = sm.executeQuery(sql_0);
             if(rs.next())
                 primaryKey = rs.getInt(1);
-            
-            //  Insert into Personal_Details
-            String sql_1 = String.format("INSERT INTO BOOKING(BOOK_ID, CHECK_IN, CHECK_OUT, CONTACT_P "
-                    + "CONTACT_EML, TOT_AMT, PAY_STATUS, CUST_ID, BOOK_DATE, HOTEL_ID) VALUES("
-                    + "%d, '%s', '%s', '%s', '%s', '%f', '%s', '%d', %s, '%d')",
-                    primaryKey, bf.getCheckIn(),bf.getCheckOut(),bf.getContactPerson(),
-                    bf.getContactEmail(),bf.getTotAmt(),bf.getTotAmt(),bf.getCustId(),bf.getBookDate(),
-                    bf.getHotelId());
-            System.out.println(sql_1);
-            int n = sm.executeUpdate(sql_1, Statement.RETURN_GENERATED_KEYS);
-            //  Insert into Guest
-            String sql_2 = String.format("INSERT INTO SUBBOOKING(ROOM_ID, BOOK_ID) "
-                    + "VALUES(%d, %d)", bf.getRoomId(), primaryKey);
-            System.out.println(sql_2);
-            int m = sm.executeUpdate(sql_2, Statement.RETURN_GENERATED_KEYS);
             rs.close();
             sm.close();
-            if(n>0 && m>0) return primaryKey; else return -1;
+            
+            //  Insert into Personal_Details
+            sm = conn.createStatement();
+            String sql_1 = String.format("INSERT INTO BOOKING(BOOK_ID, CHECK_IN, CHECK_OUT, CONTACT_P, "
+                    + "CONTACT_EML, TOT_AMT, PAY_STATUS, CUST_ID, BOOK_DATE, HOTEL_ID) "
+                    + "VALUES(%d,'%s','%s','%s','%s',%f,'%s',%d,'%s',%d)",
+                    primaryKey,bf.getCheckIn()==null?null: new Date(bf.getCheckIn().getTime()),
+                    bf.getCheckOut()==null?null:new Date(bf.getCheckOut().getTime()),
+                    bf.getContactPhone(),
+                    bf.getContactEmail(),
+                    bf.getTotAmt(),
+                    bf.getPayStatus(),
+                    bf.getCustId(),
+                    bf.getBookDate()==null?null:new Date(bf.getBookDate().getTime()),
+                    bf.getHotelId());
+            System.out.println(sql_1);
+            int n = sm.executeUpdate(sql_1); 
+            if(n==0){
+                sm.close();
+                conn.rollback();
+                return -1;
+            }
+            sm.close();
+            conn.commit();
+//          Insert into Guest
+            sm = conn.createStatement();
+            String sql_2 = String.format("INSERT INTO SUBBOOKING(ROOM_ID, BOOK_ID) VALUES(%d,%d)",
+                    bf.getRoomId(),bf.getBookId());
+            System.out.println(sql_2);
+            
+            if(sm.executeUpdate(sql_2)>=0){
+                sm.close();
+                conn.commit();
+                return primaryKey;
+            } else{
+                sm.close();
+                conn.rollback();
+                return -1;
+            }
         } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
             Logger.getLogger(BookingDAO.class.getName()).log(Level.SEVERE, null, ex);
             return -1;
         }
     }
-
+    
     public Integer update(BookingFramePOJO bf) {
         try {
             Statement sm = conn.createStatement();
             int n, m = -1;
             String sql_1 = String.format("UPDATE BOOKING B "
                     + "SET B.CHECK_IN='%s', B.CHECK_OUT='%s', B.CONTACT_P='%s', B_CONTACT_EML='%s', "
-                    + "B.TOT_AMT='%d', B.PAY_STATUS='%s', B.CUST_ID='%d', B.BOOK_DATE=%d, "
-                    + "B.HOTEL_ID='%d' WHERE "
-                    + "B.BOOK_ID=%d", bf.getCheckIn(),bf.getCheckOut(),bf.getContactPerson(),bf.getContactEmail(),
-                    bf.getTotAmt(),bf.getPayStatus(),bf.getCustId(),bf.getBookDate(),bf.getHotelId(),bf.getBookId());
+                    + "B.TOT_AMT=%f, B.PAY_STATUS='%s', B.CUST_ID=%d, B.BOOK_DATE='%s', "
+                    + "B.HOTEL_ID=%d WHERE "
+                    + "B.BOOK_ID=%d", bf.getCheckIn().getTime(),bf.getCheckOut().getTime(),
+                    bf.getContactPhone(),bf.getContactEmail(),
+                    bf.getTotAmt(),bf.getPayStatus(),bf.getCustId(),
+                    bf.getBookDate().getTime(),bf.getHotelId(),bf.getBookId());
             System.out.println(sql_1);
             n = sm.executeUpdate(sql_1);
             if(n>=0){
