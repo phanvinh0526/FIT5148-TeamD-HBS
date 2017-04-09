@@ -24,18 +24,30 @@ public class RoomPOJO {
         
     }
    
-    public RoomPOJO(int id, float price, String roomNo, int maxCap, int hotelId, int facilityId, char available) {
-        this.id = id;
+    public RoomPOJO(int id, float price, String roomNo, int maxCap, int hotelId, String type, String description) {
+
         this.price = price;
         this.roomNo = roomNo;
         this.maxCap = maxCap;
         this.hotelId = hotelId;
-        this.facilityId = facilityId;
-        this.available = available;
+        this.id = id;
+        this.type = type;
+        this.description = description;
+    }
+//constructor for inserting data
+
+    public RoomPOJO(float price, String type, String roomNo, Integer maxCap, Integer hotelId, String description) {
+        this.price = price;
+        this.roomNo = roomNo;
+        this.maxCap = maxCap;
+        this.hotelId = hotelId;
+        this.type = type;
+        this.description = description;
+
     }
 
-  
-    public RoomPOJO(int id, String type, String description, int price, String roomNo, int maxCap, int hotelId, int facilityId, char available) {
+    //constructor for fetching room
+    public RoomPOJO(int id, String type, String description, int price, String roomNo, int maxCap, int hotelId) {
         this.id = id;
         this.type = type;
         this.description = description;
@@ -43,8 +55,23 @@ public class RoomPOJO {
         this.roomNo = roomNo;
         this.maxCap = maxCap;
         this.hotelId = hotelId;
-        this.facilityId = facilityId;
+
+    }
+
+    public RoomPOJO(int id, String type, String description, int price, String roomNo, int maxCap, int hotelId, char available) {
+        this.id = id;
+        this.type = type;
+        this.description = description;
+        this.price = price;
+        this.roomNo = roomNo;
+        this.maxCap = maxCap;
+        this.hotelId = hotelId;
+
         this.available = available;
+    }
+
+    public RoomPOJO(Float crtRPrice, String crtRType, String crtRNo, int crtRMaxCap, int currentHotelId, String text) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
      public int getId() {

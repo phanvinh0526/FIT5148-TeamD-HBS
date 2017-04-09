@@ -6,8 +6,6 @@
 package fit5148.teamd.gui;
 
 import fit5148.teamd.dao.OracleDBConnectionUtil;
-import java.sql.SQLException;
-import javax.swing.JFrame;
 
 /**
  *
@@ -19,7 +17,7 @@ public class MainFrame extends javax.swing.JFrame {
     GuestFrame      guestFrame = null;
     PaymentJFrame   paymentFrame = null;
     CustomerJFrame  cutomerFrame = null;
-    
+    RoomJFrame      roomFrame = null;
     /**
      * Creates new form MainFrame
      */
@@ -273,6 +271,8 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
         // TODO add your handling code here:
+        roomFrame = new RoomJFrame();
+        
     }//GEN-LAST:event_jButton11ActionPerformed
 
     private void jbtnCustomerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnCustomerActionPerformed
