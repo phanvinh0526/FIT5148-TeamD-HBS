@@ -169,6 +169,17 @@ public class BookingFrame extends javax.swing.JFrame {
         jbtnCreate5 = new javax.swing.JButton();
         jbtnCreate4 = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
+        jfViewBooking = new javax.swing.JFrame();
+        jPanel11 = new javax.swing.JPanel();
+        jbtnCancelViewBooking = new javax.swing.JButton();
+        jbtnApplyViewBooking = new javax.swing.JButton();
+        jtViewSubbookingScroll = new javax.swing.JScrollPane();
+        jtViewSubbooking = new javax.swing.JTable();
+        jPanel12 = new javax.swing.JPanel();
+        jtViewBookingScroll = new javax.swing.JScrollPane();
+        jtViewBooking = new javax.swing.JTable();
+        jLabel21 = new javax.swing.JLabel();
+        jLabel19 = new javax.swing.JLabel();
 
         jfSearchResult.setTitle("Search Result");
         jfSearchResult.setResizable(false);
@@ -605,7 +616,6 @@ public class BookingFrame extends javax.swing.JFrame {
             }
         });
 
-        jLabel31.setForeground(new java.awt.Color(255, 102, 102));
         jLabel31.setText("Customer Id");
 
         jtfCustomerId.setEnabled(false);
@@ -1063,6 +1073,155 @@ public class BookingFrame extends javax.swing.JFrame {
                         .addContainerGap())))
         );
 
+        jfViewBooking.setTitle("View Booking by Customer");
+        jfViewBooking.setResizable(false);
+        jfViewBooking.setSize(new java.awt.Dimension(458, 400));
+        jfViewBooking.addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                jfViewBookingWindowActivated(evt);
+            }
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                jfViewBookingWindowClosed(evt);
+            }
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                jfViewBookingWindowClosing(evt);
+            }
+        });
+
+        jPanel11.setPreferredSize(new java.awt.Dimension(400, 40));
+
+        jbtnCancelViewBooking.setText("Cancel");
+        jbtnCancelViewBooking.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtnCancelViewBookingActionPerformed(evt);
+            }
+        });
+
+        jbtnApplyViewBooking.setText("Okay");
+        jbtnApplyViewBooking.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtnApplyViewBookingActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
+        jPanel11.setLayout(jPanel11Layout);
+        jPanel11Layout.setHorizontalGroup(
+            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel11Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jbtnApplyViewBooking, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(11, 11, 11)
+                .addComponent(jbtnCancelViewBooking))
+        );
+        jPanel11Layout.setVerticalGroup(
+            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel11Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jbtnApplyViewBooking)
+                    .addComponent(jbtnCancelViewBooking))
+                .addContainerGap())
+        );
+
+        jtViewSubbooking.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {},
+                {},
+                {},
+                {}
+            },
+            new String [] {
+
+            }
+        ));
+        jtViewSubbooking.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jtViewSubbookingKeyPressed(evt);
+            }
+        });
+        jtViewSubbookingScroll.setViewportView(jtViewSubbooking);
+
+        jtViewBooking.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {},
+                {},
+                {},
+                {}
+            },
+            new String [] {
+
+            }
+        ));
+        jtViewBooking.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jtViewBookingKeyPressed(evt);
+            }
+        });
+        jtViewBookingScroll.setViewportView(jtViewBooking);
+
+        jLabel21.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel21.setForeground(new java.awt.Color(255, 0, 51));
+        jLabel21.setText("Subbooking");
+
+        javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
+        jPanel12.setLayout(jPanel12Layout);
+        jPanel12Layout.setHorizontalGroup(
+            jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel12Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jtViewBookingScroll, javax.swing.GroupLayout.PREFERRED_SIZE, 433, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel12Layout.createSequentialGroup()
+                .addComponent(jLabel21)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+        jPanel12Layout.setVerticalGroup(
+            jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel12Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jtViewBookingScroll, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel21))
+        );
+
+        jLabel19.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel19.setForeground(new java.awt.Color(255, 0, 51));
+        jLabel19.setText("Booking");
+
+        javax.swing.GroupLayout jfViewBookingLayout = new javax.swing.GroupLayout(jfViewBooking.getContentPane());
+        jfViewBooking.getContentPane().setLayout(jfViewBookingLayout);
+        jfViewBookingLayout.setHorizontalGroup(
+            jfViewBookingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jfViewBookingLayout.createSequentialGroup()
+                .addGroup(jfViewBookingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jfViewBookingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(jfViewBookingLayout.createSequentialGroup()
+                            .addContainerGap()
+                            .addComponent(jPanel11, javax.swing.GroupLayout.DEFAULT_SIZE, 453, Short.MAX_VALUE))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jfViewBookingLayout.createSequentialGroup()
+                            .addGap(10, 10, 10)
+                            .addGroup(jfViewBookingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jPanel12, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jtViewSubbookingScroll))))
+                    .addGroup(jfViewBookingLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel19)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jfViewBookingLayout.setVerticalGroup(
+            jfViewBookingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jfViewBookingLayout.createSequentialGroup()
+                .addGap(16, 16, 16)
+                .addComponent(jLabel19)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jtViewSubbookingScroll, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
@@ -1110,6 +1269,7 @@ public class BookingFrame extends javax.swing.JFrame {
     }
     
     private void returnBookingFrame(){
+        initJFrame(jfViewBooking, false, false);
         initJFrame(jfBookingSearchFrame, false, false);
         initJFrame(jfSearchResult, false, false);
         initJFrame(jfBookingFrame, true, true);
@@ -1132,18 +1292,6 @@ public class BookingFrame extends javax.swing.JFrame {
     private void jfSearchResultWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_jfSearchResultWindowActivated
         // TODO add your handling code here:
     }//GEN-LAST:event_jfSearchResultWindowActivated
-
-    private void jtfKeyWordKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfKeyWordKeyPressed
-        // TODO add your handling code here:
-        if(evt.getKeyCode()==KeyEvent.VK_ENTER){
-            queryCustomer2JTable();
-        }
-    }//GEN-LAST:event_jtfKeyWordKeyPressed
-
-    private void jbtnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnSearchActionPerformed
-        // TODO add your handling code here:
-        queryCustomer2JTable();
-    }//GEN-LAST:event_jbtnSearchActionPerformed
 
     private void jfSearchResultWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_jfSearchResultWindowClosing
         System.out.println("Closing Search Result");
@@ -1312,8 +1460,33 @@ public class BookingFrame extends javax.swing.JFrame {
 
     private void jbtnCreate4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnCreate4ActionPerformed
         // TODO add your handling code here:
+        jlModeMessage.setText("View Booking Mode");
+        initJFrame(jfViewBooking, true, true);
+        
+        //  Search data
+       
+        try {
+            bookingFramePojo.setCustId(Integer.parseInt(jtfCustomerId.getText()));
+            DefaultTableModel srt =  bookingDao.searchBooking(bookingFramePojo);
+            showBookingResult(srt);
+        } catch (Exception ex) {
+            jlMessage.setText("No Available Booking");
+            System.out.println(ex.getMessage());
+        }
     }//GEN-LAST:event_jbtnCreate4ActionPerformed
 
+    private void showSubbookingResult(DefaultTableModel srt){
+        jtViewSubbooking.setModel(srt);
+        jtViewSubbookingScroll.setViewportView(jtViewSubbooking);
+        jtViewSubbooking.requestFocus();
+    }
+    
+    private void showBookingResult(DefaultTableModel srt){
+        jtViewBooking.setModel(srt);
+        jtViewBookingScroll.setViewportView(jtViewBooking);
+        jtViewBooking.requestFocus();
+    }
+    
     private void jbtnCreate3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnCreate3ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jbtnCreate3ActionPerformed
@@ -1371,6 +1544,59 @@ public class BookingFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
         returnMainFrame();
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jbtnCancelViewBookingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnCancelViewBookingActionPerformed
+        // TODO add your handling code here:
+        returnBookingFrame();
+    }//GEN-LAST:event_jbtnCancelViewBookingActionPerformed
+
+    private void jbtnApplyViewBookingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnApplyViewBookingActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jbtnApplyViewBookingActionPerformed
+
+    private void jtViewSubbookingKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtViewSubbookingKeyPressed
+        
+    }//GEN-LAST:event_jtViewSubbookingKeyPressed
+
+    private void jfViewBookingWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_jfViewBookingWindowActivated
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jfViewBookingWindowActivated
+
+    private void jfViewBookingWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_jfViewBookingWindowClosed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jfViewBookingWindowClosed
+
+    private void jfViewBookingWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_jfViewBookingWindowClosing
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jfViewBookingWindowClosing
+
+    private void jbtnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnSearchActionPerformed
+        // TODO add your handling code here:
+        queryCustomer2JTable();
+    }//GEN-LAST:event_jbtnSearchActionPerformed
+
+    private void jtfKeyWordKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfKeyWordKeyPressed
+        // TODO add your handling code here:
+        if(evt.getKeyCode()==KeyEvent.VK_ENTER){
+            queryCustomer2JTable();
+        }
+    }//GEN-LAST:event_jtfKeyWordKeyPressed
+
+    private void jtViewBookingKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtViewBookingKeyPressed
+        // TODO add your handling code here:
+        // TODO add your handling code here:
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER){
+            Integer row = jtViewBooking.getSelectedRow();
+            Integer bookId = (Integer) jtViewBooking.getModel().getValueAt(row, 0);
+            try {
+                DefaultTableModel srt =  bookingDao.searchSubbooking(bookId);
+                showSubbookingResult(srt);
+            } catch (Exception ex) {
+                jlMessage.setText("No Available Booking");
+                System.out.println(ex.getMessage());
+            }
+        }
+    }//GEN-LAST:event_jtViewBookingKeyPressed
 
     private void enableUpdateBooking(Boolean flag){
         jlModeMessage.setText("Update Booking Mode");
@@ -1525,7 +1751,9 @@ public class BookingFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel26;
@@ -1551,6 +1779,8 @@ public class BookingFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
+    private javax.swing.JPanel jPanel11;
+    private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
@@ -1562,9 +1792,11 @@ public class BookingFrame extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane;
     private javax.swing.JScrollPane jScrollPane_MainFrame;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JButton jbtnApplyViewBooking;
     private javax.swing.JButton jbtnBookRoom;
     private javax.swing.JButton jbtnCancel;
     private javax.swing.JButton jbtnCancelSearch;
+    private javax.swing.JButton jbtnCancelViewBooking;
     private javax.swing.JButton jbtnCreate3;
     private javax.swing.JButton jbtnCreate4;
     private javax.swing.JButton jbtnCreate5;
@@ -1584,11 +1816,16 @@ public class BookingFrame extends javax.swing.JFrame {
     private javax.swing.JFrame jfBookingFrame;
     private javax.swing.JFrame jfBookingSearchFrame;
     private javax.swing.JFrame jfSearchResult;
+    private javax.swing.JFrame jfViewBooking;
     private javax.swing.JLabel jlMainMessage;
     private javax.swing.JLabel jlMessage;
     private javax.swing.JLabel jlModeMessage;
     private javax.swing.JTable jtResult;
     private javax.swing.JTable jtSearch_MainFrame;
+    private javax.swing.JTable jtViewBooking;
+    private javax.swing.JScrollPane jtViewBookingScroll;
+    private javax.swing.JTable jtViewSubbooking;
+    private javax.swing.JScrollPane jtViewSubbookingScroll;
     private javax.swing.JTextField jtfBookDate;
     private javax.swing.JTextField jtfBookId;
     private javax.swing.JTextField jtfCheckIn;

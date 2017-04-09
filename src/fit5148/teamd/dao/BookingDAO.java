@@ -46,37 +46,66 @@ public class BookingDAO {
 
     public DefaultTableModel searchBooking(BookingFramePOJO bf){
         Object data_1[][] = new Object[10][7];
-        Object data_2[][] = new Object[10][7];
-        
+        DefaultTableModel tm = new DefaultTableModel();
         try {
             Statement sm = conn.createStatement();
             String sql = String.format("SELECT BOOK_ID,CUST_ID,CHECK_IN,CHECK_OUT,CONTACT_P,"
-                    + "TOT_AMT,PAY_STATUS,HOTEL_ID FROM BOOKING WHERE CUST_ID=$d",bf.getCustId());
+                    + "TOT_AMT,PAY_STATUS,HOTEL_ID FROM BOOKING WHERE CUST_ID=%d",bf.getCustId());
             System.out.println(sql);
-            queryRoom(sm, sql, data_1);
+            tm = queryBooking(sm, sql, tm, data_1);
             sm.close();
-//            Subbooking
-            
         } catch (SQLException ex) {
             Logger.getLogger(BookingDAO.class.getName()).log(Level.SEVERE, null, ex);
             return null;
         }
-        return tableModel;
+        return tm;
     }
     
-    private void queryRoom(Statement sm, String sql, Object[][] data) throws SQLException{
+    public DefaultTableModel searchSubbooking(Integer bookid){
+        Object data_1[][] = new Object[10][7];
+        DefaultTableModel tm = new DefaultTableModel();
+        try {
+            Statement sm = conn.createStatement();
+            String sql = String.format("SELECT S.ROOM_ID,S.BOOK_ID FROM SUBBOOKING S WHERE S.BOOK_ID=%d",bookid);
+            System.out.println(sql);
+            tm = querySubbooking(sm, sql, tm, data_1);
+            sm.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(BookingDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+        return tm;
+    }
+    
+    private DefaultTableModel querySubbooking(Statement sm, String sql, DefaultTableModel tm, Object[][] data) throws SQLException{
+        Object column[] = {"BOOK ID","ROOM ID"};
+        ResultSet rsr = sm.executeQuery(sql);
+        for(int i=0; rsr.next(); i++){
+            if(i==10)
+                break;
+            data[i][0] = rsr.getInt("BOOK_ID");
+            data[i][1] = rsr.getInt("ROOM_ID");
+        }
+        tm.setRowCount(0); // reset content
+        tm.setDataVector(data, column);
+        return tm;
+    }
+    
+    private DefaultTableModel queryBooking(Statement sm, String sql, DefaultTableModel tm, Object[][] data) throws SQLException{
         Object column[] = {"BOOK ID","CUSTOMER","PHONE","PAY STATUS","HOTEL ID"};
         ResultSet rsr = sm.executeQuery(sql);
         for(int i=0; rsr.next(); i++){
+            if(i==10)
+                break;
             data[i][0] = rsr.getInt("BOOK_ID");
             data[i][1] = rsr.getInt("CUST_ID");
             data[i][2] = rsr.getString("CONTACT_P");
             data[i][3] = rsr.getString("PAY_STATUS");
             data[i][4] = rsr.getInt("HOTEL_ID");
-            bookingFramePojo.add(matchingBookingFrame(rsr));
         }
-        tableModel.setRowCount(0); // reset content
-        tableModel.setDataVector(data, column);
+        tm.setRowCount(0); // reset content
+        tm.setDataVector(data, column);
+        return tm;
     }
     
     public DefaultTableModel search(String navigator, String... keys) {
@@ -106,7 +135,7 @@ public class BookingDAO {
         }else if("filterRoomType".equals(navigator)){
             try {
                 String sql = String.format("SELECT ROOM_ID, ROOM_TYPE, PRICE, DESCR, ROOM_NO, "
-                        + "MAX_CAP, HOTEL_ID, AVAILABLE FROM ROOM WHERE ROOM_TYPE='%s'",keys);
+                        + "MAX_CAP, HOTEL_ID, AVAILABLE FROM ROOM WHERE ROOM_TYPE='%s'",keys.toString());
                 System.out.println(sql);
                 querySearch(sm,sql, data);
                 sm.close();
@@ -117,7 +146,7 @@ public class BookingDAO {
         }else if("filterOccupancy".equals(navigator)){
             try {
                 String sql = String.format("SELECT ROOM_ID, ROOM_TYPE, PRICE, DESCR, ROOM_NO, "
-                        + "MAX_CAP, HOTEL_ID, AVAILABLE FROM ROOM WHERE MAX_CAP=%d",keys);
+                        + "MAX_CAP, HOTEL_ID, AVAILABLE FROM ROOM WHERE MAX_CAP=%d",keys.toString());
                 System.out.println(sql);
                 querySearch(sm,sql, data);
                 sm.close();
@@ -137,7 +166,6 @@ public class BookingDAO {
                 return null;
             }
         }
-        sm.close();
         return tableModel;
     }
     
