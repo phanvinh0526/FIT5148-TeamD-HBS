@@ -22,8 +22,8 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JComponent;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
@@ -34,59 +34,77 @@ import javax.swing.table.DefaultTableModel;
  */
 public class CustomerJFrame extends javax.swing.JFrame {
 
-    CustomerDAO custDao;
-    MembershipDAO memDao;
-    ArrayList<MembershipPOJO> membArr = new ArrayList<>();
-    HashMap<CustomerPOJO, PersonalDetailsPOJO> cust = new HashMap<>();
-    HashMap<CustomerPOJO, PersonalDetailsPOJO> custs = new HashMap<>();
-    DefaultTableModel searchResultModel;
-    int custSearchResultTableSelectedRowNo, custSearchResultTableSelectedColumnNo;
-    String updCustTitle, addCTitle, updCustFname, addCFName, updCustLname, addCLName, updCustStreet, addCStreet, updCustCountry, addCCountry, updCustCity, addCCity, updCustPostCode, addCPostCode, updCustEml, addCEml, updCustMemTier;
-    int updCustMemCred, updCustPhNo, addCPhNo, updCustId, updCustPdId, updCustHotelId;
-    Date updCustDob, addCDoB;
-    CustomerPOJO updCust;
-    PersonalDetailsPOJO updCustPD;
-    int currentHotelId;
-
+        CustomerDAO custDao ;
+        MembershipDAO memDao ;
+        ArrayList<MembershipPOJO> membArr = new ArrayList<>();
+        HashMap<CustomerPOJO,PersonalDetailsPOJO> cust = new HashMap<>();
+        DefaultTableModel searchResultModel ;
+        int custSearchResultTableSelectedRowNo,custSearchResultTableSelectedColumnNo;
+        String updCustTitle,addCTitle,updCustFname,addCFName,updCustLname,addCLName,updCustStreet,addCStreet,updCustCountry,addCCountry,updCustCity,addCCity,updCustPostCode,addCPostCode,updCustEml,addCEml,updCustMemTier;
+        int updCustMemCred,updCustPhNo,addCPhNo,updCustId,updCustPdId,updCustHotelId;
+        Date updCustDob,addCDoB;
+        CustomerPOJO updCust;
+        PersonalDetailsPOJO updCustPD;
+        int currentHotelId;
+        
+        
+        
+        
     /**
      * Creates new form NewJFrame
      */
     public CustomerJFrame() {
-
-        initComponents();
-
-        this.currentHotelId = 1;
-        try {
-            custDao = new CustomerDAO();
-
-            memDao = new MembershipDAO();
-
-        } catch (SQLException ex) {
-            setErrorMessage(glbErrLabel, "There was a problem accessing Database. Please reopen");
-            Logger.getLogger(CustomerJFrame.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        init();
+        
+           
+                initComponents();
+                injectComponents();
+                this.currentHotelId = 1;
+                custDao= new CustomerDAO();
+                memDao= new MembershipDAO();
+            init();
+    }
+    
+    private void injectComponents() {
+        initJFrame(this, true, true);
+        
+    }
+    
+    private void initJFrame(JFrame jf, Boolean enable, Boolean visible){
+        jf.pack();
+        jf.setLocationRelativeTo(null);
+        jf.setVisible(visible);
+        jf.setEnabled(enable);
     }
 
-    private void init() {
+    private void returnPreviousFrame(){
+        // How to return?
+        
+    }
+    
+    private void returnMainFrame(){
+        this.removeAll();
+        this.dispose();
+    }
+    
+    private void init(){
         searchModifyTabbedPane.setEnabledAt(2, false);
         displayToggleComponent(modifyCustSearchResultPanel);
         displayToggleComponent(modifyCustSearchResultTable);
         clearErrorMessage(searchModifyCustErrorMsgLabel);
-        //memTierSrchResTableComboBox = new JComboBox();
+         //memTierSrchResTableComboBox = new JComboBox();
         membArr = memDao.getAllMembership();
-        for (int i = 0; i < membArr.size(); i++) {
-
+        for(int i = 0; i<membArr.size(); i++){
+           
             memTierSearchComboBox.addItem(membArr.get(i).getMem_Tier());
             updateMemTierComboBox1.addItem(membArr.get(i).getMem_Tier());
         }
         //modifyCustSearchResultTable.getColumnModel().getColumn(4).setCellEditor(new DefaultCellEditor(memTierSrchResTableComboBox)); 
-        modifyCustSearchResultTable.getSelectionModel().addListSelectionListener(new RowSelectionListener());
-        modifyCustSearchResultTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        //modifyCustSearchResultTable.getCellEditor(1, 2).
+         modifyCustSearchResultTable.getSelectionModel().addListSelectionListener(new RowSelectionListener());
+         //modifyCustSearchResultTable.getCellEditor(1, 2).
     }
-
-    private class RowSelectionListener implements ListSelectionListener {
+    
+    
+    private class RowSelectionListener implements ListSelectionListener{
 
         @Override
         public void valueChanged(ListSelectionEvent e) {
@@ -96,95 +114,100 @@ public class CustomerJFrame extends javax.swing.JFrame {
             modifyCustChildPanelUpdateBtn.setEnabled(true);
             modifyCustChildPanelDelButton.setEnabled(true);
         }
-
+    
+    
     }
-
-    private boolean validateNAddCust() {
-        if (addCustTitleTextField.getText().compareTo("") == 0) {
+    
+    private boolean validateNAddCust(){
+        if(addCustTitleTextField.getText().compareTo("")==0){
             setErrorMessage(addCustErrMsgLabel, "Title cannot be empty");
             return false;
-        } else {
-            addCTitle = addCustTitleTextField.getText();
-        }
-
-        if (addCustFNameTextField.getText().compareTo("") == 0) {
+        }else
+            addCTitle=addCustTitleTextField.getText();
+        
+        if(addCustFNameTextField.getText().compareTo("")==0){
             setErrorMessage(addCustErrMsgLabel, "First Name cannot be empty");
             return false;
-        } else {
-            addCFName = addCustFNameTextField.getText();
-        }
-        if (addCustLNameTextField.getText().compareTo("") == 0) {
+        }else
+            addCFName=addCustFNameTextField.getText();
+        if(addCustLNameTextField.getText().compareTo("")==0){
             setErrorMessage(addCustErrMsgLabel, "Last Name cannot be empty");
             return false;
-        } else {
-            addCLName = addCustLNameTextField.getText();
         }
-
-        if (addCustDOBFormattedTextField.getText().compareTo("") == 0) {
-            addCDoB = null;
-        } else {
+        else
+            addCLName=addCustLNameTextField.getText();
+        
+        if(addCustDOBFormattedTextField.getText().compareTo("")==0){
+            addCDoB= null;
+        }
+        else
+        {
             DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
             Date inputDate = null;
             try {
                 inputDate = dateFormat.parse(addCustDOBFormattedTextField.getText());
             } catch (ParseException ex) {
                 setErrorMessage(addCustErrMsgLabel, "Check your date of birth format - yyyy-MM-dd");
-                return false;
+                 return false;
             }
-            if (addCustDOBFormattedTextField.getText().compareTo("") == 0 || inputDate == null) {
+            if(addCustDOBFormattedTextField.getText().compareTo("")==0 || inputDate==null){
                 setErrorMessage(addCustErrMsgLabel, "Check your date of birth format - yyyy-MM-dd");
                 return false;
             }
-
-            addCDoB = inputDate;
+            
+            addCDoB= inputDate;
         }
-        addCCountry = (addCustCountryTextField.getText().compareTo("") == 0) ? null : addCustCountryTextField.getText();
-        addCCity = (addCustCityTextField.getText().compareTo("") == 0) ? null : addCustCityTextField.getText();
-        addCStreet = (addCustStreetTextField.getText().compareTo("") == 0) ? null : addCustStreetTextField.getText();
-        addCPostCode = (addCustPostCodeTextField.getText().compareTo("") == 0) ? null : addCustPostCodeTextField.getText();
-        addCPhNo = (addCustPhNoFormattedTextField.getText().compareTo("") == 0) ? 0 : Integer.parseInt(addCustPhNoFormattedTextField.getText());
-
-        if (addCustEmlTextField.getText().compareTo("") == 0) {
+        addCCountry = (addCustCountryTextField.getText().compareTo("")==0)?null:addCustCountryTextField.getText();
+        addCCity = (addCustCityTextField.getText().compareTo("")==0)?null:addCustCityTextField.getText();
+        addCStreet = (addCustStreetTextField.getText().compareTo("")==0)?null:addCustStreetTextField.getText();    
+        addCPostCode = (addCustPostCodeTextField.getText().compareTo("")==0)?null:addCustPostCodeTextField.getText();  
+        addCPhNo = (addCustPhNoFormattedTextField.getText().compareTo("")==0)?0:Integer.parseInt(addCustPhNoFormattedTextField.getText());  
+        
+        
+       
+        
+        if(addCustEmlTextField.getText().compareTo("")==0){
             setErrorMessage(addCustErrMsgLabel, "Email cannot be empty");
             return false;
         }
-
-        if (!Util.validateEml(addCustEmlTextField.getText())) {
-            setErrorMessage(addCustErrMsgLabel, "Please check your Email");
-            return false;
-        } else {
-            addCEml = addCustEmlTextField.getText();
+        
+            
+        if(!Util.validateEml(addCustEmlTextField.getText())){
+             setErrorMessage(addCustErrMsgLabel, "Please check your Email");
+             return false;
         }
+        else
+            addCEml= addCustEmlTextField.getText();
         clearErrorMessage(addCustErrMsgLabel);
-
+       
         return true;
-
+        
+    
     }
-
-    private boolean validateUpdateFields() {
-        if (updateCustTitleTextField1.getText().compareTo("") == 0) {
+    private boolean validateUpdateFields(){
+        if(updateCustTitleTextField1.getText().compareTo("")==0){
             setErrorMessage(updCustErrorMsgLabel, "Title cannot be empty");
             return false;
-        } else {
-            updCustTitle = updateCustTitleTextField1.getText();
-        }
-
-        if (updateCustFNameTextField1.getText().compareTo("") == 0) {
+        }else
+            updCustTitle=updateCustTitleTextField1.getText();
+        
+        if(updateCustFNameTextField1.getText().compareTo("")==0){
             setErrorMessage(updCustErrorMsgLabel, "First Name cannot be empty");
             return false;
-        } else {
-            updCustFname = updateCustFNameTextField1.getText();
-        }
-        if (updateCustLNameTextField1.getText().compareTo("") == 0) {
+        }else
+            updCustFname=updateCustFNameTextField1.getText();
+        if(updateCustLNameTextField1.getText().compareTo("")==0){
             setErrorMessage(updCustErrorMsgLabel, "Last Name cannot be empty");
             return false;
-        } else {
-            updCustLname = updateCustLNameTextField1.getText();
         }
-
-        if (updateCustDOBFormattedTextField.getText().compareTo("") == 0) {
-            updCustDob = null;
-        } else {
+        else
+            updCustLname=updateCustLNameTextField1.getText();
+        
+        if(updateCustDOBFormattedTextField.getText().compareTo("")==0){
+            updCustDob= null;
+        }
+        else
+        {
             DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
             Date inputDate = null;
             try {
@@ -192,105 +215,108 @@ public class CustomerJFrame extends javax.swing.JFrame {
             } catch (ParseException ex) {
                 setErrorMessage(updCustErrorMsgLabel, "Check your date of birth format - MM/DD/YYYY");
             }
-            if (inputDate == null) {
+            if(inputDate==null){
                 setErrorMessage(updCustErrorMsgLabel, "Check your date of birth format - MM/DD/YYYY");
                 return false;
             }
-
-            updCustDob = inputDate;
+            
+            updCustDob= inputDate;
         }
-        updCustCountry = (updateCustCountryTextField1.getText().compareTo("") == 0) ? null : updateCustCountryTextField1.getText();
-        updCustCity = (updateCustCityTextField1.getText().compareTo("") == 0) ? null : updateCustCityTextField1.getText();
-        updCustStreet = (updateCustStreetTextField1.getText().compareTo("") == 0) ? null : updateCustStreetTextField1.getText();
-        updCustPostCode = (updateCustPostCodeTextField1.getText().compareTo("") == 0) ? null : updateCustPostCodeTextField1.getText();
-        updCustPhNo = (updateCustPhNoFormattedTextField.getText().compareTo("") == 0) ? 0 : Integer.parseInt(updateCustPhNoFormattedTextField.getText());
-
-        if (updateCustMemCredFormattedTextField.getText().compareTo("") == 0) {
+        updCustCountry = (updateCustCountryTextField1.getText().compareTo("")==0)?null:updateCustCountryTextField1.getText();
+        updCustCity = (updateCustCityTextField1.getText().compareTo("")==0)?null:updateCustCityTextField1.getText();
+        updCustStreet = (updateCustStreetTextField1.getText().compareTo("")==0)?null:updateCustStreetTextField1.getText();    
+        updCustPostCode = (updateCustPostCodeTextField1.getText().compareTo("")==0)?null:updateCustPostCodeTextField1.getText();  
+        updCustPhNo = (updateCustPhNoFormattedTextField.getText().compareTo("")==0)?0:Integer.parseInt(updateCustPhNoFormattedTextField.getText());  
+        
+        
+        if(updateCustMemCredFormattedTextField.getText().compareTo("")==0){
             setErrorMessage(updCustErrorMsgLabel, "Membership Credits cannot be empty");
             return false;
         }
-
-        if (updateCustEmlTextField1.getText().compareTo("") == 0) {
+        
+        if(updateCustEmlTextField1.getText().compareTo("")==0){
             setErrorMessage(updCustErrorMsgLabel, "Email cannot be empty");
             return false;
         }
-
-        if (!Util.validateEml(updateCustEmlTextField1.getText())) {
-            setErrorMessage(updCustErrorMsgLabel, "Please check your Email");
-            return false;
-        } else {
-            updCustEml = updateCustEmlTextField1.getText();
+        
+            
+        if(!Util.validateEml(updateCustEmlTextField1.getText())){
+             setErrorMessage(updCustErrorMsgLabel, "Please check your Email");
+             return false;
         }
+        else
+            updCustEml= updateCustEmlTextField1.getText();
         clearErrorMessage(updCustErrorMsgLabel);
-        updCustMemTier = updateMemTierComboBox1.getSelectedItem().toString();
-        updCustMemCred = Integer.parseInt(updateCustMemCredFormattedTextField.getText());
+        updCustMemTier=updateMemTierComboBox1.getSelectedItem().toString();
+        updCustMemCred=Integer.parseInt(updateCustMemCredFormattedTextField.getText());
         return true;
-
+    
     }
-
-    private void setErrorMessage(JLabel jl, String msg) {
+    private void setErrorMessage(JLabel jl,String msg){
         jl.setText(msg);
         jl.setVisible(true);
     }
-
-    private void clearErrorMessage(JLabel... jl) {
-
-        for (int i = 0; i < jl.length; i++) {
-            jl[i].setText("");
-            jl[i].setVisible(false);
-        }
-
+    private void clearErrorMessage(JLabel... jl){
+        
+        for(int i = 0; i < jl.length; i++){
+             jl[i].setText("");
+             jl[i].setVisible(false);
+         }
+       
+        
     }
-
-    private void displayToggleComponent(JComponent jc) {
-        if (jc.isEnabled() || jc.isVisible()) {
+    
+    private void displayToggleComponent(JComponent jc){
+        if(jc.isEnabled() || jc.isVisible()){
             jc.setEnabled(false);
             jc.setVisible(false);
-        } else {
+        }
+        else{
             jc.setVisible(true);
             jc.setEnabled(true);
         }
+           
+      }
+    private void populateResultTable(HashMap<CustomerPOJO,PersonalDetailsPOJO> cust){
+                        Object[] tableCustData =  new Object[14];
+                            int i=0;
+                            searchResultModel = ((DefaultTableModel)(modifyCustSearchResultTable.getModel())); 
+                            searchResultModel.setRowCount(0);
+                            for (Map.Entry<CustomerPOJO, PersonalDetailsPOJO> entry : cust.entrySet()) {
 
+                                CustomerPOJO key = entry.getKey();
+                                PersonalDetailsPOJO value = entry.getValue();
+                                tableCustData[0]=value.getTitle();
+
+                                tableCustData[1]=value.getF_Name();
+                                tableCustData[2]=value.getL_Name();
+                                tableCustData[3]=key.getMem_Credit();
+                                tableCustData[4]=key.getMem_Tier();
+                                tableCustData[5]=value.getDob();
+                                tableCustData[6]=value.getCountry();
+                                tableCustData[7]=value.getCity();
+                                tableCustData[8]=value.getStreet();
+                                tableCustData[9]=value.getPostCode();
+                                tableCustData[10]=value.getPh_no();
+                                tableCustData[11]=value.getEmail(); 
+
+                                tableCustData[12]=key.getCustId(); 
+                                tableCustData[13]=value.getPd_id(); 
+                             
+                               // System.out.println(tableCustData);
+                                 
+                              searchResultModel.addRow(tableCustData);
+
+                            }
+                     // "Title", "First Name", "Last Name", "Membership Credits", "Membership_Tier", "Date of Birth", "Country", "City", "Street", "Postcode", "Ph_no", "Email"
+                        
+                         modifyCustSearchResultPanel.setEnabled(true);
+                           modifyCustSearchResultPanel.setVisible(true);
+                             modifyCustSearchResultTable.setEnabled(true);
+                             modifyCustSearchResultTable.setVisible(true);
     }
 
-    private void populateResultTable(HashMap<CustomerPOJO, PersonalDetailsPOJO> cust) {
-        Object[] tableCustData = new Object[14];
-        int i = 0;
-        searchResultModel = ((DefaultTableModel) (modifyCustSearchResultTable.getModel()));
-        searchResultModel.setRowCount(0);
-        for (Map.Entry<CustomerPOJO, PersonalDetailsPOJO> entry : cust.entrySet()) {
-
-            CustomerPOJO key = entry.getKey();
-            PersonalDetailsPOJO value = entry.getValue();
-            tableCustData[0] = value.getTitle();
-
-            tableCustData[1] = value.getF_Name();
-            tableCustData[2] = value.getL_Name();
-            tableCustData[3] = key.getMem_Credit();
-            tableCustData[4] = key.getMem_Tier();
-            tableCustData[5] = value.getDob();
-            tableCustData[6] = value.getCountry();
-            tableCustData[7] = value.getCity();
-            tableCustData[8] = value.getStreet();
-            tableCustData[9] = value.getPostCode();
-            tableCustData[10] = value.getPh_no();
-            tableCustData[11] = value.getEmail();
-
-            tableCustData[12] = key.getCustId();
-            tableCustData[13] = value.getPd_id();
-
-            // System.out.println(tableCustData);
-            searchResultModel.addRow(tableCustData);
-
-        }
-        // "Title", "First Name", "Last Name", "Membership Credits", "Membership_Tier", "Date of Birth", "Country", "City", "Street", "Postcode", "Ph_no", "Email"
-
-        modifyCustSearchResultPanel.setEnabled(true);
-        modifyCustSearchResultPanel.setVisible(true);
-        modifyCustSearchResultTable.setEnabled(true);
-        modifyCustSearchResultTable.setVisible(true);
-    }
-
+   
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -316,10 +342,10 @@ public class CustomerJFrame extends javax.swing.JFrame {
         modifyCustChildPanelUpdateBtn = new javax.swing.JButton();
         modifyCustChildPanelLabel1 = new javax.swing.JLabel();
         modifyCustChildPanelDelButton = new javax.swing.JButton();
+        jbCancel = new javax.swing.JButton();
         searchModifyCustErrorMsgLabel = new javax.swing.JLabel();
         searchCatEmlRad = new javax.swing.JRadioButton();
         searchCatMemRad = new javax.swing.JRadioButton();
-        viewAllButton1 = new javax.swing.JButton();
         addNewCustomerPanel = new javax.swing.JPanel();
         addCustTitleLabel = new javax.swing.JLabel();
         addCustFirstNameLabel = new javax.swing.JLabel();
@@ -491,6 +517,13 @@ public class CustomerJFrame extends javax.swing.JFrame {
 
         modifyOrSavePanel.add(modifyCustChildPanel, "card3");
 
+        jbCancel.setText("Cancel");
+        jbCancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbCancelActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout modifyCustSearchResultPanelLayout = new javax.swing.GroupLayout(modifyCustSearchResultPanel);
         modifyCustSearchResultPanel.setLayout(modifyCustSearchResultPanelLayout);
         modifyCustSearchResultPanelLayout.setHorizontalGroup(
@@ -501,24 +534,27 @@ public class CustomerJFrame extends javax.swing.JFrame {
                         .addContainerGap()
                         .addComponent(modifyCustSearchResultScrollPane))
                     .addGroup(modifyCustSearchResultPanelLayout.createSequentialGroup()
-                        .addGroup(modifyCustSearchResultPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(modifyCustSearchResultPanelLayout.createSequentialGroup()
-                                .addGap(494, 494, 494)
-                                .addComponent(selectCustomerLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(modifyCustSearchResultPanelLayout.createSequentialGroup()
-                                .addGap(233, 233, 233)
-                                .addComponent(modifyOrSavePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 210, Short.MAX_VALUE)))
+                        .addGap(494, 494, 494)
+                        .addComponent(selectCustomerLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 499, Short.MAX_VALUE))
+                    .addGroup(modifyCustSearchResultPanelLayout.createSequentialGroup()
+                        .addGap(233, 233, 233)
+                        .addComponent(modifyOrSavePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jbCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         modifyCustSearchResultPanelLayout.setVerticalGroup(
             modifyCustSearchResultPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(modifyCustSearchResultPanelLayout.createSequentialGroup()
-                .addComponent(selectCustomerLabel)
-                .addGap(14, 14, 14)
-                .addComponent(modifyCustSearchResultScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(modifyOrSavePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(modifyCustSearchResultPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jbCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(modifyCustSearchResultPanelLayout.createSequentialGroup()
+                        .addComponent(selectCustomerLabel)
+                        .addGap(14, 14, 14)
+                        .addComponent(modifyCustSearchResultScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(modifyOrSavePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(0, 11, Short.MAX_VALUE))
         );
 
@@ -541,18 +577,15 @@ public class CustomerJFrame extends javax.swing.JFrame {
             }
         });
 
-        viewAllButton1.setText("View All");
-        viewAllButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                viewAllButton1ActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout searchModifyCustomerPanelLayout = new javax.swing.GroupLayout(searchModifyCustomerPanel);
         searchModifyCustomerPanel.setLayout(searchModifyCustomerPanelLayout);
         searchModifyCustomerPanelLayout.setHorizontalGroup(
             searchModifyCustomerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(modifyCustSearchResultPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(searchModifyCustomerPanelLayout.createSequentialGroup()
+                .addGap(541, 541, 541)
+                .addComponent(searchCustomerCustFrameBtn)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(searchModifyCustomerPanelLayout.createSequentialGroup()
                 .addGroup(searchModifyCustomerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(searchModifyCustomerPanelLayout.createSequentialGroup()
@@ -571,12 +604,6 @@ public class CustomerJFrame extends javax.swing.JFrame {
                                     .addComponent(memTierSearchComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addComponent(searchByEmlLabel))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(searchModifyCustomerPanelLayout.createSequentialGroup()
-                .addGap(467, 467, 467)
-                .addComponent(searchCustomerCustFrameBtn)
-                .addGap(80, 80, 80)
-                .addComponent(viewAllButton1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         searchModifyCustomerPanelLayout.setVerticalGroup(
             searchModifyCustomerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -594,9 +621,7 @@ public class CustomerJFrame extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(searchModifyCustErrorMsgLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(searchModifyCustomerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(searchCustomerCustFrameBtn)
-                    .addComponent(viewAllButton1))
+                .addComponent(searchCustomerCustFrameBtn)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(modifyCustSearchResultPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(271, 271, 271))
@@ -610,7 +635,7 @@ public class CustomerJFrame extends javax.swing.JFrame {
 
         addCustLNameLabel.setText("Last Name");
 
-        addCustDOBLabel.setText("Date of birth (yyyy-MM-dd)");
+        addCustDOBLabel.setText("Date of birth");
 
         addCustCityLabel.setText("City");
 
@@ -676,7 +701,7 @@ public class CustomerJFrame extends javax.swing.JFrame {
                             .addComponent(addCustCityTextField, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(addCustEmlTextField)
                             .addComponent(addCustPhNoFormattedTextField, javax.swing.GroupLayout.Alignment.LEADING))))
-                .addContainerGap(221, Short.MAX_VALUE))
+                .addContainerGap(320, Short.MAX_VALUE))
         );
         addNewCustomerPanelLayout.setVerticalGroup(
             addNewCustomerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -870,7 +895,7 @@ public class CustomerJFrame extends javax.swing.JFrame {
                         .addComponent(updateCustCityLabel2)
                         .addComponent(updateMemTierComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(updCustErrorMsgLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(updCustErrorMsgLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 17, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(updCustSavePanel, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(35, 35, 35))
@@ -918,40 +943,41 @@ public class CustomerJFrame extends javax.swing.JFrame {
 
     private void searchCustomerCustFrameBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchCustomerCustFrameBtnActionPerformed
         // TODO add your handling code here:
-        if (searchCatEmlRad.isSelected()) {
-            if (!Util.validateEml(searchCustEmlTextField.getText())) {
+        if(searchCatEmlRad.isSelected()){
+            if(!Util.validateEml(searchCustEmlTextField.getText()))
+            {
                 setErrorMessage(searchModifyCustErrorMsgLabel, "Please check your email id");
 
-            } else {
+            }else{
 
-                if (searchCustEmlTextField.getText().compareTo("") != 0) {
-                    cust = custDao.searchCustomerByEmail(searchCustEmlTextField.getText());
-                }
-
-                if (cust != null && cust.size() > 0) {
-                    populateResultTable(cust);
-                    clearErrorMessage(searchModifyCustErrorMsgLabel);
-                } else {
-                    Util.clearErrorMessage(glbErrLabel);
-                    setErrorMessage(searchModifyCustErrorMsgLabel, "Customer Email Id does not exist");
-                }
-
+                    if(searchCustEmlTextField.getText().compareTo("")!=0 )
+                     cust= custDao.searchCustomerByEmail(searchCustEmlTextField.getText());
+                    
+                    if(cust!=null && cust.size()>0){
+                            populateResultTable(cust);
+                            clearErrorMessage(searchModifyCustErrorMsgLabel);
+                    }else{
+                            Util.clearErrorMessage(glbErrLabel);
+                            setErrorMessage(searchModifyCustErrorMsgLabel, "Customer Email Id does not exist");
+                    }
+                   
             }
-        } else {
-            cust = custDao.searchCustomerByMembership(memTierSearchComboBox.getSelectedItem().toString());
-            if (cust != null && cust.size() > 0) {
-                populateResultTable(cust);
-                clearErrorMessage(searchModifyCustErrorMsgLabel);
-            } else {
-                setErrorMessage(searchModifyCustErrorMsgLabel, "Customers belonging to" + memTierSearchComboBox.getSelectedItem().toString() + " do not exist");
-            }
-
+        }
+        else{
+                    cust=custDao.searchCustomerByMembership(memTierSearchComboBox.getSelectedItem().toString());
+                 if(cust!=null && cust.size()>0){
+                            populateResultTable(cust);
+                           clearErrorMessage(searchModifyCustErrorMsgLabel);
+                    }else{
+                            setErrorMessage(searchModifyCustErrorMsgLabel, "Customers belonging to"+memTierSearchComboBox.getSelectedItem().toString()+" do not exist");
+                    }
+        
         }
     }//GEN-LAST:event_searchCustomerCustFrameBtnActionPerformed
 
     private void searchCustEmlTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchCustEmlTextFieldActionPerformed
         // TODO add your handling code here:
-
+      
     }//GEN-LAST:event_searchCustEmlTextFieldActionPerformed
 
     private void modifyCustChildPanelUpdateBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modifyCustChildPanelUpdateBtnActionPerformed
@@ -959,156 +985,136 @@ public class CustomerJFrame extends javax.swing.JFrame {
         //
         updCustId = Integer.parseInt(modifyCustSearchResultTable.getValueAt(modifyCustSearchResultTable.getSelectedRow(), 12).toString());
         updCustPdId = Integer.parseInt(modifyCustSearchResultTable.getValueAt(modifyCustSearchResultTable.getSelectedRow(), 13).toString());
-
+         
         searchModifyTabbedPane.setEnabledAt(2, true);
-        if (modifyCustSearchResultTable.getValueAt(modifyCustSearchResultTable.getSelectedRow(), 0) != null) {
-            updateCustTitleTextField1.setText((modifyCustSearchResultTable.getValueAt(modifyCustSearchResultTable.getSelectedRow(), 0).toString()));
-        }
-        if (modifyCustSearchResultTable.getValueAt(modifyCustSearchResultTable.getSelectedRow(), 1) != null) {
-            updateCustFNameTextField1.setText(modifyCustSearchResultTable.getValueAt(modifyCustSearchResultTable.getSelectedRow(), 1).toString());
-        }
-        if (modifyCustSearchResultTable.getValueAt(modifyCustSearchResultTable.getSelectedRow(), 2) != null) {
-            updateCustLNameTextField1.setText(modifyCustSearchResultTable.getValueAt(modifyCustSearchResultTable.getSelectedRow(), 2).toString());
-        }
-        if (modifyCustSearchResultTable.getValueAt(modifyCustSearchResultTable.getSelectedRow(), 3) != null) {
-            updateCustMemCredFormattedTextField.setText((modifyCustSearchResultTable.getValueAt(modifyCustSearchResultTable.getSelectedRow(), 3)).toString());
-        }
-        if (modifyCustSearchResultTable.getValueAt(modifyCustSearchResultTable.getSelectedRow(), 4) != null) {
-            updateMemTierComboBox1.setSelectedItem(modifyCustSearchResultTable.getValueAt(modifyCustSearchResultTable.getSelectedRow(), 4).toString());
-        }
-        if (modifyCustSearchResultTable.getValueAt(modifyCustSearchResultTable.getSelectedRow(), 5) != null) {
-            updateCustDOBFormattedTextField.setText(modifyCustSearchResultTable.getValueAt(modifyCustSearchResultTable.getSelectedRow(), 5).toString());
-        }
-        if (modifyCustSearchResultTable.getValueAt(modifyCustSearchResultTable.getSelectedRow(), 6) != null) {
-            updateCustCountryTextField1.setText(modifyCustSearchResultTable.getValueAt(modifyCustSearchResultTable.getSelectedRow(), 6).toString());
-        }
-        if (modifyCustSearchResultTable.getValueAt(modifyCustSearchResultTable.getSelectedRow(), 7) != null) {
-            updateCustCityTextField1.setText(modifyCustSearchResultTable.getValueAt(modifyCustSearchResultTable.getSelectedRow(), 7).toString());
-        }
-        if (modifyCustSearchResultTable.getValueAt(modifyCustSearchResultTable.getSelectedRow(), 8) != null) {
-            updateCustStreetTextField1.setText(modifyCustSearchResultTable.getValueAt(modifyCustSearchResultTable.getSelectedRow(), 8).toString());
-        }
-        if (modifyCustSearchResultTable.getValueAt(modifyCustSearchResultTable.getSelectedRow(), 9) != null) {
-            updateCustPostCodeTextField1.setText(modifyCustSearchResultTable.getValueAt(modifyCustSearchResultTable.getSelectedRow(), 9).toString());
-        }
-        if (modifyCustSearchResultTable.getValueAt(modifyCustSearchResultTable.getSelectedRow(), 10) != null) {
-            updateCustPhNoFormattedTextField.setText(modifyCustSearchResultTable.getValueAt(modifyCustSearchResultTable.getSelectedRow(), 10).toString());
-        }
-        if (modifyCustSearchResultTable.getValueAt(modifyCustSearchResultTable.getSelectedRow(), 11) != null) {
-            updateCustEmlTextField1.setText(modifyCustSearchResultTable.getValueAt(modifyCustSearchResultTable.getSelectedRow(), 11).toString());
-        }
-
+        if(modifyCustSearchResultTable.getValueAt(modifyCustSearchResultTable.getSelectedRow(), 0)!=null)
+        updateCustTitleTextField1.setText( (modifyCustSearchResultTable.getValueAt(modifyCustSearchResultTable.getSelectedRow(), 0).toString()) );
+         if(modifyCustSearchResultTable.getValueAt(modifyCustSearchResultTable.getSelectedRow(), 1)!=null)
+           updateCustFNameTextField1.setText(modifyCustSearchResultTable.getValueAt(modifyCustSearchResultTable.getSelectedRow(), 1).toString());
+          if(modifyCustSearchResultTable.getValueAt(modifyCustSearchResultTable.getSelectedRow(), 2)!=null)
+         updateCustLNameTextField1.setText(modifyCustSearchResultTable.getValueAt(modifyCustSearchResultTable.getSelectedRow(), 2).toString());
+           if(modifyCustSearchResultTable.getValueAt(modifyCustSearchResultTable.getSelectedRow(), 3)!=null)
+         updateCustMemCredFormattedTextField.setText((modifyCustSearchResultTable.getValueAt(modifyCustSearchResultTable.getSelectedRow(), 3)).toString());
+           if(modifyCustSearchResultTable.getValueAt(modifyCustSearchResultTable.getSelectedRow(), 4)!=null)
+         updateMemTierComboBox1.setSelectedItem(modifyCustSearchResultTable.getValueAt(modifyCustSearchResultTable.getSelectedRow(), 4).toString());
+           if(modifyCustSearchResultTable.getValueAt(modifyCustSearchResultTable.getSelectedRow(), 5)!=null)
+         updateCustDOBFormattedTextField.setText(modifyCustSearchResultTable.getValueAt(modifyCustSearchResultTable.getSelectedRow(), 5).toString());
+           if(modifyCustSearchResultTable.getValueAt(modifyCustSearchResultTable.getSelectedRow(), 6)!=null)
+         updateCustCountryTextField1.setText(modifyCustSearchResultTable.getValueAt(modifyCustSearchResultTable.getSelectedRow(), 6).toString());
+           if(modifyCustSearchResultTable.getValueAt(modifyCustSearchResultTable.getSelectedRow(), 7)!=null)
+         updateCustCityTextField1.setText(modifyCustSearchResultTable.getValueAt(modifyCustSearchResultTable.getSelectedRow(), 7).toString());
+           if(modifyCustSearchResultTable.getValueAt(modifyCustSearchResultTable.getSelectedRow(), 8)!=null)
+         updateCustStreetTextField1.setText(modifyCustSearchResultTable.getValueAt(modifyCustSearchResultTable.getSelectedRow(), 8).toString());
+           if(modifyCustSearchResultTable.getValueAt(modifyCustSearchResultTable.getSelectedRow(), 9)!=null)
+          updateCustPostCodeTextField1.setText(modifyCustSearchResultTable.getValueAt(modifyCustSearchResultTable.getSelectedRow(), 9).toString());
+           if(modifyCustSearchResultTable.getValueAt(modifyCustSearchResultTable.getSelectedRow(), 10)!=null)
+        updateCustPhNoFormattedTextField.setText(modifyCustSearchResultTable.getValueAt(modifyCustSearchResultTable.getSelectedRow(), 10).toString());
+           if(modifyCustSearchResultTable.getValueAt(modifyCustSearchResultTable.getSelectedRow(), 11)!=null)
+        updateCustEmlTextField1.setText(modifyCustSearchResultTable.getValueAt(modifyCustSearchResultTable.getSelectedRow(), 11).toString());
+        
         searchModifyTabbedPane.setSelectedIndex(2);
 
 
+           
     }//GEN-LAST:event_modifyCustChildPanelUpdateBtnActionPerformed
 
     private void addCustAddBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addCustAddBtnActionPerformed
         // TODO add your handling code here:
-        boolean status = false;
+        boolean status =false;
         Util.clearErrorMessage(addCustErrMsgLabel);
-        if (validateNAddCust()) {
-            status = custDao.createNewCustomer(new PersonalDetailsPOJO(0, addCTitle, addCFName, addCLName, addCDoB, addCCity, addCCountry, addCStreet, addCPostCode, addCPhNo, addCEml), currentHotelId);
-            if (status) {
-                setErrorMessage(addCustErrMsgLabel, "Customer added successfully");
-            } else {
-                setErrorMessage(addCustErrMsgLabel, "Problem occured adding customer or Email already exists");
-            }
-
+        if(validateNAddCust()){
+                status= custDao.createNewCustomer(new PersonalDetailsPOJO(0, addCTitle, addCFName, addCLName, addCDoB, addCCity, addCCountry, addCStreet, addCPostCode, addCPhNo, addCEml), currentHotelId);
+                 if(status){
+                    setErrorMessage(addCustErrMsgLabel, "Customer added successfully");
+                 }else
+                     setErrorMessage(addCustErrMsgLabel, "Problem occured adding customer or Email already exists");
+             
+       
         }
     }//GEN-LAST:event_addCustAddBtnActionPerformed
 
     private void memTierSearchComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_memTierSearchComboBoxActionPerformed
         // TODO add your handling code here:
-
+        
     }//GEN-LAST:event_memTierSearchComboBoxActionPerformed
 
     private void searchCustEmlTextFieldMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_searchCustEmlTextFieldMouseClicked
         // TODO add your handling code here:
-
-
+        
+         
     }//GEN-LAST:event_searchCustEmlTextFieldMouseClicked
 
     private void memTierSearchComboBoxMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_memTierSearchComboBoxMouseClicked
         // TODO add your handling code here:
-
-
+        
+        
     }//GEN-LAST:event_memTierSearchComboBoxMouseClicked
 
     private void searchCatMemRadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchCatMemRadActionPerformed
         // TODO add your handling code here:
         searchCustEmlTextField.setEnabled(false);
-        memTierSearchComboBox.setEnabled(true);
+         memTierSearchComboBox.setEnabled(true);
     }//GEN-LAST:event_searchCatMemRadActionPerformed
 
     private void searchCatEmlRadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchCatEmlRadActionPerformed
         // TODO add your handling code here:
-        memTierSearchComboBox.setEnabled(false);
-        searchCustEmlTextField.setEnabled(true);
+           memTierSearchComboBox.setEnabled(false);
+         searchCustEmlTextField.setEnabled(true);
     }//GEN-LAST:event_searchCatEmlRadActionPerformed
 
     private void updCustSaveBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updCustSaveBtnActionPerformed
         // TODO add your handling code here:
-        if (validateUpdateFields()) {
-
+        if(validateUpdateFields())
+        {
+            
             updCust = new CustomerPOJO(updCustId, updCustMemCred, updCustMemTier, updCustPdId);
             updCustPD = new PersonalDetailsPOJO(updCustPdId, updCustTitle, updCustFname, updCustLname, updCustDob, updCustCity, updCustCountry, updCustStreet, updCustPostCode, updCustPhNo, updCustEml);
-            HashMap<CustomerPOJO, PersonalDetailsPOJO> hm = new HashMap<>();
+            HashMap<CustomerPOJO,PersonalDetailsPOJO> hm= new HashMap<>();
             hm.put(updCust, updCustPD);
             boolean upStatus = custDao.updateCustomerDetails(hm);
-            if (!upStatus) {
+            if(!upStatus)
                 setErrorMessage(updCustErrorMsgLabel, "Update had a problem. Contact technical support or restart");
-            } else {
-                searchModifyTabbedPane.setSelectedIndex(0);
-                searchModifyTabbedPane.setEnabledAt(2, false);
-                displayToggleComponent(modifyCustSearchResultPanel);
-                displayToggleComponent(modifyCustSearchResultTable);
-                modifyCustChildPanelUpdateBtn.setEnabled(false);
-                modifyCustChildPanelDelButton.setEnabled(false);
-                setErrorMessage(glbErrLabel, "Update succesful");
-
+            else
+            {
+                 searchModifyTabbedPane.setSelectedIndex(0);
+                 searchModifyTabbedPane.setEnabledAt(2, false);
+                  displayToggleComponent(modifyCustSearchResultPanel);
+                  displayToggleComponent(modifyCustSearchResultTable);
+                  modifyCustChildPanelUpdateBtn.setEnabled(false);
+                   modifyCustChildPanelDelButton.setEnabled(false);
+                 setErrorMessage(glbErrLabel, "Update succesful");
+                 
             }
-        }
-
-
+         }
+        
+         
+        
+        
     }//GEN-LAST:event_updCustSaveBtnActionPerformed
 
     private void modifyCustChildPanelDelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modifyCustChildPanelDelButtonActionPerformed
         // TODO add your handling code here:
-
-        if (custDao.deleteCustomer(Integer.parseInt(modifyCustSearchResultTable.getValueAt(modifyCustSearchResultTable.getSelectedRow(), 13).toString()))) {
-            searchModifyTabbedPane.setSelectedIndex(0);
-            searchModifyTabbedPane.setEnabledAt(2, false);
-            displayToggleComponent(modifyCustSearchResultPanel);
-            displayToggleComponent(modifyCustSearchResultTable);
-            modifyCustChildPanelUpdateBtn.setEnabled(false);
-            modifyCustChildPanelDelButton.setEnabled(false);
-            setErrorMessage(glbErrLabel, "Delete succesful");
-        } else {
-            setErrorMessage(glbErrLabel, "There was a problem while deleting. Please search again.");
+        
+        if(custDao.deleteCustomer(Integer.parseInt(modifyCustSearchResultTable.getValueAt(modifyCustSearchResultTable.getSelectedRow(), 13).toString())))
+        {
+             searchModifyTabbedPane.setSelectedIndex(0);
+                 searchModifyTabbedPane.setEnabledAt(2, false);
+                  displayToggleComponent(modifyCustSearchResultPanel);
+                  displayToggleComponent(modifyCustSearchResultTable);
+                  modifyCustChildPanelUpdateBtn.setEnabled(false);
+                   modifyCustChildPanelDelButton.setEnabled(false);
+                 setErrorMessage(glbErrLabel, "Delete succesful");
+        }else{
+                 setErrorMessage(glbErrLabel, "There was a problem while deleting. Please search again.");
         }
-
+        
     }//GEN-LAST:event_modifyCustChildPanelDelButtonActionPerformed
 
-    private void viewAllButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewAllButton1ActionPerformed
+    private void jbCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCancelActionPerformed
         // TODO add your handling code here:
-        
-         
-
-                
-                    custs = custDao.searchAllCustomers();
-                
-
-                if (custs != null && custs.size() > 0) {
-                    populateResultTable(custs);
-                    clearErrorMessage(searchModifyCustErrorMsgLabel);
-                } else {
-                    Util.clearErrorMessage(glbErrLabel);
-                    setErrorMessage(searchModifyCustErrorMsgLabel, "Customers do not exist");
-                }
-
-            
-    }//GEN-LAST:event_viewAllButton1ActionPerformed
+        System.out.println("Closing Customer Frame");
+        returnMainFrame();
+    }//GEN-LAST:event_jbCancelActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1141,7 +1147,7 @@ public class CustomerJFrame extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-
+                
                 new CustomerJFrame().setVisible(true);
             }
         });
@@ -1173,6 +1179,7 @@ public class CustomerJFrame extends javax.swing.JFrame {
     private javax.swing.JPanel addNewCustomerPanel;
     private javax.swing.ButtonGroup custSearchBtnGrp;
     private javax.swing.JLabel glbErrLabel;
+    private javax.swing.JButton jbCancel;
     private javax.swing.JLabel manageCustFrameLabel;
     private javax.swing.JComboBox<String> memTierSearchComboBox;
     private javax.swing.JPanel modifyCustChildPanel;
@@ -1221,6 +1228,5 @@ public class CustomerJFrame extends javax.swing.JFrame {
     private javax.swing.JTextField updateCustTitleTextField1;
     private javax.swing.JComboBox<String> updateMemTierComboBox1;
     private javax.swing.JPanel updateTabPanel;
-    private javax.swing.JButton viewAllButton1;
     // End of variables declaration//GEN-END:variables
 }

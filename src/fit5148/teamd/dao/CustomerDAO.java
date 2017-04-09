@@ -5,6 +5,11 @@
  */
 package fit5148.teamd.dao;
 
+import fit5148.teamd.pojo.CustomerFramePOJO;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
 import fit5148.teamd.pojo.CustomerPOJO;
 import fit5148.teamd.pojo.PersonalDetailsPOJO;
 import java.sql.CallableStatement;
@@ -18,41 +23,75 @@ import java.util.Map;
 
 /**
  *
- * @author Varun
+ * @author Vinh Phan
  */
 public class CustomerDAO {
-
-    Connection conn;
-
-    public CustomerDAO() throws SQLException {
-        conn = OracleDBConnectionUtil.getInstance().getConnectionB();
-    }
-
-    public HashMap<CustomerPOJO, PersonalDetailsPOJO> searchCustomerByEmail(String eml) {
-        HashMap<CustomerPOJO, PersonalDetailsPOJO> cust = new HashMap<CustomerPOJO, PersonalDetailsPOJO>();
+    private Connection conn = null;
+//    private CustomerPOJO customerPojo = null;
+//    private PersonalDetailsPOJO personPojo = null;
+    private ArrayList<CustomerFramePOJO> listCF = null;
+    
+    public CustomerDAO(){
         try {
-
-            PreparedStatement stmt = conn.prepareStatement("select * from customer  natural join personal_details   where UPPER(email) = ? ");
-            stmt.setString(1, eml.toUpperCase());
-
-            ResultSet rs = stmt.executeQuery();
-            boolean empty = true;
-            while (rs.next()) {
-
-                cust.put(new CustomerPOJO(rs.getInt("cust_id"), rs.getInt("mem_Credit"), rs.getString("mem_Tier"), rs.getInt("pd_id")), new PersonalDetailsPOJO(rs.getInt("pd_id"), rs.getString("title"), rs.getString("f_name"), rs.getString("l_name"), rs.getDate("DOB"), rs.getString("City"), rs.getString("Country"), rs.getString("Street"), rs.getString("Postcode"), rs.getInt("ph_no"), rs.getString("Email")));
-                empty = false;
-            }
-
-            rs.close();
-            stmt.close();
+            this.conn = OracleDBConnectionUtil.getInstance().getConnectionB();
         } catch (SQLException ex) {
-            ex.printStackTrace();
-
-            return cust;
+            Logger.getLogger(CustomerDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return cust;
     }
 
+    public ArrayList<CustomerFramePOJO> getSearchResult() {
+        return listCF;
+    }
+
+    public DefaultTableModel searchCustomer(String key) {
+        //  Setup jTable
+        Object columnHeaders[] = {"CustomerId, Personal ID","First Name","Last Name", "Email", "Mem Credit"};
+        Object data[][] = new Object[20][6];
+        DefaultTableModel dtm = new DefaultTableModel();
+        
+        //  DB Statement
+        listCF = new ArrayList<>();
+        Statement sm = null;
+        try {
+            sm = conn.createStatement();
+
+            String sql = "SELECT P.PD_ID, P.TITLE, "
+                    + "P.F_NAME, P.L_NAME, COUNTRY, P.PH_NO, P.EMAIL, "
+                    + "C.CUST_ID, C.MEM_CREDIT, C.MEM_TIER "
+                    + "FROM PERSONAL_DETAILS P, CUSTOMER C "
+                    + "WHERE P.PD_ID = C.PD_ID AND P.F_NAME LIKE '%"+key+"%'";
+            System.out.println(sql);
+            ResultSet rs = sm.executeQuery(sql);
+            for(int i=0; rs.next(); i++){
+                data[i][0] = rs.getInt("CUST_ID");
+                data[i][1] = rs.getInt("PD_ID");
+                data[i][2] = rs.getString("F_NAME");
+                data[i][3] = rs.getString("L_NAME");
+                data[i][4] = rs.getString("EMAIL");
+                data[i][5] = rs.getInt("MEM_CREDIT");
+                listCF.add(matchingCustomerFrame(rs));
+            }
+        } catch (SQLException ex) {
+            System.out.print("Can't catch the connection, error code: "+ex.getMessage());
+            Logger.getLogger(CustomerDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        dtm.setDataVector(data, columnHeaders);
+        return dtm;
+    }
+
+    private CustomerFramePOJO matchingCustomerFrame(ResultSet rs) throws SQLException{
+        CustomerFramePOJO cf = new CustomerFramePOJO();
+        cf.setPerId(rs.getInt("PD_ID"));
+        cf.setPerFName(rs.getString("F_NAME"));
+        cf.setPerLName(rs.getString("L_NAME"));
+        cf.setPerEmail(rs.getString("EMAIL"));
+        cf.setPerPhone(rs.getInt("PH_NO"));
+        cf.setCustId(rs.getInt("CUST_ID"));
+        cf.setMemCredit(rs.getInt("MEM_CREDIT"));
+        cf.setMemTier( rs.getString("MEM_TIER"));
+        return cf;
+    }
+    
     public boolean updateCustomerDetails(HashMap<CustomerPOJO, PersonalDetailsPOJO> cust) {
         HashMap<CustomerPOJO, PersonalDetailsPOJO> cus = cust;
         CustomerPOJO custp = null;
@@ -131,8 +170,33 @@ public class CustomerDAO {
         return status;
 
     }
+    
+     public HashMap<CustomerPOJO, PersonalDetailsPOJO> searchCustomerByEmail(String eml) {
+        HashMap<CustomerPOJO, PersonalDetailsPOJO> cust = new HashMap<CustomerPOJO, PersonalDetailsPOJO>();
+        try {
 
-    public HashMap<CustomerPOJO, PersonalDetailsPOJO> searchCustomerByMembership(String mem) {
+            PreparedStatement stmt = conn.prepareStatement("select * from customer  natural join personal_details   where UPPER(email) = ? ");
+            stmt.setString(1, eml.toUpperCase());
+
+            ResultSet rs = stmt.executeQuery();
+            boolean empty = true;
+            while (rs.next()) {
+
+                cust.put(new CustomerPOJO(rs.getInt("cust_id"), rs.getInt("mem_Credit"), rs.getString("mem_Tier"), rs.getInt("pd_id")), new PersonalDetailsPOJO(rs.getInt("pd_id"), rs.getString("title"), rs.getString("f_name"), rs.getString("l_name"), rs.getDate("DOB"), rs.getString("City"), rs.getString("Country"), rs.getString("Street"), rs.getString("Postcode"), rs.getInt("ph_no"), rs.getString("Email")));
+                empty = false;
+            }
+
+            rs.close();
+            stmt.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+
+            return cust;
+        }
+        return cust;
+    }
+     
+     public HashMap<CustomerPOJO, PersonalDetailsPOJO> searchCustomerByMembership(String mem) {
         HashMap<CustomerPOJO, PersonalDetailsPOJO> cust = new HashMap<CustomerPOJO, PersonalDetailsPOJO>();
         ResultSet rs = null;
         PreparedStatement stmt = null;

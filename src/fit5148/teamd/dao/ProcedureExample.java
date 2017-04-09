@@ -47,7 +47,7 @@ public class ProcedureExample {
         ResultSet rs;
         CallableStatement callableStatement = null;
         try {
-            conn.setAutoCommit(false);
+                conn.setAutoCommit(false);
             stmt = conn.prepareStatement("select email from  personal_details  where pd_id=? ");
             stmt.setInt(1, 1);//1 specifies the first parameter in the query  
 
@@ -63,7 +63,7 @@ public class ProcedureExample {
             stmt.close();
 
             System.out.println("Customer old email is " + eml);
-            
+
             
             String updateCustomerEmail = "{call  update_cust_email(?,?)}";
             callableStatement = conn.prepareCall(updateCustomerEmail);
@@ -116,7 +116,4 @@ public class ProcedureExample {
         }
 
     }
-    
-
-    
 }

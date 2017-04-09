@@ -85,6 +85,11 @@
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="modifyCustSearchResultPanel" alignment="0" max="32767" attributes="0"/>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="541" max="-2" attributes="0"/>
+                      <Component id="searchCustomerCustFrameBtn" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
+                  </Group>
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
@@ -111,13 +116,6 @@
                       </Group>
                       <EmptySpace max="32767" attributes="0"/>
                   </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="467" max="-2" attributes="0"/>
-                      <Component id="searchCustomerCustFrameBtn" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="80" max="-2" attributes="0"/>
-                      <Component id="viewAllButton1" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
-                  </Group>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
@@ -138,10 +136,7 @@
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="searchModifyCustErrorMsgLabel" min="-2" pref="18" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="searchCustomerCustFrameBtn" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="viewAllButton1" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
+                      <Component id="searchCustomerCustFrameBtn" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="modifyCustSearchResultPanel" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="271" max="-2" attributes="0"/>
@@ -199,17 +194,15 @@
                                   <Component id="modifyCustSearchResultScrollPane" max="32767" attributes="0"/>
                               </Group>
                               <Group type="102" attributes="0">
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <EmptySpace min="-2" pref="494" max="-2" attributes="0"/>
-                                          <Component id="selectCustomerLabel" min="-2" pref="218" max="-2" attributes="0"/>
-                                      </Group>
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <EmptySpace min="-2" pref="233" max="-2" attributes="0"/>
-                                          <Component id="modifyOrSavePanel" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                  </Group>
-                                  <EmptySpace min="0" pref="210" max="32767" attributes="0"/>
+                                  <EmptySpace min="-2" pref="494" max="-2" attributes="0"/>
+                                  <Component id="selectCustomerLabel" min="-2" pref="218" max="-2" attributes="0"/>
+                                  <EmptySpace min="0" pref="499" max="32767" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <EmptySpace min="-2" pref="233" max="-2" attributes="0"/>
+                                  <Component id="modifyOrSavePanel" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="32767" attributes="0"/>
+                                  <Component id="jbCancel" min="-2" pref="83" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
@@ -218,12 +211,17 @@
                 </DimensionLayout>
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" attributes="0">
-                          <Component id="selectCustomerLabel" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
-                          <Component id="modifyCustSearchResultScrollPane" min="-2" pref="135" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="modifyOrSavePanel" min="-2" max="-2" attributes="0"/>
+                      <Group type="102" alignment="0" attributes="0">
+                          <Group type="103" groupAlignment="1" attributes="0">
+                              <Component id="jbCancel" min="-2" pref="39" max="-2" attributes="0"/>
+                              <Group type="102" attributes="0">
+                                  <Component id="selectCustomerLabel" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
+                                  <Component id="modifyCustSearchResultScrollPane" min="-2" pref="135" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="modifyOrSavePanel" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
                           <EmptySpace min="0" pref="11" max="32767" attributes="0"/>
                       </Group>
                   </Group>
@@ -417,6 +415,14 @@
                     </Container>
                   </SubComponents>
                 </Container>
+                <Component class="javax.swing.JButton" name="jbCancel">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Cancel"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbCancelActionPerformed"/>
+                  </Events>
+                </Component>
               </SubComponents>
             </Container>
             <Component class="javax.swing.JLabel" name="searchModifyCustErrorMsgLabel">
@@ -447,14 +453,6 @@
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="searchCatMemRadActionPerformed"/>
-              </Events>
-            </Component>
-            <Component class="javax.swing.JButton" name="viewAllButton1">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="View All"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="viewAllButton1ActionPerformed"/>
               </Events>
             </Component>
           </SubComponents>
@@ -514,7 +512,7 @@
                               </Group>
                           </Group>
                       </Group>
-                      <EmptySpace pref="221" max="32767" attributes="0"/>
+                      <EmptySpace pref="320" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -583,7 +581,7 @@
             </Component>
             <Component class="javax.swing.JLabel" name="addCustDOBLabel">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Date of birth (yyyy-MM-dd)"/>
+                <Property name="text" type="java.lang.String" value="Date of birth"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="addCustCityLabel">
@@ -777,7 +775,7 @@
                           </Group>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="updCustErrorMsgLabel" max="32767" attributes="0"/>
+                      <Component id="updCustErrorMsgLabel" pref="17" max="32767" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="updCustSavePanel" min="-2" pref="170" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>

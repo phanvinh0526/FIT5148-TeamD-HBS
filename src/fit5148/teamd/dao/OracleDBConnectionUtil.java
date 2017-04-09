@@ -65,7 +65,8 @@ public class OracleDBConnectionUtil {
         if(oracleDb!=null){
             try {
                 oracleDb.connectionA.close();
-                 oracleDb.connectionB.close();
+                oracleDb.connectionB.close();
+                oracleDb = null;
                 Logger.getLogger(OracleDBConnectionUtil.class.getName()).log(Level.SEVERE, "OracleDB Connection's Closed!");
                 System.out.println("Connection to OracleDB is closed!");
             } catch (SQLException e) {
@@ -81,6 +82,23 @@ public class OracleDBConnectionUtil {
     public Connection getConnectionB() {
         return connectionB;
     }
+    
+    public static int getNumberOfResultRows(ResultSet rs) throws SQLException{
+        if (!rs.isBeforeFirst() )
+        {
+            return 0;
+        }
+        else{
+            // Go to last row
+           rs.last(); 
+           //get total number of rows
+           int numRows = rs.getRow(); 
+           // Reset row before iterating to get data 
+           rs.beforeFirst();
+           return numRows;
+        }
+    }
+    
     
    
     
