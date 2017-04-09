@@ -5,14 +5,14 @@
  */
 package fit5148.teamd.pojo;
 
-import java.sql.Date;
+import java.util.Date;
 
 /**
  *
  * @author Varun
  */
 public class PersonalDetailsPOJO {
-    private Integer pd_id;
+    private int pd_id;
     private String title;
     private String f_Name;
     private String l_Name;
@@ -22,19 +22,21 @@ public class PersonalDetailsPOJO {
     private String street;
 
     private String postCode;
-    private Integer ph_no;
+    private int ph_no;
     private String email;
 
-    public PersonalDetailsPOJO(Integer pd_id,String title, String f_Name, String email) {
+    public PersonalDetailsPOJO(int pd_id,String title, String f_Name, String email) {
         this.pd_id = pd_id;
         this.title = title;
         this.f_Name = f_Name;
         this.email = email;
     }
 
-    public PersonalDetailsPOJO(){}
+    public PersonalDetailsPOJO(){
+        
+    }
     
-    public PersonalDetailsPOJO(Integer pd_id, String title, String f_Name, String l_Name, Date dob, String city, String country, String street, String postCode, Integer ph_no, String email) {
+    public PersonalDetailsPOJO(int pd_id, String title, String f_Name, String l_Name, Date dob, String city, String country, String street, String postCode, int ph_no, String email) {
         this.pd_id = pd_id;
         this.title = title;
         this.f_Name = f_Name;
@@ -47,11 +49,11 @@ public class PersonalDetailsPOJO {
         this.ph_no = ph_no;
         this.email = email;
     }
-    public Integer getPd_id() {
+    public int getPd_id() {
         return pd_id;
     }
 
-    public void setPd_id(Integer pd_id) {
+    public void setPd_id(int pd_id) {
         this.pd_id = pd_id;
     }
 
@@ -119,11 +121,11 @@ public class PersonalDetailsPOJO {
         this.postCode = postCode;
     }
 
-    public Integer getPh_no() {
+    public int getPh_no() {
         return ph_no;
     }
 
-    public void setPh_no(Integer ph_no) {
+    public void setPh_no(int ph_no) {
         this.ph_no = ph_no;
     }
 

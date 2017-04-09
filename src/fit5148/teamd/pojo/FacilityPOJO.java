@@ -10,20 +10,20 @@ package fit5148.teamd.pojo;
  * @author Varun
  */
 public class FacilityPOJO {
-    private Integer facility_Id;
+    private int facility_Id;
     private String descr;
     
-      public FacilityPOJO(Integer facility_Id, String descr) {
+      public FacilityPOJO(int facility_Id, String descr) {
         this.facility_Id = facility_Id;
         this.descr = descr;
     }
     
 
-    public Integer getFacility_Id() {
+    public int getFacility_Id() {
         return facility_Id;
     }
 
-    public void setFacility_Id(Integer facility_Id) {
+    public void setFacility_Id(int facility_Id) {
         this.facility_Id = facility_Id;
     }
 

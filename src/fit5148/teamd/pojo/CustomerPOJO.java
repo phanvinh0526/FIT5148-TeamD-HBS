@@ -13,33 +13,37 @@ import java.sql.Date;
  */
 public class CustomerPOJO {
     
-    private Integer custId;
-    private Integer mem_Credit;
+    private int custId;
+    private  int mem_Credit;
     private String mem_Tier;
-    private Integer pd_Id;
-    private Integer hotelId;
+    private int pd_Id;
 
-    public Integer getCustId() {
+    public int getCustId() {
         return custId;
     }
 
-    public void setCustId(Integer custId) {
+    public void setCustId(int custId) {
         this.custId = custId;
     }
 
-    public Integer getMem_Credit() {
+    public int getMem_Credit() {
         return mem_Credit;
     }
 
-    public CustomerPOJO(Integer custId, Integer mem_Credit, String mem_Tier, Integer pd_Id, Integer hotelId) {
+    public CustomerPOJO(int custId, int mem_Credit, String mem_Tier, int pd_Id) {
         this.custId = custId;
         this.mem_Credit = mem_Credit;
         this.mem_Tier = mem_Tier;
         this.pd_Id = pd_Id;
-        this.hotelId = hotelId;
+        
     }
 
-    public void setMem_Credit(Integer mem_Credit) {
+    public CustomerPOJO(int mem_Credit, String mem_Tier) {
+        this.mem_Credit = mem_Credit;
+        this.mem_Tier = mem_Tier;
+    }
+
+    public void setMem_Credit(int mem_Credit) {
         this.mem_Credit = mem_Credit;
     }
 
@@ -51,22 +55,16 @@ public class CustomerPOJO {
         this.mem_Tier = mem_Tier;
     }
 
-    public Integer getPd_Id() {
+    public int getPd_Id() {
         return pd_Id;
     }
 
-    public void setPd_Id(Integer pd_Id) {
+    public void setPd_Id(int pd_Id) {
         this.pd_Id = pd_Id;
     }
 
-    public Integer getHotelId() {
-        return hotelId;
-    }
+  
 
-    public void setHotelId(Integer hotelId) {
-        this.hotelId = hotelId;
-    }
-    
     
     
 }

@@ -11,17 +11,17 @@ package fit5148.teamd.pojo;
  */
 public class HotelPOJO {
     //  Class Entity HOTEL
-    private Integer id  ;
+    private int id  ;
     private String  name;
     private String  type ;
     private String  country ;
-    private Integer constYr = 0;
+    private int constYr = 0;
     private String  city ;
     private String  address;
     private String  email ;
-    private Integer phNo ;
+    private int phNo ;
 
-    public HotelPOJO(Integer id, String type, String country, String city, String address, String email, Integer phNo) {
+    public HotelPOJO(int id, String type, String country, String city, String address, String email, int phNo) {
         this.id = id;
         this.type = type;
         this.country = country;
@@ -32,7 +32,7 @@ public class HotelPOJO {
     }
 
    
-    public HotelPOJO(Integer id, String name, String type, String country, Integer constYr, String city, String address, String email, Integer phNo) {
+    public HotelPOJO(int id, String name, String type, String country, int constYr, String city, String address, String email, int phNo) {
         this.id = id;
         this.name = name;
         this.type = type;
@@ -44,12 +44,8 @@ public class HotelPOJO {
         this.phNo = phNo;
     }
 
-    public HotelPOJO() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
     
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 
@@ -65,7 +61,7 @@ public class HotelPOJO {
         return country;
     }
 
-    public Integer getConstYr() {
+    public int getConstYr() {
         return constYr;
     }
 
@@ -81,11 +77,11 @@ public class HotelPOJO {
         return email;
     }
 
-    public Integer getPhNo() {
+    public int getPhNo() {
         return phNo;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -101,7 +97,7 @@ public class HotelPOJO {
         this.country = country;
     }
 
-    public void setConstYr(Integer constYr) {
+    public void setConstYr(int constYr) {
         this.constYr = constYr;
     }
 
@@ -117,7 +113,7 @@ public class HotelPOJO {
         this.email = email;
     }
 
-    public void setPhNo(Integer phNo) {
+    public void setPhNo(int phNo) {
         this.phNo = phNo;
     }
     

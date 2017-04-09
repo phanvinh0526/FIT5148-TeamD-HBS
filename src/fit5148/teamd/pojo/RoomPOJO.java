@@ -10,30 +10,41 @@ package fit5148.teamd.pojo;
  * @author VinhPQ
  */
 public class RoomPOJO {
-    private Integer id ;
-    private String  type = null;
-    private String  description =null;
-    private Float price ;
-    private String  roomNo ;
-    private Integer maxCap;
-    private Integer hotelId ;
-    private Integer facilityId ;
-    private char available ;
 
-    public RoomPOJO(){}
-   
-    public RoomPOJO(Integer id, Float price, String roomNo, Integer maxCap, Integer hotelId, Integer facilityId, char available) {
-        this.id = id;
+    private int id;
+    private String type = null;
+    private String description = null;
+    private float price;
+    private String roomNo;
+    private Integer maxCap;
+    private Integer hotelId;
+
+    private char available;
+
+    public RoomPOJO(int id, float price, String roomNo, int maxCap, int hotelId, String type, String description) {
+
         this.price = price;
         this.roomNo = roomNo;
         this.maxCap = maxCap;
         this.hotelId = hotelId;
-        this.facilityId = facilityId;
-        this.available = available;
+        this.id = id;
+        this.type = type;
+        this.description = description;
+    }
+//constructor for inserting data
+
+    public RoomPOJO(float price, String type, String roomNo, Integer maxCap, Integer hotelId, String description) {
+        this.price = price;
+        this.roomNo = roomNo;
+        this.maxCap = maxCap;
+        this.hotelId = hotelId;
+        this.type = type;
+        this.description = description;
+
     }
 
-  
-    public RoomPOJO(Integer id, String type, String description, Float price, String roomNo, Integer maxCap, Integer hotelId, Integer facilityId, char available) {
+    //constructor for fetching room
+    public RoomPOJO(int id, String type, String description, int price, String roomNo, int maxCap, int hotelId) {
         this.id = id;
         this.type = type;
         this.description = description;
@@ -41,11 +52,22 @@ public class RoomPOJO {
         this.roomNo = roomNo;
         this.maxCap = maxCap;
         this.hotelId = hotelId;
-        this.facilityId = facilityId;
+
+    }
+
+    public RoomPOJO(int id, String type, String description, int price, String roomNo, int maxCap, int hotelId, char available) {
+        this.id = id;
+        this.type = type;
+        this.description = description;
+        this.price = price;
+        this.roomNo = roomNo;
+        this.maxCap = maxCap;
+        this.hotelId = hotelId;
+
         this.available = available;
     }
-    
-     public Integer getId() {
+
+    public int getId() {
         return id;
     }
 
@@ -58,7 +80,7 @@ public class RoomPOJO {
         return description;
     }
 
-    public Float getPrice() {
+    public float getPrice() {
         return price;
     }
 
@@ -66,23 +88,19 @@ public class RoomPOJO {
         return roomNo;
     }
 
-    public Integer getMaxCap() {
+    public int getMaxCap() {
         return maxCap;
     }
 
-    public Integer getHotelId() {
+    public int getHotelId() {
         return hotelId;
-    }
-
-    public Integer getFacilityId() {
-        return facilityId;
     }
 
     public char getAvailable() {
         return available;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -94,7 +112,7 @@ public class RoomPOJO {
         this.description = description;
     }
 
-    public void setPrice(Float price) {
+    public void setPrice(float price) {
         this.price = price;
     }
 
@@ -102,20 +120,16 @@ public class RoomPOJO {
         this.roomNo = roomNo;
     }
 
-    public void setMaxCap(Integer maxCap) {
+    public void setMaxCap(int maxCap) {
         this.maxCap = maxCap;
     }
 
-    public void setHotelId(Integer hotelId) {
+    public void setHotelId(int hotelId) {
         this.hotelId = hotelId;
-    }
-
-    public void setFacilityId(Integer facilityId) {
-        this.facilityId = facilityId;
     }
 
     public void setAvailable(char available) {
         this.available = available;
     }
-    
+
 }

@@ -5,7 +5,7 @@
  */
 package fit5148.teamd.pojo;
 
-import java.sql.Date;
+import java.util.Date;
 
 /**
  *
@@ -13,13 +13,13 @@ import java.sql.Date;
  */
 public class PaymentPOJO {
     
-    private Integer pmt_Id;
+    private int pmt_Id;
     private Date pmt_Date;
     private String pay_Method;
-    private Float pay_amt;
-    private Integer book_Id;
+    private float pay_amt;
+    private int book_Id;
 
-    public PaymentPOJO(Integer pmt_Id, Date pmt_Date, String pay_Method, Float pay_amt, Integer book_Id) {
+    public PaymentPOJO(int pmt_Id, Date pmt_Date, String pay_Method, float pay_amt, int book_Id) {
         this.pmt_Id = pmt_Id;
         this.pmt_Date = pmt_Date;
         this.pay_Method = pay_Method;
@@ -27,13 +27,22 @@ public class PaymentPOJO {
         this.book_Id = book_Id;
     }
 
+    public PaymentPOJO(Date pmt_Date,String pay_Method, float pay_amt, int book_Id) {
+        this.pmt_Date = pmt_Date;
+        this.pay_amt = pay_amt;
+        this.book_Id = book_Id;
+        this.pay_Method = pay_Method;
+    }
+
+    
+
     
     
-    public Integer getPmt_Id() {
+    public int getPmt_Id() {
         return pmt_Id;
     }
 
-    public void setPmt_Id(Integer pmt_Id) {
+    public void setPmt_Id(int pmt_Id) {
         this.pmt_Id = pmt_Id;
     }
 
@@ -53,19 +62,19 @@ public class PaymentPOJO {
         this.pay_Method = pay_Method;
     }
 
-    public Float getPay_amt() {
+    public float getPay_amt() {
         return pay_amt;
     }
 
-    public void setPay_amt(Float pay_amt) {
+    public void setPay_amt(float pay_amt) {
         this.pay_amt = pay_amt;
     }
 
-    public Integer getBook_Id() {
+    public int getBook_Id() {
         return book_Id;
     }
 
-    public void setBook_Id(Integer book_Id) {
+    public void setBook_Id(int book_Id) {
         this.book_Id = book_Id;
     }
     
